@@ -84,7 +84,7 @@ export default {
             default: '#f8f8f8',
             paper: '#ecebeb',
             mainbg: '#525151',
-            seondarybg: '#646464',
+            secondarybg: '#646464',
 
         },
 

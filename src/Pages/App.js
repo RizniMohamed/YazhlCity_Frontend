@@ -1,14 +1,14 @@
 import { Paper, Typography } from "@mui/material";
 import HelloRizni from "../Components/HelloRizni";
-import Hi from "../Components/Hi" 
+import Hi from "../Components/Hi"
 
 function App() {
   return (
-   <Paper elevation={3}>
-     <Typography variant="h1" color="initial">YAZHL CITY</Typography>
-     <Hi/>
-     <HelloRizni/>
-   </Paper>
+    <Paper elevation={3}>
+      <Typography variant="h1" color="background.secondarybg">YAZHL CITY</Typography>
+      <Hi />
+      <HelloRizni />
+    </Paper>
   );
 }
 
