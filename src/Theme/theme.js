@@ -1,8 +1,4 @@
-import { MuiTypography } from "./Custom-Components/MuiTypography";
 import { MuiCssBaseline } from "./Custom-Components/MuiCssBaseline";
-import { MuiAutocomplete } from "./Custom-Components/MuiAutocomplete";
-import { MuiTextField } from "./Custom-Components/MuiTextField";
-
 
 export default {
     "breakpoints": {
@@ -35,10 +31,7 @@ export default {
     },
 
     "components": {
-        MuiTypography,
         MuiCssBaseline,
-        MuiAutocomplete,
-        MuiTextField
     },
     shape: {
         borderRadius: 25
@@ -50,16 +43,11 @@ export default {
         },
         "type": "light",
         "primary": {
-            "light": "#534AA5",
-            "main": "#534AA5",
-            "dark": "#534AA5",
-            "contrastText": "#fff"
+            "main": '#FF8B03',
+
         },
         "secondary": {
-            "light": "#ff4081",
-            "main": "#f50057",
-            "dark": "#c51162",
-            "contrastText": "#fff"
+            "main": '#525151',
         },
         "error": {
             "light": "#e57373",
@@ -86,17 +74,22 @@ export default {
         "contrastThreshold": 3,
         "tonalOffset": 0.2,
         "text": {
-            "primary": "#fff",
-            "secondary": "#fff",
+            primary: '#525151',
+            secondary: '#B4B4B4',
             "disabled": "rgba(0, 0, 0, 0.38)",
             "hint": "rgba(0, 0, 0, 0.38)"
         },
         "divider": "rgba(0, 0, 0, 0.12)",
         "background": {
-            "paper": "#28244A",
-            "default": "#534AA5",
-            "asd": "#7770B8"
+            default: '#f8f8f8',
+            paper: '#ecebeb',
+            mainbg: '#525151',
+            seondarybg: '#646464',
+
         },
+
+        "border": '#B4B4B4',
+
         "action": {
             "active": "rgba(0, 0, 0, 0.54)",
             "hover": "rgba(0, 0, 0, 0.08)",
@@ -147,7 +140,7 @@ export default {
             "letterSpacing": "-.04em",
             "lineHeight": "1.14286em",
             "marginLeft": "-.04em",
-            "color": "white"
+            "color": '#525151',
         },
         "display3": {
             "fontSize": "3.5rem",
@@ -156,7 +149,7 @@ export default {
             "letterSpacing": "-.02em",
             "lineHeight": "1.30357em",
             "marginLeft": "-.02em",
-            "color": "white"
+            "color": '#525151',
         },
         "display2": {
             "fontSize": "2.8125rem",
@@ -164,65 +157,67 @@ export default {
             "fontFamily": "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
             "lineHeight": "1.06667em",
             "marginLeft": "-.02em",
-            "color": "white"
+            "color": '#525151',
         },
         "display1": {
             "fontSize": "2.125rem",
             "fontWeight": 400,
             "fontFamily": "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
             "lineHeight": "1.20588em",
-            "color": "white"
+            "color": '#525151',
         },
         "headline": {
             "fontSize": "1.5rem",
             "fontWeight": 400,
             "fontFamily": "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
             "lineHeight": "1.35417em",
-            "color": "white"
+            "color": '#525151',
         },
         "title": {
             "fontSize": "1.3125rem",
             "fontWeight": 500,
             "fontFamily": "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
             "lineHeight": "1.16667em",
-            "color": "white"
+            "color": '#525151',
         },
         "subheading": {
             "fontSize": "1rem",
             "fontWeight": 400,
             "fontFamily": "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
             "lineHeight": "1.5em",
-            "color": "white"
+            "color": '#525151',
         },
         "body2": {
             "fontSize": "0.875rem",
             "fontWeight": 500,
             "fontFamily": "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
             "lineHeight": "1.71429em",
-            "color": "white"
+            "color": '#525151',
         },
         "body1": {
             "fontSize": "0.875rem",
             "fontWeight": 400,
             "fontFamily": "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
             "lineHeight": "1.46429em",
-            "color": "white"
+            "color": '#525151',
         },
         "caption": {
             "fontSize": "0.75rem",
             "fontWeight": 400,
             "fontFamily": "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
             "lineHeight": "1.375em",
-            "color": "white"
+            "color": '#525151',
         },
         "button": {
             "fontSize": "0.875rem",
             "textTransform": "none",
             "fontWeight": 500,
             "fontFamily": "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
-            "color": "white"
+            "color": '#525151',
         }
+
     },
+
     "transitions": {
         "easing": {
             "easeInOut": "cubic-bezier(0.4, 0, 0.2, 1)",
