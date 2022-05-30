@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import {store} from './Store/store';
 import Theme from './Theme/theme'
-import Welcome from './Pages/Welcome';
+import Views from './Routes/Views';
 
 const rootID = document.getElementById('root')
 const root = ReactDOM.createRoot(rootID);
@@ -18,7 +18,7 @@ root.render(
       <Provider store={store}>
       <ThemeProvider theme={theme}>
         <CssBaseline/>
-        <Welcome />
+        <Views />
       </ThemeProvider>
       </Provider>
     </BrowserRouter>
