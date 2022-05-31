@@ -1,5 +1,5 @@
 import { MuiCssBaseline } from "./Custom-Components/MuiCssBaseline";
-
+import { MuiDrawer } from "./Custom-Components/MuiDrawer"
 export default {
     "breakpoints": {
         "keys": [
@@ -27,11 +27,35 @@ export default {
             "@media (min-width:600px)": {
                 "minHeight": 64
             }
-        }
+        },
+
+        openedMixin: (theme, drawerWidth) => ({
+            width: drawerWidth,
+            transition: theme.transitions.create('width', {
+                easing: theme.transitions.easing.sharp,
+                duration: theme.transitions.duration.enteringScreen,
+            }),
+            overflowX: 'hidden',
+
+        }),
+
+
+        closedMixin: (theme) => ({
+            transition: theme.transitions.create('width', {
+                easing: theme.transitions.easing.sharp,
+                duration: theme.transitions.duration.enteringScreen,
+            }),
+            overflowX: 'hidden',
+            width: `calc(${theme.spacing(8)} + 1px)`,
+            [theme.breakpoints.up('md')]: {
+                width: `calc(${theme.spacing(7.5)} + 1px)`,
+            },
+        }),
     },
 
     "components": {
         MuiCssBaseline,
+        MuiDrawer,
     },
     shape: {
         borderRadius: 25

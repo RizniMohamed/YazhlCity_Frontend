@@ -10,7 +10,7 @@ function Views() {
     <Routes>
       <Route path="/" element={<Welcome />} />
       <Route path="test">
-        <Route path="Rizni" element={<Rizni />} />
+        <Route path="Rizni/*" element={<Rizni />} />
         <Route path="Mathushiya" element={<Mathushiya />} />
         <Route path="Sarujan" element={<Sarujan />} />
       </Route>
