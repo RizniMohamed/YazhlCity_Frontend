@@ -1,7 +1,8 @@
 import { MuiCssBaseline } from "./Custom-Components/MuiCssBaseline";
 import { MuiDrawer } from "./Custom-Components/MuiDrawer"
 import { MuiCard } from "./Custom-Components/MuiCard"
-export default {
+
+const theme = {
     "breakpoints": {
         "keys": [
             "xs",
@@ -204,8 +205,8 @@ export default {
             "color": '#525151',
         },
         "title": {
-            "fontSize": "1.3125rem",
-            "fontWeight": 500,
+            "fontWeight": 700,
+            "fontSize" : 30,
             "fontFamily": "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
             "lineHeight": "1.16667em",
             "color": '#525151',
@@ -275,3 +276,5 @@ export default {
         "tooltip": 1500
     }
 }
+
+export default theme
