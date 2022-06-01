@@ -1,9 +1,9 @@
 import React from 'react'
 
-const boardingDetails = () => {
+const BoardingDetails = () => {
   return (
-    <div>boardingDetails</div>
+    <div>BoardingDetails</div>
   )
 }
 
-export default boardingDetails
+export default BoardingDetails

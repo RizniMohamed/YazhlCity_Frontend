@@ -42,14 +42,14 @@ export default function ClippedDrawer() {
   const [current, setCurrent] = useState("");
   const location = useLocation()
   const dispatch = useDispatch()
-  const drawerState = useSelector( state => state.drawer.status)
+  const drawerState = useSelector(state => state.drawer.status)
 
   useEffect(() => {
     const pathArrays = location.pathname.split("/").filter(x => x)
 
     let userRole, currentPage = ""
 
-    if (pathArrays.length == 3)
+    if (pathArrays.length === 3)
       userRole = pathArrays[pathArrays.length - 1].toLowerCase()
     else {
       userRole = pathArrays[pathArrays.length - 2].toLowerCase()
@@ -65,6 +65,7 @@ export default function ClippedDrawer() {
       case "admin": setData(AdminData); break;
       case "manager": setData(ManagerData); break;
       case "profile": setData(ProfileData); break;
+      default: break;
     }
 
 
@@ -94,12 +95,12 @@ export default function ClippedDrawer() {
   }
 
   const selectedStyle = (name) => {
-    if (name == "my boarding") name = "boarding"
-    if (current == name) {
+    if (name === "my boarding") name = "boarding"
+    if (current === name) {
       if (drawerState)
         return {
           '& .MuiListItemButton-root': {
-            borderRadius:  0.2,
+            borderRadius: 0.2,
             backgroundColor: "primary.main",
             px: 1,
             color: "white"
@@ -123,6 +124,7 @@ export default function ClippedDrawer() {
 
   return (
     <Box sx={{ display: 'flex' }}>
+
       <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, bgcolor: "background.mainbg" }}>
         <Toolbar>
           <IconButton
@@ -147,7 +149,7 @@ export default function ClippedDrawer() {
         <List>
           {data.map(({ name, path, icon }, index) => (
             <ListItem key={index} disablePadding sx={{ display: 'block', ...selectedStyle(name.toLowerCase()) }}>
-              <Link  to={path}>
+              <Link to={path}>
                 <ListItemButton
                   sx={{
                     minHeight: 48,

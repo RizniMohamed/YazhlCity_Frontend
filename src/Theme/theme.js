@@ -1,5 +1,6 @@
 import { MuiCssBaseline } from "./Custom-Components/MuiCssBaseline";
 import { MuiDrawer } from "./Custom-Components/MuiDrawer"
+import { MuiCard } from "./Custom-Components/MuiCard"
 export default {
     "breakpoints": {
         "keys": [
@@ -56,6 +57,7 @@ export default {
     "components": {
         MuiCssBaseline,
         MuiDrawer,
+        MuiCard,
     },
     shape: {
         borderRadius: 25
@@ -78,6 +80,10 @@ export default {
             "main": "#f44336",
             "dark": "#d32f2f",
             "contrastText": "#fff"
+        },
+        "success": {
+            main: "#038B08",
+            asd: "#038B08",
         },
         "grey": {
             "50": "#fafafa",
