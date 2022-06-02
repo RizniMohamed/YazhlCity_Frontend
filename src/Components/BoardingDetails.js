@@ -14,12 +14,12 @@ const BoardingDetails = ({ data }) => {
       <Box >
         <Box display="flex" flexDirection="column" mb={2} justifyItems="center">
           <Typography variant="title" >
-            Building Name
-            <VerifiedUserIcon sx={{ color: "#699BF7", ml: 1 }}  />
+            {data.name}
+            {data.verified && <VerifiedUserIcon sx={{ color: "#699BF7", ml: 1 }}  />}
           </Typography>
-          <Rating value={4} sx={{ mt: 0.5 }} readOnly />
+          <Rating value={data.rating} sx={{ mt: 0.5 }} readOnly />
         </Box>
-        <BRTable rows={data.rows} />
+        <BRTable rows={data.rows} firstColWidth={100}/>
       </Box>
 
       {/* Image and map */}

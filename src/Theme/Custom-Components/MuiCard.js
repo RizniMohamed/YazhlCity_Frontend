@@ -8,10 +8,6 @@ export const MuiCard = {
             borderWidth: "0.5px",
             borderStyle: "solid",
 
-            '& a': {
-                textDecoration: "none",
-                color: "background.mainbg"
-            },
             '& .MuiCardMedia-root': {
                 textDecoration: "none",
                 color: "background.mainbg",
