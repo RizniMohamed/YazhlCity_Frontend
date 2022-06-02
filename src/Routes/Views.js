@@ -74,7 +74,7 @@ function Views() {
       <Route path="*" element={<NotFound />} />
 
       <Route path="test">
-        <Route path="Rizni" element={<Rizni />} />
+        <Route path="Rizni/*" element={<Rizni />} />
         <Route path="Mathushiya" element={<Mathushiya />} />
         <Route path="Sarujan" element={<Sarujan />} />
       </Route>

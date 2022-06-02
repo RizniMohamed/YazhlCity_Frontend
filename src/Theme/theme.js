@@ -1,6 +1,8 @@
 import { MuiCssBaseline } from "./Custom-Components/MuiCssBaseline";
+import { MuiDrawer } from "./Custom-Components/MuiDrawer"
+import { MuiCard } from "./Custom-Components/MuiCard"
 
-export default {
+const theme = {
     "breakpoints": {
         "keys": [
             "xs",
@@ -27,11 +29,36 @@ export default {
             "@media (min-width:600px)": {
                 "minHeight": 64
             }
-        }
+        },
+
+        openedMixin: (theme, drawerWidth) => ({
+            width: drawerWidth,
+            transition: theme.transitions.create('width', {
+                easing: theme.transitions.easing.sharp,
+                duration: theme.transitions.duration.enteringScreen,
+            }),
+            overflowX: 'hidden',
+
+        }),
+
+
+        closedMixin: (theme) => ({
+            transition: theme.transitions.create('width', {
+                easing: theme.transitions.easing.sharp,
+                duration: theme.transitions.duration.enteringScreen,
+            }),
+            overflowX: 'hidden',
+            width: `calc(${theme.spacing(8)} + 1px)`,
+            [theme.breakpoints.up('md')]: {
+                width: `calc(${theme.spacing(7.5)} + 1px)`,
+            },
+        }),
     },
 
     "components": {
         MuiCssBaseline,
+        MuiDrawer,
+        MuiCard,
     },
     shape: {
         borderRadius: 25
@@ -54,6 +81,10 @@ export default {
             "main": "#f44336",
             "dark": "#d32f2f",
             "contrastText": "#fff"
+        },
+        "success": {
+            main: "#038B08",
+            asd: "#038B08",
         },
         "grey": {
             "50": "#fafafa",
@@ -174,8 +205,8 @@ export default {
             "color": '#525151',
         },
         "title": {
-            "fontSize": "1.3125rem",
-            "fontWeight": 500,
+            "fontWeight": 700,
+            "fontSize" : 30,
             "fontFamily": "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
             "lineHeight": "1.16667em",
             "color": '#525151',
@@ -245,3 +276,5 @@ export default {
         "tooltip": 1500
     }
 }
+
+export default theme
