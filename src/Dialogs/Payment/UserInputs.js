@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Typography, TextField } from '@mui/material';
+import { Box, Typography, TextField, InputAdornment } from '@mui/material';
 
 const data = [
     {
@@ -15,7 +15,7 @@ const data = [
     {
         name: "mobile",
         displayName: "Mobile",
-        placeHolder: "+94 00000000",
+        placeHolder: "000 000 000",
     },
     {
         name: "email",
@@ -25,7 +25,9 @@ const data = [
 ]
 
 
-const UserInputs = ({handleChange}) => {
+const UserInputs = (formik) => {
+
+
     return (
         <>
             {
@@ -38,11 +40,22 @@ const UserInputs = ({handleChange}) => {
                             }}
                             variant="outlined"
                             size='small'
-                            type=""
                             placeholder={placeHolder}
                             name={name}
-                            onChange={e => handleChange(e.target)}
-                            sx={{ width: 250 }}
+                            value={formik.values[name]}
+                            sx={{
+                                width: 250,
+                                '& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button':{display: 'none'},
+                            }}
+                            onChange={formik.handleChange}
+                            error={formik.touched[name] && Boolean(formik.errors[name])}
+                            helperText={formik.touched[name] && formik.errors[name]}
+                            onBlur={formik.handleBlur}
+
+                            type={name === "mobile" ? "number" : "text"}
+                            InputProps={{
+                                startAdornment: name === "mobile" ? <InputAdornment position="start">+94</InputAdornment> : "",
+                            }}
                         />
                     </Box>
                 )

@@ -65,6 +65,7 @@ const theme = {
         MuiDialog,
         MuiTypography,
         MuiTextField,
+
     },
     shape: {
         borderRadius: 25
