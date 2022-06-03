@@ -3,8 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     status : false
 }
-const deleteDialogSlice = createSlice({
-    name : "Delete Dialog Slice",
+const DialogSlice = createSlice({
+    name : " Dialog Slice",
     initialState,
     reducers : {
         show : state => {state.status = true},
@@ -12,5 +12,5 @@ const deleteDialogSlice = createSlice({
     }
 })
 
-export const deleteDialogActions = deleteDialogSlice.actions
-export default deleteDialogSlice
+export const dialogActions = DialogSlice.actions
+export default DialogSlice

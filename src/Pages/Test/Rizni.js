@@ -1,12 +1,18 @@
+import { Button } from '@mui/material'
 import { Box } from '@mui/system'
 import React from 'react'
-import PaymentDetails from "../../Dialogs/PaymentDetails"
+import { useDispatch } from 'react-redux'
+import Payment from '../../Dialogs/Payment'
+import { dialogActions } from '../../Store/Dialogs/dialogSlice'
+
 const Rizni = () => {
 
+
+  const dispatch = useDispatch()
   return (
     <Box p={3}>
-      <PaymentDetails/>
-
+      <Button onClick={() => dispatch(dialogActions.show())}>Click Me</Button>
+      <Payment />
     </Box>
   )
 }

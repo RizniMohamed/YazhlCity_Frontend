@@ -11,5 +11,9 @@ export const MuiCssBaseline = {
             textDecoration: "none",
             color: "background.mainbg"
         },
+        '&:-webkit-autofill': {
+            transitionDelay: '9999s',
+            transitionProperty: 'background-color, color',
+        },
     }
 }

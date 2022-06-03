@@ -6,15 +6,15 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteDialogActions } from '../Store/Dialogs/deleteDialogSlice';
+import { dialogActions } from '../Store/Dialogs/dialogSlice';
 
 const Delete = ({ msg, onDelete }) => {
-  const status = useSelector(state => state.deleteModel.status)
+  const status = useSelector(state => state.dialog.status)
   const dispatch = useDispatch()
 
   const handleOnClick = ({ innerText }) => {
     if (innerText === "Delete") onDelete()
-    dispatch(deleteDialogActions.hide())
+    dispatch(dialogActions.hide())
   }
 
   return (

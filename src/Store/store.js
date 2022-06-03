@@ -1,13 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authSlice from "./authSlice";
-import deleteDialogSlice from "./Dialogs/deleteDialogSlice";
+import dialogSlice from "./Dialogs/dialogSlice";
 import drawerSlice from "./drawerSlice";
 
 
 export const store = configureStore({
     reducer: {
         auth: authSlice.reducer,
-        deleteModel: deleteDialogSlice.reducer,
+        dialog: dialogSlice.reducer,
         drawer: drawerSlice.reducer,
     }
 })

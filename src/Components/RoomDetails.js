@@ -18,7 +18,7 @@ const RoomDetails = ({ data }) => {
             {data.availability}
           </Typography>
         </Box>
-        <BRTable rows={data.rows} firstColWidth={150} />
+        <BRTable rows={data.rows} firstColWidth={150} rowHeight={62}/>
       </Box>
 
       {/* Image and map */}

@@ -3,6 +3,7 @@ import { MuiDrawer } from "./Custom-Components/MuiDrawer"
 import { MuiCard } from "./Custom-Components/MuiCard"
 import { MuiDialog } from "./Custom-Components/MuiDialog"
 import { MuiTypography } from "./Custom-Components/MuiTypography"
+import { MuiTextField } from "./Custom-Components/MuiTextField"
 
 const theme = {
     "breakpoints": {
@@ -63,6 +64,7 @@ const theme = {
         MuiCard,
         MuiDialog,
         MuiTypography,
+        MuiTextField,
     },
     shape: {
         borderRadius: 25

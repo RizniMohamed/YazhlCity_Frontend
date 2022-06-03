@@ -19,7 +19,7 @@ const BoardingDetails = ({ data }) => {
           </Typography>
           <Rating value={data.rating} sx={{ mt: 0.5 }} readOnly />
         </Box>
-        <BRTable rows={data.rows} firstColWidth={100}/>
+        <BRTable rows={data.rows} firstColWidth={100} rowHeight={62}/>
       </Box>
 
       {/* Image and map */}
