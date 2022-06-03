@@ -1,21 +1,16 @@
 import { experimental_sx as sx } from "@mui/material"
 
-
 export const MuiCard = {
     "styleOverrides": {
         root: sx({
             borderColor: "border",
             borderWidth: "0.5px",
             borderStyle: "solid",
-
             '& .MuiCardMedia-root': {
                 textDecoration: "none",
                 color: "background.mainbg",
                 borderBottom: "2px solid #525151"
             },
-
-
-
             "& .availability": {
                 width: 87,
                 height: 26,
@@ -32,12 +27,7 @@ export const MuiCard = {
                     ml: 0.5,
                     mt: 0.5
                 },
-
             },
-
-
-
-
         })
     }
 }

@@ -7,8 +7,8 @@ const deleteDialogSlice = createSlice({
     name : "Delete Dialog Slice",
     initialState,
     reducers : {
-        show : state => state.status = true,
-        hide : state => state.status = false,
+        show : state => {state.status = true},
+        hide : state => {state.status = false},
     }
 })
 

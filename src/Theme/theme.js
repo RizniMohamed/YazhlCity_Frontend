@@ -1,6 +1,8 @@
 import { MuiCssBaseline } from "./Custom-Components/MuiCssBaseline";
 import { MuiDrawer } from "./Custom-Components/MuiDrawer"
 import { MuiCard } from "./Custom-Components/MuiCard"
+import { MuiDialog } from "./Custom-Components/MuiDialog"
+import { MuiTypography } from "./Custom-Components/MuiTypography"
 
 const theme = {
     "breakpoints": {
@@ -59,6 +61,8 @@ const theme = {
         MuiCssBaseline,
         MuiDrawer,
         MuiCard,
+        MuiDialog,
+        MuiTypography,
     },
     shape: {
         borderRadius: 25
@@ -206,7 +210,7 @@ const theme = {
         },
         "title": {
             "fontWeight": 700,
-            "fontSize" : 30,
+            "fontSize": 30,
             "fontFamily": "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
             "lineHeight": "1.16667em",
             "color": '#525151',
