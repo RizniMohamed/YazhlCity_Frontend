@@ -43,14 +43,13 @@ const Schema = yup.object().shape({
 
 
 const Payment = () => {
-  const status = useSelector(state => state.dialog.status)
+  const {status,onSubmit} = useSelector(state => state.dialog.payment)
   const dispatch = useDispatch()
 
-  const submit = values => { console.log(values); dispatch(dialogActions.hide()) }
 
   const formik = useFormik({
     initialValues: initVals,
-    onSubmit: submit,
+    onSubmit: onSubmit,
     validationSchema: Schema,
   })
 

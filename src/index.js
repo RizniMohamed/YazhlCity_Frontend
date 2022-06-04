@@ -7,6 +7,7 @@ import { BrowserRouter } from 'react-router-dom';
 import {store} from './Store/store';
 import Theme from './Theme/theme'
 import Views from './Routes/Views';
+import Dialogs from './Dialogs/Dialogs';
 
 const rootID = document.getElementById('root')
 const root = ReactDOM.createRoot(rootID);
@@ -19,6 +20,7 @@ root.render(
       <ThemeProvider theme={theme}>
         <CssBaseline/>
         <Views />
+        <Dialogs/>
       </ThemeProvider>
       </Provider>
     </BrowserRouter>

@@ -10,11 +10,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import BRTable from '../Components/helper/BRTable';
 import { dialogActions } from '../Store/Dialogs/dialogSlice';
 
-const PaymentDetails = ({data}) => {
-  const status = useSelector(state => state.dialog.status)
+const PaymentDetails = () => {
+  const {status,data} = useSelector(state => state.dialog.paymentDetails)
   const dispatch = useDispatch()
 
-  const data = {
+  const rows = {
     info: [
       {
         name: "Cutomer Id",
@@ -58,16 +58,16 @@ const PaymentDetails = ({data}) => {
     <Dialog open={status} onClose={() => { }} fullWidth>
       <DialogTitle fontWeight={700} fontSize={22}> Payment Details </DialogTitle>
       <DialogContent>
-          <BRTable rows={data.info} firstColWidth={130} desc={false} />
+          <BRTable rows={rows.info} firstColWidth={130} desc={false} />
           <Divider sx={{ my: 2, bgcolor: "background.mainbg" }} />
           <Typography component="p" color="text.main" fontWeight={1000} fontSize={18} my={1}>Billing Details</Typography>
-          <BRTable rows={data.billing} firstColWidth={130} desc={false} />
+          <BRTable rows={rows.billing} firstColWidth={130} desc={false} />
       </DialogContent>
       <DialogActions >
         <Button
           variant='contained'
           size="small"
-          onClick={() => dispatch(dialogActions.hide())}>
+          onClick={() => dispatch(dialogActions.hide("paymentDetails"))}>
           Cancel
         </Button>
       </DialogActions>

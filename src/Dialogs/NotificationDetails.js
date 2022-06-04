@@ -11,8 +11,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import BRTable from '../Components/helper/BRTable';
 import { dialogActions } from '../Store/Dialogs/dialogSlice';
 
-const NotificationDetails = ({ data }) => {
-  const status = useSelector(state => state.dialog.status)
+const NotificationDetails = () => {
+  const { status, data } = useSelector(state => state.dialog.notificationDetails)
   const dispatch = useDispatch()
 
 
@@ -40,14 +40,14 @@ const NotificationDetails = ({ data }) => {
         <BRTable rows={details.info} firstColWidth={30} desc={false} />
         <Divider sx={{ my: 2, bgcolor: "background.mainbg" }} />
         <Typography component="p" align="justify" color="text.main" fontSize={16} my={1}>
-        {data.message}
+          {data.message}
         </Typography>
       </DialogContent>
       <DialogActions >
         <Button
           variant='contained'
           size="small"
-          onClick={() => dispatch(dialogActions.hide())}>
+          onClick={() => dispatch(dialogActions.hide("notificationDetails"))}>
           Cancel
         </Button>
       </DialogActions>
