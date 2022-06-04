@@ -1,8 +1,9 @@
-import React from 'react'
-import { FormControl, FormHelperText, InputLabel, MenuItem, MenuList, OutlinedInput, Paper, Select, TextField, Typography } from '@mui/material'
+import { FormControl, FormHelperText, Menu, MenuItem, Select, TextField, Typography } from '@mui/material'
 import { Box } from '@mui/system'
+import React, { useState } from 'react'
 
 const CardInputs = (formik) => {
+    const [popup, setPopup] = useState(false)
     return (
         <>
             <Box my={1} >
@@ -40,7 +41,6 @@ const CardInputs = (formik) => {
             <Box my={1} display="flex" justifyContent="space-between">
                 <Box>
                     <Typography fontWeight={700} sx={{ p: 0, m: 0 }} >Exp. Month</Typography>
-
                     <FormControl error={formik.touched.expMonth && Boolean(formik.errors.expMonth)}>
                         <Select
                             displayEmpty
@@ -50,23 +50,35 @@ const CardInputs = (formik) => {
                             variant="outlined"
                             name="expMonth"
                             type="number"
+                            onClick={() => setPopup(!popup)}
                             sx={{
                                 width: 120,
                                 borderRadius: 0.3,
-
-
                             }}
+                            MenuProps={{
+                                sx : {
+                                    height:150,
+                                    borderRadius:0.1,
+                                    ".MuiPaper-root" : {
+                                        borderRadius:0.3
+                                    },
+                                    ".Mui-selected":{
+                                        bgcolor:"border"
+                                    },
+                                    ".Mui-selected:hover":{
+                                        bgcolor:"border"
+                                    },
+                                  
+                                }
+                            }}
+
                         >
+
                             <MenuItem value="">
-                                <Typography variant="body1" color="text.secondary">00</Typography>
+                                <Typography variant="body1" color="text.secondary">0</Typography>
                             </MenuItem>
                             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((option) => (
                                 <MenuItem
-                                    sx={{
-                                        "&.Mui-selected": {
-                                            bgcolor: "red"
-                                        }
-                                    }}
                                     key={option} value={option}>{option}</MenuItem>
                             ))}
                         </Select>
@@ -105,11 +117,7 @@ const CardInputs = (formik) => {
                     error={formik.touched.cvc && Boolean(formik.errors.cvc)}
                     helperText={formik.touched.cvc && formik.errors.cvc}
                     onBlur={formik.handleBlur}
-                    type="number"
-                    sx={{
-                        width: 250,
-                        '& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button': { display: 'none' },
-                    }}
+                    sx={{width: 250 }}
                 />
             </Box>
         </>

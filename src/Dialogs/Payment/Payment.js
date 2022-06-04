@@ -25,7 +25,7 @@ const initVals = {
 
 const currentYear = new Date().getFullYear()
 
-const Schema = yup.object({
+const Schema = yup.object().shape({
 
   fullName: yup.string().required("Required*"),
   address: yup.string().required("Required*"),
@@ -36,7 +36,8 @@ const Schema = yup.object({
   cardNumber: yup.string().required("Required*").test('test-number', 'Credit Card number is invalid', value => valid.number(value).isValid),
   expMonth: yup.number().positive().min(0).max(12).required("Required*"),
   expYear: yup.number().positive().min(currentYear - 2, "Your card is expired").max(currentYear + 2, "Invalid Year").required("Required*"),
-  cvc: yup.number().positive().min(0).max(999).required("Required*"),
+  // cvc: yup.number().positive().min(1, "Invalid number").max(999, "Invalid number").required("Required*"),
+  cvc: yup.string().required('Required*').matches(/[0-9]+/gi, "Enter number only").length(3, 'Enter correct code')
 })
 
 
