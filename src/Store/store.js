@@ -1,7 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authSlice from "./authSlice";
-import dialogSlice from "./Dialogs/dialogSlice";
+import dialogSlice from "./dialogSlice";
 import drawerSlice from "./drawerSlice";
+import notifyDrawerSlice from "./notifyDrawerSlice";
 
 
 export const store = configureStore({
@@ -23,7 +24,8 @@ export const store = configureStore({
     reducer: {
         auth: authSlice.reducer,
         dialog: dialogSlice.reducer,
-        drawer: drawerSlice.reducer,
+        leftDrawer: drawerSlice.reducer,
+        notifyDrawer : notifyDrawerSlice.reducer,
     }
 })
 

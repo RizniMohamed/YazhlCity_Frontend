@@ -3,7 +3,7 @@ import { Button, Checkbox, Dialog, DialogContent, DialogTitle, Divider, TextFiel
 import { Box } from '@mui/system';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { dialogActions } from '../Store/Dialogs/dialogSlice';
+import { dialogActions } from '../Store/dialogSlice';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 

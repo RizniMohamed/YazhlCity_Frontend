@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
 import MasterCard from '../../LocalData/MasterCard';
 import VisaCard from '../../LocalData/VisaCard';
-import { dialogActions } from '../../Store/Dialogs/dialogSlice';
+import { dialogActions } from '../../Store/dialogSlice';
 import CardInputs from './CardInputs';
 import UserInputs from './UserInputs';
 

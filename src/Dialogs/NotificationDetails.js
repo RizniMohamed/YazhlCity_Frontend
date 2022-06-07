@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 import { Box } from '@mui/system';
 import { useDispatch, useSelector } from 'react-redux';
 import BRTable from '../Components/helper/BRTable';
-import { dialogActions } from '../Store/Dialogs/dialogSlice';
+import { dialogActions } from '../Store/dialogSlice';
 
 const NotificationDetails = () => {
   const { status, data } = useSelector(state => state.dialog.notificationDetails)

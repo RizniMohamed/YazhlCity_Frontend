@@ -4,12 +4,16 @@ import { Box } from '@mui/system';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import Logo from '../LocalData/Drawer/Logo';
+import Logo from '../LocalData/Logo';
 import { drawerActions } from '../Store/drawerSlice';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { notifyDrawerActions } from '../Store/notifyDrawerSlice';
 
 const Header = () => {
 
-  const drawerState = useSelector(state => state.drawer.status)
+  const drawerState = useSelector(state => state.leftDrawer.status)
+  const notifyState = useSelector(state => state.notifyDrawer.status)
   const auth = useSelector(state => state.auth)
   const dispatch = useDispatch()
   const [current, setCurrent] = useState("")
@@ -27,7 +31,7 @@ const Header = () => {
     <>
       <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, bgcolor: "background.mainbg" }}>
         <Toolbar>
-          {current === "admin" || current === "manager"  && <IconButton
+          {(current === "admin" || current === "manager" || current === "profile") && <IconButton
             aria-label="open drawer"
             onClick={handleDrawerState}
             edge="start"
@@ -38,8 +42,9 @@ const Header = () => {
             <MenuIcon />
           </IconButton>}
 
-          <Box mx={2} display="flex" alignItems="center">
+          <Box mx={2} display="flex" alignItems="center" flexGrow={1}>
             <Logo />
+
             <Box display="flex" width={300} mt={1} sx={styleMenu}>
               <Box >
                 <Link to="/"><Typography>Home</Typography></Link>
@@ -54,6 +59,12 @@ const Header = () => {
                 <Divider sx={current === "admin" || current === "manager" ? { bgcolor: "primary.main" } : { opacity: 0 }} />
               </Box>}
             </Box>
+
+          </Box>
+
+          <Box display="flex" alignItems="center" >
+            <NotificationsIcon onClick={() => notifyState ? dispatch(notifyDrawerActions.hide()) : dispatch(notifyDrawerActions.show())} sx={{ ...styleMenuRight, color: notifyState ? "primary.main" : "white" }} />
+            <Link to="/profile"><AccountCircleIcon sx={{ ...styleMenuRight, color: current === "profile" ? "primary.main" : "white" }} /></Link>
           </Box>
 
         </Toolbar>
@@ -81,4 +92,12 @@ const styleMenu = {
       mt: 0.5
     }
   }
+}
+
+const styleMenuRight = {
+  transition: "background 0.3s, color 0.3s",
+  mx: 1.5,
+  mt: 0.5,
+  fontSize: 28,
+  cursor: "pointer"
 }

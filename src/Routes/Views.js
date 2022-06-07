@@ -21,6 +21,7 @@ import AdminPersons from "../Pages/Admin/Persons"
 import AdminNotifications from "../Pages/Admin/Notification"
 import AdminVerify from "../Pages/Admin/BoardingVerify"
 
+import ManagerIndex from "../Pages/Manager/Index"
 import ManagerDashboard from "../Pages/Manager/Dashbaord"
 import ManagerBoardingManagement from "../Pages/Manager/BoardingManagement"
 import ManagerRooms from "../Pages/Manager/Rooms"
@@ -28,6 +29,7 @@ import ManagerRoomManagement from "../Pages/Manager/RoomManagement"
 import ManagerPersons from "../Pages/Manager/Persons"
 import ManagerNotification from "../Pages/Manager/Notification"
 
+import ProfileIndex from "../Pages/Profile/Index"
 import MyBoarding from "../Pages/Profile/MyBoarding"
 import MyPayment from "../Pages/Profile/MyPayment"
 import MyProfile from "../Pages/Profile/MyProfile"
@@ -42,7 +44,7 @@ function Views() {
       <Route path="Boardings/Details/Rooms" element={<Rooms />} />
       <Route path="Boardings/Details/Rooms/Details" element={<RoomDetails />} />
 
-      <Route path="Admin" element={<AdminIndex/>}>
+      <Route path="Admin" element={<AdminIndex />}>
         <Route index element={< AdminDashbaord />} />
         <Route path="Boardings">
           <Route index element={< AdminBoardings />} />
@@ -55,21 +57,21 @@ function Views() {
         <Route path="Verfication" element={< AdminVerify />} />
       </Route>
 
-      <Route path="Manager">
+      <Route path="Manager" element={<ManagerIndex />}>
         <Route index element={< ManagerDashboard />} />
-        <Route path="Boardings">
-          <Route index element={<ManagerBoardingManagement />} />
-          <Route path="Rooms" element={< ManagerRooms />} />
+        <Route path="Boarding" element={<ManagerBoardingManagement />} />
+        <Route path="Rooms">
+          <Route index element={< ManagerRooms />} />
           <Route path="Rooms/Management" element={< ManagerRoomManagement />} />
         </Route>
         <Route path="Persons" element={<ManagerPersons />} />
         <Route path="Notification" element={<ManagerNotification />} />
       </Route>
 
-      <Route path = "Profile">
-        <Route index element = {<MyProfile/>} />
-        <Route path = "MyBoarding" element = {<MyBoarding/>} />
-        <Route path = "MyPayment" element = {<MyPayment/>} />  
+      <Route path="Profile" element={<ProfileIndex />}>
+        <Route index element={<MyProfile />} />
+        <Route path="Boarding" element={<MyBoarding />} />
+        <Route path="Payment" element={<MyPayment />} />
       </Route>
 
       <Route path="*" element={<NotFound />} />

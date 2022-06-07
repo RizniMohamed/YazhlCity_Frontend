@@ -6,7 +6,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { dialogActions } from '../Store/Dialogs/dialogSlice';
+import { dialogActions } from '../Store/dialogSlice';
 
 const Delete = () => {
   const { status, onSubmit, data } = useSelector(state => state.dialog.delete)

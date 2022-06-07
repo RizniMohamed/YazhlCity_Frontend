@@ -28,12 +28,12 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-export default function ClippedDrawer() {
+const SidePanel = () => {
 
   const [data, setData] = useState([]);
   const [current, setCurrent] = useState("");
   const location = useLocation()
-  const drawerState = useSelector(state => state.drawer.status)
+  const drawerState = useSelector(state => state.leftDrawer.status)
 
   useEffect(() => {
     const pathArrays = location.pathname.split("/").filter(x => x)
@@ -143,3 +143,5 @@ export default function ClippedDrawer() {
     </Drawer>
   );
 }
+
+export default SidePanel

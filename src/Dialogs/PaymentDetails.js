@@ -8,7 +8,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Typography from '@mui/material/Typography';
 import { useDispatch, useSelector } from 'react-redux';
 import BRTable from '../Components/helper/BRTable';
-import { dialogActions } from '../Store/Dialogs/dialogSlice';
+import { dialogActions } from '../Store/dialogSlice';
 
 const PaymentDetails = () => {
   const {status,data} = useSelector(state => state.dialog.paymentDetails)

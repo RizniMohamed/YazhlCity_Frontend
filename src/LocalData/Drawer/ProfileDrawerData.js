@@ -9,17 +9,17 @@ import {
 const data = [
   {
     name: "Profile",
-    path: "/test/rizni/profile/",
+    path: "/profile/",
     icon: <Person />
   },
   {
     name: "My Boarding",
-    path: "/test/rizni/profile/boarding",
+    path: "/profile/boarding",
     icon: <Home />
   },
   {
     name: "Payment",
-    path: "/test/rizni/profile/payment",
+    path: "/profile/payment",
     icon: <AttachMoney />
   },
   {
