@@ -11,6 +11,7 @@ import Boardings from "../Pages/Boardings"
 import RoomDetails from "../Pages/RoomDetails"
 import Rooms from "../Pages/Rooms"
 
+import AdminIndex from "../Pages/Admin/Index"
 import AdminDashbaord from "../Pages/Admin/Dashboard"
 import AdminBoardings from "../Pages/Admin/Boardings"
 import AdminBoardingManagement from "../Pages/Admin/BoardingManagement"
@@ -41,7 +42,7 @@ function Views() {
       <Route path="Boardings/Details/Rooms" element={<Rooms />} />
       <Route path="Boardings/Details/Rooms/Details" element={<RoomDetails />} />
 
-      <Route path="Admin">
+      <Route path="Admin" element={<AdminIndex/>}>
         <Route index element={< AdminDashbaord />} />
         <Route path="Boardings">
           <Route index element={< AdminBoardings />} />
@@ -51,7 +52,7 @@ function Views() {
         </Route>
         <Route path="Persons" element={< AdminPersons />} />
         <Route path="Notification" element={< AdminNotifications />} />
-        <Route path="Verfiy" element={< AdminVerify />} />
+        <Route path="Verfication" element={< AdminVerify />} />
       </Route>
 
       <Route path="Manager">

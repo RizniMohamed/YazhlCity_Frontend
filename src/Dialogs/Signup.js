@@ -12,6 +12,7 @@ const initVals = {
   email: "",
   password: "",
   rememberMe: false,
+  confirmPassword: "",
 }
 
 const Schema = yup.object().shape({
@@ -19,6 +20,7 @@ const Schema = yup.object().shape({
   email: yup.string().required("Required*").email("Email must be in valid format"),
   password: yup.string().required("Required*").matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[.#?!@$%^&*-]).{8,}$/,
     "Minimum 8 characters, at least one uppercase letter, one lowercase letter, one number and one special character:"),
+  confirmPassword: yup.string().required("Required*").oneOf([yup.ref('password')], 'Password not match.')
 })
 
 
@@ -65,7 +67,7 @@ const Signup = () => {
             or Sign in with Email
           </Divider>
 
-          <Box mb={1} width={"100%"} >
+          <Box mb={1.5} width={"100%"} >
             <Typography fontWeight={700} fontSize={14} sx={{ mb: 0.3, ml: 1.5 }} >Full Name</Typography>
             <TextField
               variant="outlined"
@@ -81,7 +83,7 @@ const Signup = () => {
             />
           </Box>
 
-          <Box mb={1} width={"100%"} >
+          <Box mb={1.5} width={"100%"} >
             <Typography fontWeight={700} fontSize={14} sx={{ mb: 0.3, ml: 1.5 }} >Email</Typography>
             <TextField
               variant="outlined"
@@ -97,8 +99,7 @@ const Signup = () => {
             />
           </Box>
 
-
-          <Box mt={1} width={"100%"} >
+          <Box mb={1.5} width={"100%"} >
             <Typography fontWeight={700} fontSize={14} sx={{ mb: 0.3, ml: 1.5 }} >Password</Typography>
             <TextField
               variant="outlined"
@@ -110,6 +111,22 @@ const Signup = () => {
               onChange={formik.handleChange}
               error={formik.touched.password && Boolean(formik.errors.password)}
               helperText={formik.touched.password && formik.errors.password}
+              onBlur={formik.handleBlur}
+            />
+          </Box>
+
+          <Box mb={1.5} width={"100%"} >
+            <Typography fontWeight={700} fontSize={14} sx={{ mb: 0.3, ml: 1.5 }} >Confirm Password</Typography>
+            <TextField
+              variant="outlined"
+              size='small'
+              type="password"
+              placeholder='Minimum 8 character'
+              name='confirmPassword'
+              sx={{ width: "100%", ".MuiOutlinedInput-root": { bgcolor: "white", borderRadius: 10 } }}
+              onChange={formik.handleChange}
+              error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
+              helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
               onBlur={formik.handleBlur}
             />
           </Box>

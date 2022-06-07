@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     status : false,
-    role : "",
+    role : "guest",
 }
 
 const authSlice = createSlice({

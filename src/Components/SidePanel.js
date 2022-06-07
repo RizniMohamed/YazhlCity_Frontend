@@ -1,24 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { styled } from '@mui/material/styles';
-import MuiDrawer from '@mui/material/Drawer'
 import {
-  Box,
-  AppBar,
-  Toolbar,
-  List,
+  Box, List,
   ListItem,
-  ListItemButton,
-  ListItemText,
-  IconButton,
-  ListItemIcon
+  ListItemButton, ListItemIcon, ListItemText, Toolbar
 } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
+import MuiDrawer from '@mui/material/Drawer';
+import { styled } from '@mui/material/styles';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import ManagerData from "../LocalData/Drawer/ManagerDrawerData"
-import AdminData from "../LocalData/Drawer/AdminDrawerData"
-import ProfileData from "../LocalData/Drawer/ProfileDrawerData"
-import { useDispatch, useSelector } from 'react-redux';
-import { drawerActions } from '../Store/drawerSlice';
+import AdminData from "../LocalData/Drawer/AdminDrawerData";
+import ManagerData from "../LocalData/Drawer/ManagerDrawerData";
+import ProfileData from "../LocalData/Drawer/ProfileDrawerData";
 
 // custom drawer to animate open and close
 const drawerWidth = 180;
@@ -41,7 +33,6 @@ export default function ClippedDrawer() {
   const [data, setData] = useState([]);
   const [current, setCurrent] = useState("");
   const location = useLocation()
-  const dispatch = useDispatch()
   const drawerState = useSelector(state => state.drawer.status)
 
   useEffect(() => {
@@ -49,7 +40,7 @@ export default function ClippedDrawer() {
 
     let userRole, currentPage = ""
 
-    if (pathArrays.length === 3)
+    if (pathArrays.length === 1)
       userRole = pathArrays[pathArrays.length - 1].toLowerCase()
     else {
       userRole = pathArrays[pathArrays.length - 2].toLowerCase()
@@ -59,7 +50,7 @@ export default function ClippedDrawer() {
     if (currentPage)
       setCurrent(currentPage)
     else
-      setCurrent(userRole === "profile" ? "profile" : "dashbaord")
+      setCurrent(userRole === "profile" ? "profile" : "dashboard")
 
     switch (userRole) {
       case "admin": setData(AdminData); break;
@@ -71,10 +62,6 @@ export default function ClippedDrawer() {
 
   }, [location])
 
-
-  const handleDrawerState = () => {
-    drawerState ? dispatch(drawerActions.hide()) : dispatch(drawerActions.show())
-  }
 
   const hoverStyle = () => {
     let element = null
@@ -123,55 +110,36 @@ export default function ClippedDrawer() {
   }
 
   return (
-    <Box sx={{ display: 'flex' }}>
-
-      <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, bgcolor: "background.mainbg" }}>
-        <Toolbar>
-          <IconButton
-            aria-label="open drawer"
-            onClick={handleDrawerState}
-            edge="start"
-            sx={{
-              color: "white",
-            }}
-          >
-            <MenuIcon />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-
-      <Drawer
-        variant="permanent"
-        open={drawerState}
-        sx={hoverStyle()}
-      >
-        <Toolbar />
-        <List>
-          {data.map(({ name, path, icon }, index) => (
-            <ListItem key={index} disablePadding sx={{ display: 'block', ...selectedStyle(name.toLowerCase()) }}>
-              <Link to={path}>
-                <ListItemButton
+    <Drawer
+      variant="permanent"
+      open={drawerState}
+      sx={hoverStyle()}>
+      <Toolbar />
+      <List>
+        {data.map(({ name, path, icon }, index) => (
+          <ListItem key={index} disablePadding sx={{ display: 'block', ...selectedStyle(name.toLowerCase()) }}>
+            <Link to={path}>
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: drawerState ? 'initial' : 'center',
+                  marginX: 1.5,
+                  paddingX: 0
+                }} >
+                <ListItemIcon
                   sx={{
-                    minHeight: 48,
-                    justifyContent: drawerState ? 'initial' : 'center',
-                    marginX: 1.5,
-                    paddingX: 0
+                    minWidth: 0,
+                    mr: drawerState ? 2 : 'auto',
+                    justifyContent: 'center',
                   }} >
-                  <ListItemIcon
-                    sx={{
-                      minWidth: 0,
-                      mr: drawerState ? 2 : 'auto',
-                      justifyContent: 'center',
-                    }} >
-                    {icon}
-                  </ListItemIcon>
-                  <ListItemText primary={name} sx={{ opacity: drawerState ? 1 : 0 }} />
-                </ListItemButton>
-              </Link>
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
-    </Box>
+                  {icon}
+                </ListItemIcon>
+                <ListItemText primary={name} sx={{ opacity: drawerState ? 1 : 0 }} />
+              </ListItemButton>
+            </Link>
+          </ListItem>
+        ))}
+      </List>
+    </Drawer>
   );
 }

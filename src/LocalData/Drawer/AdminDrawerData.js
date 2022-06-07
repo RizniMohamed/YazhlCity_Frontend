@@ -9,28 +9,28 @@ import {
 
 const data = [
   {
-    name: "Dashbaord",
-    path: "/test/rizni/admin/",
+    name: "Dashboard",
+    path: "/admin/",
     icon: <Dashboard />
   },
   {
-    name: "Boarding",
-    path: "/test/rizni/admin/boarding",
+    name: "Boardings",
+    path: "/admin/boardings",
     icon: <Home />
   },
   {
     name: "Persons",
-    path: "/test/rizni/admin/persons",
+    path: "/admin/persons",
     icon: <Person />
   },
   {
     name: "Notification",
-    path: "/test/rizni/admin/notification",
+    path: "/admin/notification",
     icon: <Notifications />
   },
   {
     name: "Verfication",
-    path: "/test/rizni/admin/verfication",
+    path: "/admin/verfication",
     icon: <VerifiedUser />
   },
 ]
