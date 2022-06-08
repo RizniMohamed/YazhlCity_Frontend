@@ -31,10 +31,10 @@ const NotificationDetails = () => {
 
 
   return (
-    <Dialog open={status} onClose={() => { }} fullWidth>
+    <Dialog open={status} onClose={() => { }} fullWidth sx={{ ".MuiDialog-paper" : {minHeight:270}}}>
       <Box display="flex" justifyContent="space-between" >
         <DialogTitle fontWeight={700} fontSize={22} sx={{ pb: 0 }}> {data.subject} </DialogTitle>
-        <Typography component="p" color="text.main" fontSize={13} pr={1}>{data.createdTime}</Typography>
+        <Typography component="p" color="text.main" fontSize={13} pr={1}>{data.date}</Typography>
       </Box>
       <DialogContent sx={{ pt: 1 }}>
         <BRTable rows={details.info} firstColWidth={30} desc={false} />
