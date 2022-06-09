@@ -11,7 +11,6 @@ import { notifyDrawerActions } from '../Store/notifyDrawerSlice';
 import Notification from './Notification.js'
 import { TransitionGroup } from 'react-transition-group';
 
-
 const notifydata = [
   {
     id: 1,
