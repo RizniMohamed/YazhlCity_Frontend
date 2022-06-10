@@ -13,7 +13,7 @@ const Filter = ({ list, setData, options }) => {
     const handleClose = () => setAnchorEl(null)
     const filter = newKeys => {
         if (newKeys !== "none") {
-            const filterConstraints = Object.fromEntries(Object.entries(newKeys).filter(([_, v]) => v != ""))
+            const filterConstraints = Object.fromEntries(Object.entries(newKeys).filter(([_, v]) => v !== ""))
             let filteredData = list
             Object.keys(filterConstraints).forEach(e =>
                 filteredData = filteredData.filter(i => String(i[e.toLowerCase()]) === String(filterConstraints[e]).toLowerCase())
