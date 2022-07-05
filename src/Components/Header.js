@@ -1,7 +1,7 @@
+import React, { useEffect, useState } from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 import { AppBar, Divider, IconButton, Toolbar, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import Logo from '../LocalData/Logo';
@@ -32,7 +32,6 @@ const Header = () => {
       <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, bgcolor: "background.mainbg" }}>
         <Toolbar>
           {(current === "admin" || current === "manager" || current === "profile") && <IconButton
-            aria-label="open drawer"
             onClick={handleDrawerState}
             edge="start"
             sx={{

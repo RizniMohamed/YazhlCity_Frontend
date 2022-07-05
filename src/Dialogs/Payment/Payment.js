@@ -87,7 +87,7 @@ const Payment = () => {
           <Button
             variant='contained'
             size="small"
-            onClick={() => { formik.resetForm(); dispatch(dialogActions.hide()) }}>
+            onClick={() => { formik.resetForm(); dispatch(dialogActions.hide('payment')) }}>
             Cancel
           </Button>
           <Button

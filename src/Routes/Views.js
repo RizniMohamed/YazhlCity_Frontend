@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom"
 import Rizni from '../Pages/Test/Rizni';
-import Mathushiya from '../Pages/Test/Mathushiya';
+import Demo from '../Pages/Test/Demo';
 import Sarujan from '../Pages/Test/Sarujan';
 
 import NotFound from "../Pages/NotFound";
@@ -78,7 +78,7 @@ function Views() {
 
       <Route path="test">
         <Route path="Rizni/*" element={<Rizni />} />
-        <Route path="Mathushiya" element={<Mathushiya />} />
+        <Route path="Demo/*" element={<Demo />} />
         <Route path="Sarujan" element={<Sarujan />} />
       </Route>
 

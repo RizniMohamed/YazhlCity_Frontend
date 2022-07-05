@@ -33,7 +33,7 @@ const Login = () => {
 
 
   return (
-    <Dialog open={status} onClose={() => { }} >
+    <Dialog open={status} onClose={() => { dispatch(dialogActions.hide("login")) }} >
 
       <form onSubmit={formik.handleSubmit}>
 

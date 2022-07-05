@@ -23,21 +23,17 @@ const Schema = yup.object().shape({
   confirmPassword: yup.string().required("Required*").oneOf([yup.ref('password')], 'Password not match.')
 })
 
-
 const Signup = () => {
   const { status, onSubmit } = useSelector(state => state.dialog.signup)
   const dispatch = useDispatch()
-
 
   const formik = useFormik({
     initialValues: initVals,
     onSubmit: onSubmit,
     validationSchema: Schema,
   })
-
-
   return (
-    <Dialog open={status} onClose={() => { }} >
+    <Dialog open={status} onClose={() => { dispatch(dialogActions.hide("signup")) }} >
 
       <form onSubmit={formik.handleSubmit}>
 

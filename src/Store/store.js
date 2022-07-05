@@ -4,7 +4,6 @@ import dialogSlice from "./dialogSlice";
 import drawerSlice from "./drawerSlice";
 import notifyDrawerSlice from "./notifyDrawerSlice";
 
-
 export const store = configureStore({
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
