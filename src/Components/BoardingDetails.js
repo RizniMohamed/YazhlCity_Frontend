@@ -7,6 +7,7 @@ import BRImage from './helper/BRImage';
 import BRTable from './helper/BRTable';
 
 const BoardingDetails = ({ data }) => {
+
   return (
     <Box display="flex" justifyContent="space-evenly">
 
@@ -15,11 +16,11 @@ const BoardingDetails = ({ data }) => {
         <Box display="flex" flexDirection="column" mb={2} justifyItems="center">
           <Typography variant="title" >
             {data.name}
-            {data.verified && <VerifiedUserIcon sx={{ color: "#699BF7", ml: 1 }}  />}
+            {data.verified && <VerifiedUserIcon sx={{ color: "#699BF7", ml: 1 }} />}
           </Typography>
           <Rating value={data.rating} sx={{ mt: 0.5 }} readOnly />
         </Box>
-        <BRTable rows={data.rows} firstColWidth={100} rowHeight={62}/>
+        <BRTable rows={data.rows} firstColWidth={100} rowHeight={62} />
       </Box>
 
       {/* Image and map */}

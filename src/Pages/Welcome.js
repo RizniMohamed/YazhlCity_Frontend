@@ -4,6 +4,8 @@ import Footer from '../Components/Footer'
 import BannerBG from '../LocalData/WelcomePage/BannerBG.png'
 import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
 import { Link } from 'react-router-dom';
+import WeDo from '../Components/Home/WeDo';
+import WcImage from '../Components/Home/WcImage';
 
 const Welcome = () => {
   return (
@@ -40,10 +42,14 @@ const Welcome = () => {
               Boarding
               <ArrowCircleRightOutlinedIcon fontSize='large' sx={{ ml: 0.5 }} />
             </Button>
+
+
           </Link>
         </Box>
 
       </Box>
+      <WeDo />
+      <WcImage />
       <Footer />
     </>
   )

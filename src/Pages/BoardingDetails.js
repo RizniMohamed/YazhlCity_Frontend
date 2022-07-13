@@ -6,4 +6,4 @@ const BoardingDetails = () => {
   )
 }
 
-export default BoardingDetails
+export default BoardingDetails 

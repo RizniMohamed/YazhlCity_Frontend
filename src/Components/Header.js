@@ -31,7 +31,7 @@ const Header = () => {
     <>
       <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, bgcolor: "background.mainbg" }}>
         <Toolbar>
-          {(current === "admin" || current === "manager" || current === "profile") && <IconButton
+          {(current === "admin" || current === "manager" || current === "Manager" || current === "profile") && <IconButton
             onClick={handleDrawerState}
             edge="start"
             sx={{
