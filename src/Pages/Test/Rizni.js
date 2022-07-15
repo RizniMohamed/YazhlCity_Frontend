@@ -16,7 +16,7 @@ const boardingList = [
 
 const opts = [
   {
-    name: "Nonee",
+    name: "None",
     values: [
       {
         name: "None",
