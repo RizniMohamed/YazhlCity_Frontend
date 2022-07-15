@@ -31,6 +31,11 @@ const initialState = {
         data: "",
         onSubmit: undefined
     },
+    profile: {
+        status: false,
+        data: "",
+        onSubmit: undefined
+    },
 }
 const DialogSlice = createSlice({
     name: "Dialog Slice",

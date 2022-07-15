@@ -30,7 +30,6 @@ const Delete = () => {
           onClick={e => handleOnClick(e.currentTarget)}>
           Cancel
         </Button>
-
         <Button
           variant='contained'
           size="small"

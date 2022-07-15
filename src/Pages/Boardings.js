@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material"
 import { useState } from "react"
+import { useSelector } from "react-redux"
 import BoardingCard from "../Components/BoardingCard"
 import BreadCrumbs from "../Components/BreadCrumbs"
 import SearchFilter from "../Components/SearchFilter/SearchFilter"
@@ -79,13 +80,16 @@ const boardingList = [
 const Boardings = () => {
 
   const [dataFilter, setDataFilter] = useState(boardingList)
+  const auth = useSelector(state => state.auth)
 
   return (
     <Box my={5} ml={8} display="flex" flexDirection="column">
       <BreadCrumbs />
       <Box display="flex" my={2} alignItems="center" justifyContent="space-between">
         <SearchFilter list={boardingList} options={opts} setData={setDataFilter} />
-        <Typography fontWeight={900} fontSize={20} sx={{mr:10}}>Register Boarding</Typography>
+        {auth.role == "user" &&
+          <Typography fontWeight={900} fontSize={20} sx={{ mr: 10 }}>Register Boarding</Typography>
+        }
       </Box>
 
       <Box display="flex" flexWrap="wrap" >
