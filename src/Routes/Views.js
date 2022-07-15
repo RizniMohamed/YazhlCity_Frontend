@@ -6,8 +6,10 @@ import Sarujan from '../Pages/Test/Sarujan';
 import NotFound from "../Pages/NotFound";
 
 import Welcome from "../Pages/Welcome"
-import RoomDetails from "../Pages/RoomDetails"
+import Boarding from "../Pages/Boardings"
+import BoardingDetails from "../Pages/BoardingDetails"
 import Rooms from "../Pages/Rooms"
+import RoomDetails from "../Pages/RoomDetails"
 
 import AdminIndex from "../Pages/Admin/Index"
 import AdminDashbaord from "../Pages/Admin/Dashboard"
@@ -38,7 +40,6 @@ function Views() {
 
       <Route index element={<Welcome />} />
 
-
       <Route path="Admin" element={<AdminIndex />}>
         <Route index element={< AdminDashbaord />} />
         <Route path="Boardings">
@@ -68,6 +69,11 @@ function Views() {
         <Route path="Boarding" element={<MyBoarding />} />
         <Route path="Payment" element={<MyPayment />} />
       </Route>
+
+      <Route path="Boardings" element={<Boarding/>}/>
+      <Route path="Boardings/:boardingID" element={<BoardingDetails/>}/>
+      <Route path="Boardings/:boardingID/Rooms" element={<Rooms/>}/>
+      <Route path="Boardings/:boardingID/Rooms/:roomID" element={<RoomDetails/>}/>
 
 
 
