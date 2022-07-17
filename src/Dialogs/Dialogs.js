@@ -10,6 +10,7 @@ import Profile from './Profile/Profile'
 import ContactView from './ContactView'
 import ProfileDetails from './ProfileDetails'
 import NotificationCreate from './NotificationCreate'
+import Message from './Message'
 
 const Dialogs = () => {
   return (
@@ -25,6 +26,7 @@ const Dialogs = () => {
       <ContactView/>
       <ProfileDetails/>
       <NotificationCreate/>
+      <Message/>
     </>
   )
 }

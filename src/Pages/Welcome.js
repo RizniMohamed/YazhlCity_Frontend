@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Box, Button, ImageList, ImageListItem, Typography } from '@mui/material'
 import Footer from '../Components/Footer'
 import BannerBG from '../LocalData/WelcomePage/BannerBG.png'
@@ -7,8 +7,14 @@ import { Link } from 'react-router-dom';
 import mobileimage from '../LocalData/WelcomePage/room01.png'
 import roomimage from '../LocalData/WelcomePage/room02.png'
 import visionimage from '../LocalData/WelcomePage/Group 96.png'
+import { useDispatch } from 'react-redux'
+import { messageActions } from '../Store/messageSlice';
 
 const Welcome = () => {
+  const dispatch = useDispatch()
+
+  dispatch(messageActions.show(["Welcome"]))
+
   return (
     <>
       {/* Banner */}
@@ -43,11 +49,8 @@ const Welcome = () => {
               Boarding
               <ArrowCircleRightOutlinedIcon fontSize='large' sx={{ ml: 0.5 }} />
             </Button>
-
-
           </Link>
         </Box>
-
       </Box>
 
       <Box display="flex" flexDirection="column" alignItems="center" my={5}>
@@ -77,11 +80,11 @@ const Welcome = () => {
 
       <Box display="flex" justifyContent="space-evenly">
         <Box component="img" width={600} src={mobileimage} alt="Mobile Image" />
-        <Box component="img" width={600} src={roomimage} alt="Room Image"/> 
+        <Box component="img" width={600} src={roomimage} alt="Room Image" />
       </Box>
 
       <Box display="flex" justifyContent="space-evenly">
-        <Box component="img" width={500} src={visionimage} alt="Vision Image" my = {5} />
+        <Box component="img" width={500} src={visionimage} alt="Vision Image" my={5} />
       </Box>
       <Footer />
     </>
