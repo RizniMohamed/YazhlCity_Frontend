@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import Logo from '../LocalData/Logo';
 import { drawerActions } from '../Store/drawerSlice';
+import { dialogActions } from '../Store/dialogSlice';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { notifyDrawerActions } from '../Store/notifyDrawerSlice';
@@ -27,11 +28,16 @@ const Header = () => {
 
   const handleDrawerState = () => drawerState ? dispatch(drawerActions.hide()) : dispatch(drawerActions.show())
 
+  const onLoginClick = () => {
+    alert("IM LOGIN")
+    dispatch(dialogActions.hide("login"))
+  }
+
   return (
     <>
       <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, bgcolor: "background.mainbg" }}>
         <Toolbar>
-          {(current === "admin" || current === "manager" || current === "profile") && <IconButton
+          {(current === "admin" || current === "manager" || current === "Manager" || current === "profile") && <IconButton
             onClick={handleDrawerState}
             edge="start"
             sx={{
@@ -62,8 +68,15 @@ const Header = () => {
           </Box>
 
           <Box display="flex" alignItems="center" >
-            <NotificationsIcon onClick={() => notifyState ? dispatch(notifyDrawerActions.hide()) : dispatch(notifyDrawerActions.show())} sx={{ ...styleMenuRight, color: notifyState ? "primary.main" : "white" }} />
-            <Link to="/profile"><AccountCircleIcon sx={{ ...styleMenuRight, color: current === "profile" ? "primary.main" : "white" }} /></Link>
+            {
+              (auth.role === "manager" || auth.role === "admin" || auth.role === "hosteller") &&
+              <NotificationsIcon onClick={() => notifyState ? dispatch(notifyDrawerActions.hide()) : dispatch(notifyDrawerActions.show())} sx={{ ...styleMenuRight, color: notifyState ? "primary.main" : "white" }} />
+            }
+            {
+              auth.status ?
+                <Link to="/profile"><AccountCircleIcon sx={{ ...styleMenuRight, color: current === "profile" ? "primary.main" : "white" }} /></Link> :
+                <AccountCircleIcon onClick={() => dispatch(dialogActions.show(["login", onLoginClick]))} sx={{ ...styleMenuRight, color: current === "profile" ? "primary.main" : "white" }} />
+            }
           </Box>
 
         </Toolbar>

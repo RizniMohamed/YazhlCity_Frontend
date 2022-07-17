@@ -19,7 +19,7 @@ const opts = [
     name: "None",
     values: [
       {
-        name: "None",
+        name: "Nonee",
         value: ""
       }
     ]

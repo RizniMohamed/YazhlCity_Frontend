@@ -4,12 +4,12 @@ import React from 'react';
 import BRImage from './helper/BRImage';
 import BRTable from './helper/BRTable';
 
-const RoomDetails = ({ data }) => {
+const RoomDetails = ({ data, desc, minWidth = 500 }) => {
   return (
     <Box display="flex" justifyContent="space-evenly">
 
       {/* Details */}
-      <Box >
+      <Box minWidth={minWidth}>
         <Box display="flex" mb={2} alignItems="center" justifyCenter="center">
           <Typography variant="title" >
             Room {data.roomNo}
@@ -18,7 +18,7 @@ const RoomDetails = ({ data }) => {
             {data.availability}
           </Typography>
         </Box>
-        <BRTable rows={data.rows} firstColWidth={150} rowHeight={62}/>
+        <BRTable rows={data.rows} firstColWidth={150} rowHeight={62} desc={desc}/>
       </Box>
 
       {/* Image and map */}

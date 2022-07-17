@@ -31,6 +31,26 @@ const initialState = {
         data: "",
         onSubmit: undefined
     },
+    profile: {
+        status: false,
+        data: "",
+        onSubmit: undefined
+    },
+    contactView: {
+        status: false,
+        data: "",
+        onSubmit: undefined
+    },
+    profileDetails: {
+        status: false,
+        data: "",
+        onSubmit: undefined
+    },
+    notificationCreate: {
+        status: false,
+        data: "",
+        onSubmit: undefined
+    },
 }
 const DialogSlice = createSlice({
     name: "Dialog Slice",

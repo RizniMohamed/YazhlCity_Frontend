@@ -1,15 +1,12 @@
 import { Route, Routes } from "react-router-dom"
-import Rizni from '../Pages/Test/Rizni';
-import Demo from '../Pages/Test/Demo';
-import Sarujan from '../Pages/Test/Sarujan';
 
 import NotFound from "../Pages/NotFound";
 
 import Welcome from "../Pages/Welcome"
+import Boarding from "../Pages/Boardings"
 import BoardingDetails from "../Pages/BoardingDetails"
-import Boardings from "../Pages/Boardings"
-import RoomDetails from "../Pages/RoomDetails"
 import Rooms from "../Pages/Rooms"
+import RoomDetails from "../Pages/RoomDetails"
 
 import AdminIndex from "../Pages/Admin/Index"
 import AdminDashbaord from "../Pages/Admin/Dashboard"
@@ -39,18 +36,14 @@ function Views() {
     <Routes>
 
       <Route index element={<Welcome />} />
-      <Route path="Boardings" element={<Boardings />} />
-      <Route path="Boardings/Details" element={<BoardingDetails />} />
-      <Route path="Boardings/Details/Rooms" element={<Rooms />} />
-      <Route path="Boardings/Details/Rooms/Details" element={<RoomDetails />} />
 
       <Route path="Admin" element={<AdminIndex />}>
         <Route index element={< AdminDashbaord />} />
         <Route path="Boardings">
           <Route index element={< AdminBoardings />} />
-          <Route path="Management" element={< AdminBoardingManagement />} />
-          <Route path="Management/Rooms" element={< AdminRooms />} />
-          <Route path="Management/Rooms/Management" element={< AdminRoomManagement />} />
+          <Route path=":boardingID" element={< AdminBoardingManagement />} />
+          <Route path=":boardingID/Rooms" element={< AdminRooms />} />
+          <Route path=":boardingID/Rooms/:roomID" element={< AdminRoomManagement />} />
         </Route>
         <Route path="Persons" element={< AdminPersons />} />
         <Route path="Notification" element={< AdminNotifications />} />
@@ -62,7 +55,7 @@ function Views() {
         <Route path="Boarding" element={<ManagerBoardingManagement />} />
         <Route path="Rooms">
           <Route index element={< ManagerRooms />} />
-          <Route path="Rooms/Management" element={< ManagerRoomManagement />} />
+          <Route path=":roomID" element={< ManagerRoomManagement />} />
         </Route>
         <Route path="Persons" element={<ManagerPersons />} />
         <Route path="Notification" element={<ManagerNotification />} />
@@ -74,13 +67,12 @@ function Views() {
         <Route path="Payment" element={<MyPayment />} />
       </Route>
 
-      <Route path="*" element={<NotFound />} />
+      <Route path="Boardings" element={<Boarding/>}/>
+      <Route path="Boardings/:boardingID" element={<BoardingDetails/>}/>
+      <Route path="Boardings/:boardingID/Rooms" element={<Rooms/>}/>
+      <Route path="Boardings/:boardingID/Rooms/:roomID" element={<RoomDetails/>}/>
 
-      <Route path="test">
-        <Route path="Rizni/*" element={<Rizni />} />
-        <Route path="Demo/*" element={<Demo />} />
-        <Route path="Sarujan" element={<Sarujan />} />
-      </Route>
+      <Route path="*" element={<NotFound />} />
 
     </Routes>
   )

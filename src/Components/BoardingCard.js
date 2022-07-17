@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 
 const BoardingCard = ({ id, image, name, availablity, rating, location, address }) => {
   return (
+
     <Card raised sx={{ width: 210, height: 270, mt: 2, mr: 3 }}>
       <Link to={`${id}`}>
         <CardMedia
@@ -47,6 +48,7 @@ const BoardingCard = ({ id, image, name, availablity, rating, location, address 
         </CardContent>
       </Link>
     </Card >
+
   );
 }
 

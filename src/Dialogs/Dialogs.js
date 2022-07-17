@@ -6,6 +6,11 @@ import Payment from '../Dialogs/Payment/Payment'
 import PaymentDetails from '../Dialogs/PaymentDetails'
 import Signup from './Signup'
 import NotificationPanel from '../Components/NotificationPanel'
+import Profile from './Profile/Profile'
+import ContactView from './ContactView'
+import ProfileDetails from './ProfileDetails'
+import NotificationCreate from './NotificationCreate'
+import Message from './Message'
 
 const Dialogs = () => {
   return (
@@ -17,6 +22,11 @@ const Dialogs = () => {
       <PaymentDetails />
       <Signup/>
       <NotificationPanel/>
+      <Profile/>
+      <ContactView/>
+      <ProfileDetails/>
+      <NotificationCreate/>
+      <Message/>
     </>
   )
 }

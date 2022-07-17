@@ -47,6 +47,9 @@ const SidePanel = () => {
       currentPage = pathArrays[pathArrays.length - 1].toLowerCase()
     }
 
+    if (pathArrays[0] === "manager" && pathArrays[1] === "rooms") { currentPage = "rooms"; userRole = "manager" }
+    if (pathArrays[0] === "admin" && pathArrays[1] === "boardings") { currentPage = "boardings"; userRole = "admin" }
+
     if (currentPage)
       setCurrent(currentPage)
     else
