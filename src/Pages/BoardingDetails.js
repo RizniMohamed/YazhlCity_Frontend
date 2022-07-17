@@ -4,6 +4,8 @@ import BoardingDetailsComp from '../Components/BoardingDetails'
 import BreadCrumbs from '../Components/BreadCrumbs'
 import CallIcon from '@mui/icons-material/Call';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { dialogActions } from '../Store/dialogSlice';
 
 
 const boardingData = {
@@ -61,6 +63,7 @@ const boardingData = {
 }
 
 const BoardingDetails = () => {
+  const dispatch = useDispatch()
   return (
     <Box display="flex" flexDirection="column" m="auto" p={2}>
       <Box ml={18} my={2}>
@@ -68,7 +71,13 @@ const BoardingDetails = () => {
       </Box>
       <BoardingDetailsComp data={boardingData} />
       <Box display="flex" ml={70} my={5}>
-        <Button variant='contained' size="small" sx={{ width: 150, ...buttonStyle, mr: 2 }} >Contact <CallIcon fontSize='small' sx={{ ml: 1 }} /></Button>
+        <Button
+          variant='contained'
+          size="small"
+          onClick={e => dispatch(dialogActions.show(['contactView',,`Contact number : 0775824807`]))}
+          sx={{ width: 150, ...buttonStyle, mr: 2 }} >
+          Contact <CallIcon fontSize='small' sx={{ ml: 1 }} />
+        </Button>
         <Link to="Rooms">
           <Button variant='contained' size="small" sx={{ width: 250, ...buttonStyle }} >Explore rooms</Button>
         </Link>

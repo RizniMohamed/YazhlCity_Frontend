@@ -2,7 +2,9 @@ import React from 'react'
 
 const Dashbaord = () => {
   return (
-    <div>Dashbaord</div>
+    <>
+      Yo bro where is my graphs
+    </>
   )
 }
 

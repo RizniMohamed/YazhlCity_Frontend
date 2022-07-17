@@ -1,8 +1,8 @@
-import { Box, Button, Card, Grid, Typography } from '@mui/material'
-import { Container } from '@mui/system'
 import React from 'react'
+import { Box, Button } from '@mui/material'
+import { useDispatch } from 'react-redux'
 import BoardingDetails from '../../Components/BoardingDetails'
-
+import { dialogActions } from "../../Store/dialogSlice"
 
 const boardingData = {
   name: "RC House",
@@ -59,12 +59,24 @@ const boardingData = {
 }
 
 const BoardingManagement = () => {
+  const dispatch = useDispatch()
+
+  const onDelete = () => {
+    dispatch(dialogActions.hide('delete'))
+  }
+
   return (
     <Box display="flex" flexDirection="column" m="auto" p={2}>
       <BoardingDetails data={boardingData} />
       <Box display="flex" justifyContent="end">
-        <Button variant='contained' size="small" sx={{ width: 150, ...buttonStyle , mr: 2}} >Delete</Button>
-        <Button variant='contained' size="small" sx={{ width: 150,  ...buttonStyle }} >Update</Button>
+        <Button v
+          ariant='contained'
+          size="small"
+          onClick={() => dispatch(dialogActions.show(['delete', onDelete, "Are you sure do you want to delete this boarding?"]))}
+          sx={{ width: 150, ...buttonStyle, mr: 2 }} >
+          Delete
+        </Button>
+        <Button variant='contained' size="small" sx={{ width: 150, ...buttonStyle }} >Update</Button>
       </Box>
     </Box>
   )
@@ -76,7 +88,7 @@ const buttonStyle = {
   bgcolor: "background.mainbg",
   color: "white",
   "&:hover": {
-     bgcolor: "primary.main",
+    bgcolor: "primary.main",
   }
 
 }

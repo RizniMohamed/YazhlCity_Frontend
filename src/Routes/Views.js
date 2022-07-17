@@ -1,7 +1,4 @@
 import { Route, Routes } from "react-router-dom"
-import Rizni from '../Pages/Test/Rizni';
-import Demo from '../Pages/Test/Demo';
-import Sarujan from '../Pages/Test/Sarujan';
 
 import NotFound from "../Pages/NotFound";
 
@@ -58,7 +55,7 @@ function Views() {
         <Route path="Boarding" element={<ManagerBoardingManagement />} />
         <Route path="Rooms">
           <Route index element={< ManagerRooms />} />
-          <Route path="Rooms/Management" element={< ManagerRoomManagement />} />
+          <Route path=":roomID" element={< ManagerRoomManagement />} />
         </Route>
         <Route path="Persons" element={<ManagerPersons />} />
         <Route path="Notification" element={<ManagerNotification />} />
@@ -75,15 +72,7 @@ function Views() {
       <Route path="Boardings/:boardingID/Rooms" element={<Rooms/>}/>
       <Route path="Boardings/:boardingID/Rooms/:roomID" element={<RoomDetails/>}/>
 
-
-
       <Route path="*" element={<NotFound />} />
-
-      <Route path="test">
-        <Route path="Rizni/*" element={<Rizni />} />
-        <Route path="Demo/*" element={<Demo />} />
-        <Route path="Sarujan" element={<Sarujan />} />
-      </Route>
 
     </Routes>
   )
