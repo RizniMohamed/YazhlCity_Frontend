@@ -1,184 +1,100 @@
-import { Box, Button, Card, Grid, Typography } from '@mui/material'
-import { Container } from '@mui/system'
 import React from 'react'
+import { Box, Button } from '@mui/material'
+import { useDispatch } from 'react-redux'
+import BoardingDetails from '../../Components/BoardingDetails'
+import { dialogActions } from "../../Store/dialogSlice"
+import BreadCrumbs from '../../Components/BreadCrumbs'
+import {Link} from "react-router-dom"
+
+const boardingData = {
+  name: "RC House",
+  rating: 4,
+  verified: true,
+  rows: [
+    {
+      name: 'Ownername',
+      details: 'Sarujan'
+    },
+    {
+      name: 'Address',
+      details: 'No.14,Jaffna mainroad,Jaffna'
+    },
+    {
+      name: 'Room types',
+      details: 'Single/Share'
+    },
+    {
+      name: 'Washrooms',
+      details: '2'
+    },
+    {
+      name: 'Bathrooms',
+      details: '3'
+    },
+    {
+      name: 'Rooms',
+      details: '5'
+    },
+    {
+      name: 'Description',
+      details: 'A great rental listing includes an informative title and stellar description that properly describes your rental property. While it’s easy to assume that tenants care more about the rental price, the photos, and location of an apartment, they also pay attention to the description. The rental listing description should complement the photos and other features of your listing while demonstrating you’re a sophisticated landlord.'
+    },
+  ],
+  images: [
+    {
+      name: "Random Name #1",
+      path: "https://cdn.pixabayasd.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+    },
+    {
+      name: "Random Name #1",
+      path: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png"
+    },
+    {
+      name: "Random Name #1",
+      path: "https://static.remove.bg/remove-bg-web/6ad52d54336ad62d58e7bd1317d40fb98e377ad5/assets/start-1abfb4fe2980eabfbbaaa4365a0692539f7cd2725f324f904565a9a744f8e214.jpg"
+    },
+    {
+      name: "Random Name #1",
+      path: "https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg"
+    },
+  ]
+}
 
 const BoardingManagement = () => {
+  const dispatch = useDispatch()
+
+  const onDelete = () => {
+    dispatch(dialogActions.hide('delete'))
+  }
+
   return (
-    <Container>
-      <Grid
-        container
-        spacing={2}
-        sx={{
-          mt: 5,
-          ml: 1,
-          mr: 1
-        }}
-      >
-        <Grid item xs={8}>
-          <Box
-            component="span"
-            sx={{
-              textAlign: "left"
-            }}
-          >
-            <Typography
-              sx={{
-                color: "Black",
-                fontSize: 45,
-                fontWeight: 1000,
-                textAlign: 'left',
-                mb: 2
-
-              }}> Building Name </Typography>
-
-            <table>
-              <tr>
-                <th>Owner Name</th>
-                <td>:</td>
-                <td>Sarujan</td>
-              </tr>
-
-              <tr>
-                <th>Address</th>
-                <td>:</td>
-                <td>No.14,Jaffna mainroad,Jaffna</td>
-              </tr>
-
-              <tr>
-                <th>Room Types</th>
-                <td>:</td>
-                <td>Single/Share</td>
-              </tr>
-
-              <tr>
-                <th>Washrooms</th>
-                <td>:</td>
-                <td>2</td>
-              </tr>
-
-              <tr>
-                <th>Bathrooms</th>
-                <td>:</td>
-                <td>3</td>
-              </tr>
-
-              <tr>
-                <th>Rooms</th>
-                <td>:</td>
-                <td>10</td>
-              </tr>
-
-              <tr>
-                <th>Payment Status</th>
-                <td>:</td>
-                <td>Unpaid</td>
-                <Button
-                  variant="contained"
-                  size='small'
-                  sx={{
-                    color: "white",
-                    backgroundColor: 'black',
-                    fontSize: 16,
-                    fontWeight: 500,
-                    width: 150,
-                    ml: 2
-                  }}
-                > Add Payment </Button>
-              </tr>
-
-
-
-
-
-            </table>
-
-            <strong>Description</strong>
-            <div>
-              a great rental listing includes an informative title and stellar description that properly describes your
-              rental property. while it's easy to assume that tenants care more about the rental price, the photos, and
-              location of an apartment, they also pay attention to the description. the rental listing description should
-              complement the photos and other features of your listing while demonstrating you're a sophisticated landlord.
-            </div>
-          </Box>
-        </Grid>
-        <Grid item xs={4}>
-          <Box
-            component="span"
-            sx={{
-              textAlign: "left",
-            }}
-          >
-            <Card
-              variant='outline'
-              sx={{
-                minHeight: 200,
-                minWidth: 250,
-                maxHeight: 250,
-                maxWidth: 300,
-                p: 2,
-                mb: 2
-              }}
-            >
-              Image
-            </Card>
-            <Card
-              variant='outline'
-              sx={{
-                minHeight: 200,
-                minWidth: 250,
-                maxHeight: 250,
-                maxWidth: 300,
-                p: 2
-              }}
-            >
-              <Typography
-                sx={{
-                  verticalAlign: 'middle'
-                }}
-              >
-
-              </Typography>
-            </Card>
-          </Box>
-        </Grid>
-      </Grid>
-      <Grid
-        container
-        direction="row"
-        justifyContent="flex-end"
-        alignItems="flex-start"
-        sx={{
-          mt: 2
-        }}
-      >
-        <Button
-          variant="contained"
-          size='small'
-          sx={{
-            color: "white",
-            backgroundColor: 'black',
-            fontSize: 16,
-            fontWeight: 500,
-            width: 150,
-            ml: 2
-          }}
-        >Update </Button>
-        <Button
-          variant="contained"
-          size='small'
-          cols={2}
-          sx={{
-            color: "white",
-            backgroundColor: 'black',
-            fontSize: 16,
-            fontWeight: 500,
-            width: 150,
-            ml: 2
-          }}
-        >Delete </Button>
-      </Grid>
-    </Container>
+    <Box display="flex" flexDirection="column" m="auto" p={2}>
+      <BreadCrumbs />
+      <BoardingDetails data={boardingData} />
+      <Box display="flex" justifyContent="end">
+        <Link to="Rooms">
+          <Button variant='contained' size="small" sx={{ width: 250, ...buttonStyle, mr: 2 }} >View rooms</Button>
+        </Link>
+        <Button v
+          ariant='contained'
+          size="small"
+          onClick={() => dispatch(dialogActions.show(['delete', onDelete, "Are you sure do you want to delete this boarding?"]))}
+          sx={{ width: 150, ...buttonStyle, mr: 2 }} >
+          Delete
+        </Button>
+        <Button variant='contained' size="small" sx={{ width: 150, ...buttonStyle }} >Update</Button>
+      </Box>
+    </Box>
   )
 }
 
 export default BoardingManagement
+
+const buttonStyle = {
+  bgcolor: "background.mainbg",
+  color: "white",
+  "&:hover": {
+    bgcolor: "primary.main",
+  }
+
+}

@@ -41,9 +41,9 @@ function Views() {
         <Route index element={< AdminDashbaord />} />
         <Route path="Boardings">
           <Route index element={< AdminBoardings />} />
-          <Route path="Management" element={< AdminBoardingManagement />} />
-          <Route path="Management/Rooms" element={< AdminRooms />} />
-          <Route path="Management/Rooms/Management" element={< AdminRoomManagement />} />
+          <Route path=":boardingID" element={< AdminBoardingManagement />} />
+          <Route path=":boardingID/Rooms" element={< AdminRooms />} />
+          <Route path=":boardingID/Rooms/:roomID" element={< AdminRoomManagement />} />
         </Route>
         <Route path="Persons" element={< AdminPersons />} />
         <Route path="Notification" element={< AdminNotifications />} />

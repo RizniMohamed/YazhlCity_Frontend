@@ -1,9 +1,9 @@
 import React from 'react'
 import { DataGrid } from '@mui/x-data-grid';
-import { Avatar, Box, Button } from '@mui/material';
+import { Avatar, Box, Button, Fab } from '@mui/material';
 import { dialogActions } from '../../Store/dialogSlice';
 import { useDispatch } from 'react-redux';
-import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import AddIcon from '@mui/icons-material/Add';
 
 const rows = [
   { id: 1, avatar: 'https://files.oyebesmartest.com/uploads/preview/-501567668725ri0kwvwyuz.jpg', name: 'World', messageTitle: "2", createdDate: 12, delete: 12 },
@@ -69,6 +69,9 @@ const Notification = () => {
           }}
         />
       </Box>
+      <Fab size="small" color="secondary" sx={{ position:"fixed", bottom:20, right:16}}>
+        <AddIcon />
+      </Fab>
     </>
   )
 }
