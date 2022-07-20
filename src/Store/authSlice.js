@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    status : true,
-    role : "admin",
+    status : false,
+    role : "guest",
     userID : -1,
+    token : ""
 }
 
 const authSlice = createSlice({
@@ -13,6 +14,14 @@ const authSlice = createSlice({
         set : (state, payload) => {
             state.status = payload.payload?.status
             state.role = payload.payload?.role
+            state.userID = payload.payload?.userID
+            state.token = payload.payload?.token
+        },
+        reset: (state, payload) => {
+            state.status = false
+            state.role = "guest"
+            state.userID = -1
+            state.token = ""
         }
     }
 })

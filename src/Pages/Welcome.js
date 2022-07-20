@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { Box, Button, ImageList, ImageListItem, Typography } from '@mui/material'
+import React from 'react'
+import { Box, Button, Typography } from '@mui/material'
 import Footer from '../Components/Footer'
 import BannerBG from '../LocalData/WelcomePage/BannerBG.png'
 import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
@@ -7,13 +7,8 @@ import { Link } from 'react-router-dom';
 import mobileimage from '../LocalData/WelcomePage/room01.png'
 import roomimage from '../LocalData/WelcomePage/room02.png'
 import visionimage from '../LocalData/WelcomePage/Group 96.png'
-import { useDispatch } from 'react-redux'
-import { messageActions } from '../Store/messageSlice';
 
 const Welcome = () => {
-  const dispatch = useDispatch()
-
-  dispatch(messageActions.show(["Welcome"]))
 
   return (
     <>

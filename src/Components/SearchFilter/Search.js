@@ -1,13 +1,60 @@
 import React from 'react'
 import { Autocomplete, Paper, TextField } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
+import { getBoardings } from "../../services/Boardings"
 
+const Search = ({ list, setData, variant }) => {
 
-const Search = ({ list, setData }) => {
+    const filtered_boarding = async (query) => {
+        const { boardings } = await getBoardings(query)
+        const temp_boardings = boardings.map(({ id, Location, name, Boarding_images, address, verified, rating }) => {
+            return {
+                id: id,
+                image: "http://localhost:5000/" + Boarding_images[0].image,
+                name: name,
+                rating: rating,
+                verified: verified,
+                location: Location.name,
+                address: address
+            }
+        })
+        return temp_boardings
+    }
+    const filtered_room = async (query) => {
+        const { boardings } = await getBoardings(query)
+        const temp_boardings = boardings.map(({ id, Location, name, Boarding_images, address, verified, rating }) => {
+            return {
+                id: id,
+                image: "http://localhost:5000/" + Boarding_images[0].image,
+                name: name,
+                rating: rating,
+                verified: verified,
+                location: Location.name,
+                address: address
+            }
+        })
+        return temp_boardings
+    }
 
-    const handleOnInputChange = ({ target }) => {
-        let searchKey = target.innerText ? target.innerText : target.value;
-        searchKey ? setData(list.filter(i => i.title === searchKey)) : setData(list)
+    const handleOnInputChange = async (event, value) => {
+        if (variant === "boarding") {
+            if (value) {
+                const filteredData = await filtered_boarding(`where=name-${value}`)
+                setData(filteredData)
+            } else {
+                const allData = await filtered_boarding()
+                setData(allData)
+            }
+        }
+        if (variant === "room") {
+            if (value) {
+                const filteredData = await filtered_room(`where=name-${value}`)
+                setData(filteredData)
+            } else {
+                const allData = await filtered_room()
+                setData(allData)
+            }
+        }
     }
 
     return (
@@ -16,7 +63,7 @@ const Search = ({ list, setData }) => {
             size='small'
             options={list}
             onInputChange={handleOnInputChange}
-            getOptionLabel={option => option.title}
+            getOptionLabel={option => option.name}
             PaperComponent={params =>
                 <Paper
                     {...params}

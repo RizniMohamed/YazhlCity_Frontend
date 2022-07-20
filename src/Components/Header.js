@@ -75,7 +75,7 @@ const Header = () => {
             {
               auth.status ?
                 <Link to="/profile"><AccountCircleIcon sx={{ ...styleMenuRight, color: current === "profile" ? "primary.main" : "white" }} /></Link> :
-                <AccountCircleIcon onClick={() => dispatch(dialogActions.show(["login", onLoginClick]))} sx={{ ...styleMenuRight, color: current === "profile" ? "primary.main" : "white" }} />
+                <AccountCircleIcon  onClick={() => dispatch(dialogActions.show(["login", onLoginClick]))} sx={{ ...styleMenuRight, color: current === "profile" ? "primary.main" : "white" }} />
             }
           </Box>
 

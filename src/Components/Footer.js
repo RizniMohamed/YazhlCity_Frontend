@@ -30,6 +30,9 @@ const data = [
 ]
 
 const Footer = () => {
+
+  const linkOnClick = () => {}
+
   return (
     <Paper elevation={3} sx={{ bgcolor: "background.mainbg", borderRadius: 0, color: "white" }}>
       <Box pt={4} px={6} display="flex" justifyContent="space-between" width={"55vw"}>
@@ -39,7 +42,7 @@ const Footer = () => {
             {data.map((item, index) =>
               <Typography
                 key={index}
-                onClick={() => alert("View data in popup")}
+                onClick={() => linkOnClick}
                 sx={{ cursor: "pointer", ":hover": { color: "primary.main" } }}
                 fontSize={16}
                 color="white">

@@ -41,25 +41,15 @@ const boardingData = {
   images: [
     {
       name: "Random Name #1",
-      path: "https://cdn.pixabayasd.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+      path: "https://cf.bstatic.com/xdata/images/xphoto/max1440/48357345.jpg?k=36bcfd854a61f3bd11d386589d38149d36fa23f643227b2fdeb0305ccd57a0b2&o="
     },
-    {
-      name: "Random Name #1",
-      path: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png"
-    },
-    {
-      name: "Random Name #1",
-      path: "https://static.remove.bg/remove-bg-web/6ad52d54336ad62d58e7bd1317d40fb98e377ad5/assets/start-1abfb4fe2980eabfbbaaa4365a0692539f7cd2725f324f904565a9a744f8e214.jpg"
-    },
-    {
-      name: "Random Name #1",
-      path: "https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg"
-    },
+  
   ]
 }
 
 const BoardingManagement = () => {
   const dispatch = useDispatch()
+
 
   const onDelete = () => {
     dispatch(dialogActions.hide('delete'))

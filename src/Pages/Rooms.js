@@ -3,19 +3,39 @@ import { useState } from "react"
 import BreadCrumbs from "../Components/BreadCrumbs"
 import RoomCard from "../Components/RoomCard"
 import SearchFilter from "../Components/SearchFilter/SearchFilter"
+import { messageActions } from '../Store/messageSlice';
+import {useDispatch} from "react-redux"
 
-const roomCard = {
+const roomCard1 = {
   id: 123,
-  image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTu0VIKsqE9tOuNIcZ5WhKczC24bPbs2vx4g&usqp=CAU",
-  roomNo: 486,
+  image: "https://www.japan-guide.com/g21/2030_01.jpg",
+  roomNo: 123,
+  availablity: "Available",
+  price: 3500,
+  type: "Share",
+  persons: 3
+}
+const roomCard2 = {
+  id: 456,
+  image: "https://gds-storage-prd.s3.amazonaws.com/a360-rendering/160628/8597/c4dfe2c1/thumbnails/raasrendering-e13c9919-f597-4c76-a131-536b74947ebe-3500-3500.jpg",
+  roomNo: 456,
   availablity: "Unvailable",
-  price: 4500,
+  price: 4000,
   type: "Share",
   persons: 2
 }
+const roomCard3 = {
+  id: 789,
+  image: "https://5.imimg.com/data5/IB/UP/GLADMIN-9778489/hostel-facilities-500x500.jpg",
+  roomNo: 789,
+  availablity: "Available",
+  price: 6000,
+  type: "Single",
+  persons: 1
+}
 
 const rooms = [
-  roomCard, roomCard, roomCard, roomCard, roomCard, roomCard, roomCard, roomCard
+  roomCard1, roomCard2, roomCard3
 ]
 const opts = [
   {
@@ -70,6 +90,9 @@ const roomList = [
 const Rooms = () => {
 
   const [dataFilter, setDataFilter] = useState(roomList)
+
+  const dispatch = useDispatch()
+ 
 
   return (
     <Box my={5} ml={8} display="flex" flexDirection="column">

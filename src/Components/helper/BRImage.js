@@ -4,7 +4,6 @@ import Carousel from 'react-material-ui-carousel'
 import default_image from '../../LocalData/default_image.jpg'
 
 const BRImage = ({ images }) => {
-
     return (
         <Carousel
             sx={{
@@ -18,15 +17,15 @@ const BRImage = ({ images }) => {
             }}
         >
             {
-                images.map(({ name, path }, i) =>
+                images.map(({ image }, i) =>
                     <CardMedia
                         key={i}
                         component="img"
                         width={400}
                         height={300}
-                        image={path}
-                        alt={name}
-                        onError={({ currentTarget }) => {currentTarget.src = default_image}}
+                        image={image}
+                        alt={"Image"}
+                        onError={({ currentTarget }) => { currentTarget.src = default_image }}
                     />
                 )
             }

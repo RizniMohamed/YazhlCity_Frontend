@@ -9,11 +9,11 @@ import Search from './Search';
  * @param setData useState function
  * @returns 
  */
-const SearchFilter = ({ options, list, setData }) => {
+const SearchFilter = ({ options, list, setData, variant }) => {
   return (
     <Box display="flex" alignItems="center">
-      <Search list={list} setData={setData}/>
-      <Filter list={list} setData={setData} options={options} />
+      <Search list={list} setData={setData} variant={variant} />
+      <Filter list={list} setData={setData} options={options} variant={variant} />
     </Box>
   );
 }

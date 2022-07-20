@@ -34,20 +34,9 @@ const roomData = {
   images: [
     {
       name: "Random Name #1",
-      path: "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+      path: "https://www.japan-guide.com/g21/2030_01.jpg"
     },
-    {
-      name: "Random Name #1",
-      path: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png"
-    },
-    {
-      name: "Random Name #1",
-      path: "https://static.remove.bg/remove-bg-web/6ad52d54336ad62d58e7bd1317d40fb98e377ad5/assets/start-1abfb4fe2980eabfbbaaa4365a0692539f7cd2725f324f904565a9a744f8e214.jpg"
-    },
-    {
-      name: "Random Name #1",
-      path: "https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg"
-    },
+   
   ]
 }
 

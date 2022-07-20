@@ -11,11 +11,10 @@ const Message = () => {
     return (
 
         <Snackbar
-            key={msg}
             TransitionComponent={props => <Slide  {...props} direction="up" />}
             open={status}
             sx={{ minWidth: 300 }}
-            autoHideDuration={1500}
+            autoHideDuration={2500}
             ClickAwayListenerProps={
                 {
                     mouseEvent: false,

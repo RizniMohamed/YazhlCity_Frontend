@@ -3,15 +3,17 @@ import { DataGrid } from '@mui/x-data-grid';
 import { Avatar, Box, Button } from '@mui/material';
 import { dialogActions } from '../../Store/dialogSlice';
 import { useDispatch } from 'react-redux';
+import { messageActions } from '../../Store/messageSlice';
 
 const rows = [
-  { id: 1, avatar: 'https://files.oyebesmartest.com/uploads/preview/-501567668725ri0kwvwyuz.jpg', name: 'World', month: "Januvary", paymentStatus: false, boardingName: "RC", roomNumber: 12, receipt: 2 },
-  { id: 2, avatar: 'https://files.oyebesmartest.com/uploads/preview/-501567668725ri0kwvwyuz.jpg', name: 'World', month: "Januvary", paymentStatus: false, boardingName: "RC", roomNumber: 12, receipt: 2 },
-  { id: 3, avatar: 'https://files.oyebesmartest.com/uploads/preview/-501567668725ri0kwvwyuz.jpg', name: 'World', month: "Januvary", paymentStatus: false, boardingName: "RC", roomNumber: 12, receipt: 2 },
+  { id: 3, avatar: 'https://files.oyebesmartest.com/uploads/preview/-501567668725ri0kwvwyuz.jpg', name: 'Amal', month: "March", paymentStatus: false, boardingName: "RC", roomNumber: 12, receipt: 2 },
+  { id: 2, avatar: 'https://files.oyebesmartest.com/uploads/preview/-501567668725ri0kwvwyuz.jpg', name: 'Amal', month: "Februavary", paymentStatus: true, boardingName: "RC", roomNumber: 12, receipt: 2 },
+  { id: 1, avatar: 'https://files.oyebesmartest.com/uploads/preview/-501567668725ri0kwvwyuz.jpg', name: 'Amal', month: "Januvary", paymentStatus: true, boardingName: "RC", roomNumber: 12, receipt: 2 },
 ];
 
 const MyPayment = () => {
   const dispatch = useDispatch()
+
 
   const showRecipt = (e, { row }) => {
     dispatch(dialogActions.show(['paymentDetails', , receipt]))
@@ -49,10 +51,10 @@ const MyPayment = () => {
     {
       field: "pay",
       headerName: 'Pay',
-      renderCell: (cellValues) => {
+      renderCell: ({row}) => {
         return (
           <Button
-            disabled={receipt.status? false : true}
+            disabled={row.paymentStatus? true : false}
             variant="contained"
             color="secondary"
             size='small'
@@ -66,15 +68,15 @@ const MyPayment = () => {
     {
       field: "receipt",
       headerName: 'Receipt',
-      renderCell: (cellValues) => {
+      renderCell: ({row}) => {
         return (
           <Button
             variant="contained"
             color="secondary"
-            disabled={receipt.status? true : false}
+            disabled={row.paymentStatus ? false : true}
             size='small'
             sx={{ "&:hover": { bgcolor: "secondary.light" } }}
-            onClick={(event) => showRecipt(event, cellValues)}>
+            onClick={(event) => showRecipt(event, row)}>
             Recepit
           </Button>
         );

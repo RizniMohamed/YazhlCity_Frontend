@@ -2,8 +2,13 @@ import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import { Button, Divider, Menu, MenuItem, Select, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useEffect, useState } from 'react';
+import { getBoardings } from '../../services/Boardings';
+import { messageActions } from '../../Store/messageSlice';
+import {useDispatch} from 'react-redux';
 
-const Filter = ({ list, setData, options }) => {
+const Filter = ({ list, setData, options, variant }) => {
+
+    const dispatch = useDispatch()
 
     //Filter
     const [anchorEl, setAnchorEl] = useState(null);
@@ -11,16 +16,66 @@ const Filter = ({ list, setData, options }) => {
     const open = Boolean(anchorEl);
 
     const handleClose = () => setAnchorEl(null)
-    const filter = newKeys => {
-        if (newKeys !== "none") {
-            const filterConstraints = Object.fromEntries(Object.entries(newKeys).filter(([_, v]) => v !== ""))
-            let filteredData = list
-            Object.keys(filterConstraints).forEach(e =>
-                filteredData = filteredData.filter(i => String(i[e.toLowerCase()]) === String(filterConstraints[e]).toLowerCase())
-            )
-            setData(filteredData)
-        } else
-            setData(list)
+
+    const filtered_boarding = async (query) => {
+        const { boardings } = await getBoardings(query)
+        const temp_boardings = boardings.map(({ id, Location, name, Boarding_images, address, verified, rating }) => {
+            return {
+                id: id,
+                image: "http://localhost:5000/" + Boarding_images[0].image,
+                name: name,
+                rating: rating,
+                verified: verified,
+                location: Location.name,
+                address: address
+            }
+        })
+        return temp_boardings
+    }
+
+    const filter = async newKeys => {
+        if (newKeys === "none" || (newKeys.Verified === "" && newKeys.Location === "")) {
+            const allData = await filtered_boarding()
+            setData(allData)
+            setFilterKeys()
+            return
+        }
+        if (newKeys.Verified !== "" && newKeys.Location !== "") {
+            const query = `where=verified-${newKeys.Verified},locationID-${newKeys.Location}`
+            filtered_boarding(query)
+                .then(res => setData(res))
+                .catch(async e => {
+                    dispatch(messageActions.show(["No boardings found on provided criteria", 'info']))
+                    const allData = await filtered_boarding()
+                    setData(allData)
+                    setFilterKeys()
+                })
+            return
+        }
+        if (newKeys.Verified !== "") {
+            const query = `where=verified-${newKeys.Verified}`
+            filtered_boarding(query)
+                .then(res => setData(res))
+                .catch(async e => {
+                    dispatch(messageActions.show(["No boardings found on provided criteria", 'info']))
+                    const allData = await filtered_boarding()
+                    setData(allData)
+                    setFilterKeys()
+                })
+            return
+        }
+        if (newKeys.Location !== "") {
+            const query = `where=locationID-${newKeys.Location}`
+            filtered_boarding(query)
+                .then(res => setData(res))
+                .catch(async e => {
+                    dispatch(messageActions.show(["No boardings found on provided criteria", 'info']))
+                    const allData = await filtered_boarding()
+                    setData(allData)
+                    setFilterKeys()
+                })
+            return
+        }
     }
 
     const handleSelect = ({ target }) => {
@@ -29,11 +84,14 @@ const Filter = ({ list, setData, options }) => {
         filter(newKeys)
     }
 
-    useEffect(() => {
+    const setFilterKeys = () => {
         let keys = {}
         options.forEach(e => keys[e.name] = "")
         setFilterKey(keys)
-    }, [])
+    }
+
+    // eslint-disable-next-line
+    useEffect(() => setFilterKeys(), [])
 
     return (
         <Box ml={2}>
@@ -65,9 +123,7 @@ const Filter = ({ list, setData, options }) => {
                                         onChange={handleSelect}
                                         sx={selectStyle}
                                         MenuProps={selectPropsStyle}
-                                        inputProps={{
-                                            sx: { color: "white", }
-                                        }}>
+                                        inputProps={{ sx: { color: "white", } }}>
                                         {op.values.map((val, index) => <MenuItem key={index} value={val.value}>{val.name}</MenuItem>)}
                                     </Select>
                                 </>

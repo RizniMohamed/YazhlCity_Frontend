@@ -7,21 +7,22 @@ import { useDispatch } from 'react-redux';
 import { dialogActions } from '../../Store/dialogSlice';
 import BrandingWatermarkIcon from '@mui/icons-material/BrandingWatermark';
 import WcIcon from '@mui/icons-material/Wc';
-
+import { messageActions } from '../../Store/messageSlice';
 
 const user = {
   avatar: "https://files.oyebesmartest.com/uploads/preview/-501567668725ri0kwvwyuz.jpg",
-  name: "Rizni",
-  address: "Rizni",
-  mobile: "Rizni",
-  email: "Rizni",
-  gender: "Rizni",
-  nic:"Rizni"
-
+  name: "Jerin",
+  address: "No 14, kandy road, Jaffna",
+  mobile: "756293807",
+  email: "jerin@gmail.com",
+  gender: "Female",
+  nic:"982530806V"
 }
+
 
 const MyProfile = () => {
   const dispatch = useDispatch()
+
 
   const onDelete = () => {
     alert("IM DELETED")

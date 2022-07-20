@@ -1,14 +1,16 @@
+import React from 'react';
 import { Rating } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/system';
-import React from 'react';
 import { Link } from 'react-router-dom';
+import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 
 
-const BoardingCard = ({ id, image, name, availablity, rating, location, address }) => {
+const 
+BoardingCard = ({ id, image, name, rating, location, address, verified }) => {
   return (
 
     <Card raised sx={{ width: 210, height: 270, mt: 2, mr: 3 }}>
@@ -19,17 +21,11 @@ const BoardingCard = ({ id, image, name, availablity, rating, location, address 
           height="140"
           image={image}
         />
-
-        <Box className="availability" bgcolor={availablity === "Available" ? "green" : "Red"}>
-          <Typography variant='p' >
-            {availablity}
-          </Typography>
-        </Box>
-
         <CardContent sx={{ pt: 1 }}>
           <Box mb={1} >
-            <Typography sx={{ fontSize: 17, fontWeight: 700 }}>
+            <Typography sx={{ fontSize: 17, fontWeight: 700 , display:"flex", alignItems:"center"}}>
               {name}
+              {verified && <VerifiedUserIcon fontSize="small" sx={{ color: "#699BF7", ml: 0.5}} />}
             </Typography>
             <Rating
               name="simple-controlled"

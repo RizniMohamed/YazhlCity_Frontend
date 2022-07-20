@@ -3,11 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     status: false,
     msg: "",
-    variant: ""
-
+    variant: "success"
 }
+
 const MessageSlice = createSlice({
-    name: "Dialog Slice",
+    name: "Message Slice",
     initialState,
     reducers: {
         show: (state, payload) => {
@@ -20,7 +20,7 @@ const MessageSlice = createSlice({
         hide: (state, payload) => {
             state.status = false
             state.msg = ""
-            state.variant = ""
+            state.variant = "success"
         },
     }
 })
