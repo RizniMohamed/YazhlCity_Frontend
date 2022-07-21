@@ -1,33 +1,53 @@
-import GoogleIcon from '@mui/icons-material/Google';
-import { Button, Checkbox, Dialog, DialogContent, DialogTitle, Divider, TextField, Typography } from '@mui/material';
+import { Button, Checkbox, Dialog, DialogContent, DialogTitle, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { dialogActions } from '../Store/dialogSlice';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
-
-const initVals = {
-  email: "",
-  password: "",
-  rememberMe: false,
-}
+import { loginUser } from '../services/user';
+import { messageActions } from '../Store/messageSlice';
+import { authActions } from '../Store/authSlice';
 
 const Schema = yup.object().shape({
   email: yup.string().required("Required*").email("Email must be in valid format"),
-  password: yup.string().required("Required*").matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[.#?!@$%^&*-]).{8,}$/,
-    "Minimum 8 characters, at least one uppercase letter, one lowercase letter, one number and one special character:"),
+  password: yup.string().required("Required*"),
 })
 
+let initVals = { email: "", password: "", rememberMe: false }
 
 const Login = () => {
-  const { status, onSubmit } = useSelector(state => state.dialog.login)
+  const { status } = useSelector(state => state.dialog.login)
   const dispatch = useDispatch()
+
+  const onLoginClick = async ({ email, password, rememberMe }) => {
+    if (rememberMe) {
+      const loginData = { email, password }
+      localStorage.setItem("remeberMe", JSON.stringify(loginData))
+    }
+
+    const login = await loginUser({ email, password })
+
+    console.log(login.data);
+    if (login.status !== 200) {
+      dispatch(messageActions.show([login.data, "error"]))
+      return
+    }
+    dispatch(authActions.set(login.data))
+    dispatch(dialogActions.hide("login"))
+  }
+
+  const loginData = localStorage.getItem("remeberMe")
+  if (loginData) {
+    const { email, password } = JSON.parse(loginData)
+    initVals = { email, password, rememberMe: true }
+  }
+
 
 
   const formik = useFormik({
     initialValues: initVals,
-    onSubmit: onSubmit,
+    onSubmit: onLoginClick,
     validationSchema: Schema,
   })
 
@@ -40,7 +60,7 @@ const Login = () => {
         <DialogTitle fontWeight={700} fontSize={34} textAlign="center">Login</DialogTitle>
 
         <DialogContent sx={{ display: "flex", flexDirection: "column", alignSelf: "center", pt: 1, mx: 10, width: 300 }}>
-          <Button
+          {/* <Button
             variant='outlined'
             size='small'
             color='secondary'
@@ -61,7 +81,7 @@ const Login = () => {
               color: "text.secondary"
             }} >
             or Sign in with Email
-          </Divider>
+          </Divider> */}
 
           <Box mb={1} width={"100%"} >
             <Typography fontWeight={700} fontSize={14} sx={{ mb: 0.3, ml: 1.5 }} >Email</Typography>
@@ -102,6 +122,8 @@ const Login = () => {
               size='small'
               name="rememberMe"
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              checked={formik.values.rememberMe}
             />
           </Box>
 

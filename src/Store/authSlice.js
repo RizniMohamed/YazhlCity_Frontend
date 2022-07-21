@@ -4,7 +4,8 @@ const initialState = {
     status : false,
     role : "guest",
     userID : -1,
-    token : ""
+    token : "",
+    email : ""
 }
 
 const authSlice = createSlice({
@@ -12,16 +13,18 @@ const authSlice = createSlice({
     initialState,
     reducers : {
         set : (state, payload) => {
-            state.status = payload.payload?.status
+            state.status = true
             state.role = payload.payload?.role
             state.userID = payload.payload?.userID
             state.token = payload.payload?.token
+            state.email = payload.payload?.email
         },
         reset: (state, payload) => {
             state.status = false
             state.role = "guest"
             state.userID = -1
             state.token = ""
+            state.email = ""
         }
     }
 })

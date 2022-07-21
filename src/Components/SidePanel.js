@@ -1,35 +1,20 @@
 import {
-  Box, List,
+  List,
   ListItem,
   ListItemButton, ListItemIcon, ListItemText, Toolbar
 } from '@mui/material';
 import MuiDrawer from '@mui/material/Drawer';
 import { styled } from '@mui/material/styles';
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import AdminData from "../LocalData/Drawer/AdminDrawerData";
 import ManagerData from "../LocalData/Drawer/ManagerDrawerData";
 import ProfileData from "../LocalData/Drawer/ProfileDrawerData";
-
-// custom drawer to animate open and close
-const drawerWidth = 180;
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    width: drawerWidth,
-    ...(open && {
-      ...theme.mixins.openedMixin(theme, drawerWidth),
-      '& .MuiDrawer-paper': theme.mixins.openedMixin(theme, drawerWidth),
-    }),
-    ...(!open && {
-      ...theme.mixins.closedMixin(theme),
-      '& .MuiDrawer-paper': theme.mixins.closedMixin(theme),
-    }),
-  }),
-);
+import { authActions } from '../Store/authSlice';
 
 const SidePanel = () => {
-
+  const dispatch = useDispatch()
   const [data, setData] = useState([]);
   const [current, setCurrent] = useState("");
   const location = useLocation()
@@ -62,8 +47,11 @@ const SidePanel = () => {
       default: break;
     }
 
-
   }, [location])
+
+  const buttonOnClick = (name) => {
+    if(name === "Logout") dispatch(authActions.reset())
+  }
 
 
   const hoverStyle = () => {
@@ -88,27 +76,9 @@ const SidePanel = () => {
     if (name === "my boarding") name = "boarding"
     if (current === name) {
       if (drawerState)
-        return {
-          '& .MuiListItemButton-root': {
-            borderRadius: 0.2,
-            backgroundColor: "primary.main",
-            px: 1,
-            color: "white"
-          },
-          '& .MuiSvgIcon-root': {
-            backgroundColor: "primary.main",
-            px: 1,
-            color: "white"
-          },
-        }
+        return style_selected_open
       else
-        return {
-          '& .MuiSvgIcon-root': {
-            backgroundColor: "primary.main",
-            px: 1,
-            color: "white"
-          },
-        }
+        return style_selected_close
     }
   }
 
@@ -123,6 +93,7 @@ const SidePanel = () => {
           <ListItem key={index} disablePadding sx={{ display: 'block', ...selectedStyle(name.toLowerCase()) }}>
             <Link to={path}>
               <ListItemButton
+                onClick={() => buttonOnClick(name)}
                 sx={{
                   minHeight: 48,
                   justifyContent: drawerState ? 'initial' : 'center',
@@ -148,3 +119,40 @@ const SidePanel = () => {
 }
 
 export default SidePanel
+
+// custom drawer to animate open and close
+const drawerWidth = 180;
+const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
+  ({ theme, open }) => ({
+    width: drawerWidth,
+    ...(open && {
+      ...theme.mixins.openedMixin(theme, drawerWidth),
+      '& .MuiDrawer-paper': theme.mixins.openedMixin(theme, drawerWidth),
+    }),
+    ...(!open && {
+      ...theme.mixins.closedMixin(theme),
+      '& .MuiDrawer-paper': theme.mixins.closedMixin(theme),
+    }),
+  }),
+);
+
+const style_selected_open = {
+  '& .MuiListItemButton-root': {
+    borderRadius: 0.2,
+    backgroundColor: "primary.main",
+    px: 1,
+    color: "white"
+  },
+  '& .MuiSvgIcon-root': {
+    backgroundColor: "primary.main",
+    px: 1,
+    color: "white"
+  },
+}
+const style_selected_close = {
+  '& .MuiSvgIcon-root': {
+    backgroundColor: "primary.main",
+      px: 1,
+        color: "white"
+  },
+}

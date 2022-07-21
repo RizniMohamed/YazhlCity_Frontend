@@ -8,8 +8,7 @@ import { useDispatch } from 'react-redux';
 import { dialogActions } from '../Store/dialogSlice';
 import { getBoardings } from '../services/Boardings';
 import { getRooms } from '../services/Room';
-
-
+import { messageActions } from '../Store/messageSlice';
 
 const BoardingDetails = () => {
   const dispatch = useDispatch()
@@ -17,17 +16,21 @@ const BoardingDetails = () => {
   const [boarding, SetBoarding] = useState(undefined)
   useEffect(() => {
     (async () => {
-      const { boardings } = await getBoardings(`where=id-${boardingID}`)
+      const boardings = await getBoardings(`where=id-${boardingID}`)
+      if (boardings.status !== 200) {
+        dispatch(messageActions.show([boardings.data, "error"]))
+        return
+      }
       let roomCount = 0;
       await getRooms(`where=boardingID-${boardingID}`)
-        .then(res => { roomCount = res.count })
+        .then(res => { roomCount = res.data.count })
         .catch(e => console.log(e))
-
-      const boarding = boardings[0]
+      const boarding = boardings.data.boardings[0]
       const details = {
         name: boarding.name,
         rating: boarding.rating,
         verified: boarding.verified,
+        mobile: boarding.mobile,
         rows: [
           {
             name: 'Ownername',
@@ -58,17 +61,11 @@ const BoardingDetails = () => {
             details: boarding.description
           },
         ],
-        images: boarding.Boarding_images
+        images: [...boarding.Boarding_images, { image: boarding.Bathroom.image }, { image: boarding.Washroom.image }]
       }
       SetBoarding(details)
     })()
-  }, [boardingID])
-
-  const handleContactClick = () => {
-    // eslint-disable-next-line 
-    dispatch(dialogActions.show(['contactView', , `Contact number : 0775824807`]))
-  }
-
+  }, [boardingID, dispatch])
   return (
     <Box display="flex" flexDirection="column" m="auto" p={2}>
       <Box ml={18} my={2}>
@@ -79,7 +76,10 @@ const BoardingDetails = () => {
         <Button
           variant='contained'
           size="small"
-          onClick={e => handleContactClick}
+          onClick={() => {
+            // eslint-disable-next-line 
+            dispatch(dialogActions.show(['contactView', , `Contact number : ${boarding.mobile}`]))
+          }}
           sx={{ width: 150, ...buttonStyle, mr: 2 }} >
           Contact <CallIcon fontSize='small' sx={{ ml: 1 }} />
         </Button>

@@ -1,59 +1,70 @@
 import { Box, Button } from '@mui/material'
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import BreadCrumbs from '../Components/BreadCrumbs'
 import RoomDetailsComp from '../Components/RoomDetails'
 import { useDispatch } from 'react-redux'
-import {dialogActions} from '../Store/dialogSlice'
+import { dialogActions } from '../Store/dialogSlice'
+import { getRooms } from '../services/Room'
+import { messageActions } from '../Store/messageSlice'
 
 const paymentOnclick = () => {
   alert("IM CLICKED")
 }
 
-const roomData = {
-  roomNo: 10,
-  availability: "Unavailable",
-  rows: [
-    {
-      name: 'Room type',
-      details: 'Single/Share'
-    },
-    {
-      name: 'Max Persons',
-      details: '2'
-    },
-    {
-      name: 'Available Persons',
-      details: '3'
-    },
-    {
-      name: 'Description',
-      details: 'A great rental listing includes an informative title and stellar description that properly describes your rental property. While it’s easy to assume that tenants care more about the rental price, the photos, and location of an apartment, they also pay attention to the description. The rental listing description should complement the photos and other features of your listing while demonstrating you’re a sophisticated landlord.'
-    },
-  ],
-  images: [
-    {
-      name: "Random Name #1",
-      path: "https://www.japan-guide.com/g21/2030_01.jpg"
-    },
-   
-  ]
-}
-
-
 const RoomDetails = () => {
   const dispatch = useDispatch()
+  const { roomID } = useParams()
+  const [roomData, SetRoom] = useState(undefined)
+  useEffect(() => {
+    (async () => {
+      const  rooms = await getRooms(`where=id-${roomID}`)
+      if (rooms.status !== 200) {
+        dispatch(messageActions.show([rooms.data, "error"]))
+        return
+      }
+      const room = rooms.data.rooms[0]
+      const details = {
+        roomNo: room.room_number,
+        availability: room.availability? "Available" : "Unavailable",
+        rows: [
+          {
+            name: 'Room type',
+            details: room.type
+          },
+          {
+            name: 'Max Persons',
+            details: room.person_count
+          },
+          {
+            name: 'Available Persons',
+            details: room.person_count - room.occupaidCounts
+          },
+          {
+            name: 'Price',
+            details: room.price + " LKR"
+          },
+          {
+            name: 'Description',
+            details: room.description
+          },
+        ],
+        images: [{image: room.image}]
+      }
+      SetRoom(details)
+    })()
+  }, [roomID, dispatch])
   return (
     <Box display="flex" flexDirection="column" m="auto" p={2}>
       <Box ml={18} my={2}>
         <BreadCrumbs />
       </Box>
-      <RoomDetailsComp data={roomData} />
+      {roomData && <RoomDetailsComp data={roomData} />}
       <Box display="flex" ml={100} my={5}>
         <Button
           variant='contained'
           size="small"
-          onClick={() => dispatch(dialogActions.show(['payment',paymentOnclick]))}
+          onClick={() => dispatch(dialogActions.show(['payment', paymentOnclick]))}
           sx={{ width: 150, ...buttonStyle, mr: 2 }}>
           Subscribe
         </Button>

@@ -2,15 +2,16 @@ import React from 'react'
 import { Autocomplete, Paper, TextField } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
 import { getBoardings } from "../../services/Boardings"
+import { getRooms } from '../../services/Room';
 
 const Search = ({ list, setData, variant }) => {
 
     const filtered_boarding = async (query) => {
-        const { boardings } = await getBoardings(query)
-        const temp_boardings = boardings.map(({ id, Location, name, Boarding_images, address, verified, rating }) => {
+        const boardings = await getBoardings(query)
+        const temp_boardings = boardings.data.boardings.map(({ id, Location, name, Boarding_images, address, verified, rating }) => {
             return {
                 id: id,
-                image: "http://localhost:5000/" + Boarding_images[0].image,
+                image: Boarding_images[0].image,
                 name: name,
                 rating: rating,
                 verified: verified,
@@ -21,19 +22,19 @@ const Search = ({ list, setData, variant }) => {
         return temp_boardings
     }
     const filtered_room = async (query) => {
-        const { boardings } = await getBoardings(query)
-        const temp_boardings = boardings.map(({ id, Location, name, Boarding_images, address, verified, rating }) => {
+        const  rooms  = await getRooms(query)
+        const temp_rooms = rooms.data.rooms.map(({ id, image, room_number, availability, price, type, person_count }) => {
             return {
                 id: id,
-                image: "http://localhost:5000/" + Boarding_images[0].image,
-                name: name,
-                rating: rating,
-                verified: verified,
-                location: Location.name,
-                address: address
+                image: image,
+                roomNo: room_number,
+                availablity: availability,
+                price: price,
+                type: type,
+                persons: person_count
             }
         })
-        return temp_boardings
+        return temp_rooms
     }
 
     const handleOnInputChange = async (event, value) => {
@@ -48,7 +49,7 @@ const Search = ({ list, setData, variant }) => {
         }
         if (variant === "room") {
             if (value) {
-                const filteredData = await filtered_room(`where=name-${value}`)
+                const filteredData = await filtered_room(`where=room_number-${value}`)
                 setData(filteredData)
             } else {
                 const allData = await filtered_room()
@@ -63,7 +64,7 @@ const Search = ({ list, setData, variant }) => {
             size='small'
             options={list}
             onInputChange={handleOnInputChange}
-            getOptionLabel={option => option.name}
+            getOptionLabel={option => variant === "room" ? String(option.roomNo) : option.name}
             PaperComponent={params =>
                 <Paper
                     {...params}

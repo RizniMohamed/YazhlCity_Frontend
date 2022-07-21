@@ -4,7 +4,8 @@ import { Box } from '@mui/system';
 import React, { useEffect, useState } from 'react';
 import { getBoardings } from '../../services/Boardings';
 import { messageActions } from '../../Store/messageSlice';
-import {useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { getRooms } from '../../services/Room';
 
 const Filter = ({ list, setData, options, variant }) => {
 
@@ -18,11 +19,11 @@ const Filter = ({ list, setData, options, variant }) => {
     const handleClose = () => setAnchorEl(null)
 
     const filtered_boarding = async (query) => {
-        const { boardings } = await getBoardings(query)
-        const temp_boardings = boardings.map(({ id, Location, name, Boarding_images, address, verified, rating }) => {
+        const boardings = await getBoardings(query)
+        const temp_boardings = boardings.data.boardings.map(({ id, Location, name, Boarding_images, address, verified, rating }) => {
             return {
                 id: id,
-                image: "http://localhost:5000/" + Boarding_images[0].image,
+                image: Boarding_images[0].image,
                 name: name,
                 rating: rating,
                 verified: verified,
@@ -33,7 +34,23 @@ const Filter = ({ list, setData, options, variant }) => {
         return temp_boardings
     }
 
-    const filter = async newKeys => {
+    const filtered_room = async (query) => {
+        const rooms = await getRooms(query)
+        const temp_rooms = rooms.data.rooms.map(({ id, image, room_number, availability, price, type, person_count }) => {
+            return {
+                id: id,
+                image: image,
+                roomNo: room_number,
+                availablity: availability,
+                price: price,
+                type: type,
+                persons: person_count
+            }
+        })
+        return temp_rooms
+    }
+
+    const boarding_Filter_controller = async (newKeys) => {
         if (newKeys === "none" || (newKeys.Verified === "" && newKeys.Location === "")) {
             const allData = await filtered_boarding()
             setData(allData)
@@ -75,6 +92,54 @@ const Filter = ({ list, setData, options, variant }) => {
                     setFilterKeys()
                 })
             return
+        }
+    }
+
+    const room_Filter_controller = async (newKeys) => {
+        if (newKeys === "none" || (newKeys.Available === "" && newKeys.Type === "")) {
+            const allData = await filtered_room()
+            setData(allData)
+            setFilterKeys()
+            return
+        }
+        if (newKeys.Available !== "" && newKeys.Type !== "") {
+            const query = `where=verified-${newKeys.Verified},locationID-${newKeys.Location}`
+            filtered_room(query)
+                .then(res => setData(res))
+                .catch(async e => {
+                    dispatch(messageActions.show(["No boardings found on provided criteria", 'info']))
+                    const allData = await filtered_room()
+                    setData(allData)
+                    setFilterKeys()
+                })
+            return
+        }
+        if (newKeys.Available !== "") {
+            const allData = await filtered_room()
+            const filtered = allData.filter(data => data.availablity === true)
+            setData(filtered)
+            return
+        }
+        if (newKeys.Type !== "") {
+            const query = `where=type-${newKeys.Type}`
+            filtered_room(query)
+                .then(res => setData(res))
+                .catch(async e => {
+                    dispatch(messageActions.show(["No rooms found on provided criteria", 'info']))
+                    const allData = await filtered_room()
+                    setData(allData)
+                    setFilterKeys()
+                })
+            return
+        }
+    }
+
+    const filter = newKeys => {
+        if (variant === "room") {
+            room_Filter_controller(newKeys)
+        }
+        if (variant === "boarding") {
+            boarding_Filter_controller(newKeys)
         }
     }
 

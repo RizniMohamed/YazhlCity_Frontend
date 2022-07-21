@@ -28,11 +28,6 @@ const Header = () => {
 
   const handleDrawerState = () => drawerState ? dispatch(drawerActions.hide()) : dispatch(drawerActions.show())
 
-  const onLoginClick = () => {
-    alert("IM LOGIN")
-    dispatch(dialogActions.hide("login"))
-  }
-
   return (
     <>
       <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, bgcolor: "background.mainbg" }}>
@@ -75,7 +70,7 @@ const Header = () => {
             {
               auth.status ?
                 <Link to="/profile"><AccountCircleIcon sx={{ ...styleMenuRight, color: current === "profile" ? "primary.main" : "white" }} /></Link> :
-                <AccountCircleIcon  onClick={() => dispatch(dialogActions.show(["login", onLoginClick]))} sx={{ ...styleMenuRight, color: current === "profile" ? "primary.main" : "white" }} />
+                <AccountCircleIcon  onClick={() => dispatch(dialogActions.show(["login"]))} sx={{ ...styleMenuRight, color: current === "profile" ? "primary.main" : "white" }} />
             }
           </Box>
 
