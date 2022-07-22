@@ -51,6 +51,16 @@ const initialState = {
         data: "",
         onSubmit: undefined
     },
+    OTP: {
+        status: false,
+        data: "",
+        onSubmit: undefined
+    },
+    UpdatePassword: {
+        status: false,
+        data: "",
+        onSubmit: undefined
+    },
 }
 const DialogSlice = createSlice({
     name: "Dialog Slice",

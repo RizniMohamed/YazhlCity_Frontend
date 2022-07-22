@@ -1,11 +1,12 @@
-import GoogleIcon from '@mui/icons-material/Google';
-import { Button, Checkbox, Dialog, DialogContent, DialogTitle, Divider, TextField, Typography } from '@mui/material';
+import { Button, Dialog, DialogContent, DialogTitle, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { dialogActions } from '../Store/dialogSlice';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
+import { singupUser } from '../services/user';
+import { messageActions } from '../Store/messageSlice';
 
 const initVals = {
   fullName: "",
@@ -24,8 +25,20 @@ const Schema = yup.object().shape({
 })
 
 const Signup = () => {
-  const { status, onSubmit } = useSelector(state => state.dialog.signup)
+  const { status } = useSelector(state => state.dialog.signup)
   const dispatch = useDispatch()
+
+  const onSubmit = async (data) => {
+    const { fullName, email, password } = data
+    const register = await singupUser({ name: fullName, email, password })
+    if (register.status != 201)
+      dispatch(messageActions.show([register.data, "error"]))
+    else{
+      dispatch(dialogActions.hide('signup'))
+      dispatch(messageActions.show(["Registeration success", "success"]))
+      dispatch(dialogActions.hide(['login']))
+    }
+  }
 
   const formik = useFormik({
     initialValues: initVals,
@@ -40,13 +53,11 @@ const Signup = () => {
         <DialogTitle fontWeight={700} fontSize={34} textAlign="center">Creat New Account</DialogTitle>
 
         <DialogContent sx={{ display: "flex", flexDirection: "column", alignSelf: "center", pt: 1, mx: 10, width: 300 }}>
-          <Button
+          {/* <Button
             variant='outlined'
             size='small'
             color='secondary'
-            sx={{ bgcolor: "white" }}
-
-          >
+            sx={{ bgcolor: "white" }}>
             <GoogleIcon fontSize='medium' sx={{ pr: 1 }} />
             Sign in With Google
           </Button>
@@ -61,7 +72,7 @@ const Signup = () => {
               color: "text.secondary"
             }} >
             or Sign in with Email
-          </Divider>
+          </Divider> */}
 
           <Box mb={1.5} width={"100%"} >
             <Typography fontWeight={700} fontSize={14} sx={{ mb: 0.3, ml: 1.5 }} >Full Name</Typography>
@@ -130,8 +141,7 @@ const Signup = () => {
           <Button
             variant='contained'
             type="submit"
-            sx={{ width: 180, alignSelf: "center", color: "white", mt: 3,mb:1 }}
-          >
+            sx={{ width: 180, alignSelf: "center", color: "white", mt: 3, mb: 1 }}>
             Sign Up
           </Button>
 
@@ -141,8 +151,7 @@ const Signup = () => {
               variant='text'
               size="medium"
               onClick={() => { dispatch(dialogActions.hide("signup")); dispatch(dialogActions.show(["login"])) }}
-              sx={{ minWidth: "auto" }}
-            >
+              sx={{ minWidth: "auto" }}>
               Login
             </Button>
           </Box>

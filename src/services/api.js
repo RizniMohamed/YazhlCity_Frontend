@@ -2,12 +2,13 @@ import axios from "axios";
 import { authActions } from "../Store/authSlice";
 import { store } from "../Store/store"
 
-const auth = store.getState().auth.token
+const auth = store.getState().auth
 const API = axios.create();
+console.log(auth);
 API.interceptors.request.use(
   (config) => {
     config.baseURL = "http://localhost:5000/API/V1/";
-    config.headers.Authorization = `Bearer ${auth.token}`;
+    config.headers.authorization = `Bearer ${auth.token}`;
     return config;
   },
   (error) => { return Promise.reject(error) }
@@ -24,7 +25,7 @@ API.interceptors.response.use(
             "Bearer " + response.data.data.token;
           return axios(error.response.config);
         })
-          .catch((error) => store.dispatch(authActions.reset()));
+        .catch((error) => store.dispatch(authActions.reset()));
     }
     return Promise.reject(0);
   }

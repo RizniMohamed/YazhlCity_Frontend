@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import Logo from '../LocalData/Logo';
 import MenuIcon from '@mui/icons-material/Menu';
 import { AppBar, Divider, IconButton, Toolbar, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import Logo from '../LocalData/Logo';
 import { drawerActions } from '../Store/drawerSlice';
 import { dialogActions } from '../Store/dialogSlice';
 import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -37,14 +37,12 @@ const Header = () => {
             edge="start"
             sx={{
               color: "white",
-            }}
-          >
+            }}>
             <MenuIcon />
           </IconButton>}
 
           <Box mx={2} display="flex" alignItems="center" flexGrow={1}>
             <Logo />
-
             <Box display="flex" width={300} mt={1} sx={styleMenu}>
               <Box >
                 <Link to="/"><Typography>Home</Typography></Link>
@@ -54,12 +52,12 @@ const Header = () => {
                 <Link to="/boardings"><Typography>Boarding</Typography></Link>
                 <Divider sx={current === "boardings" ? { bgcolor: "primary.main" } : { opacity: 0 }} />
               </Box>
-              {auth.role !== "guest" && <Box >
-                <Link to={`/${auth.role}`}><Typography>Console</Typography></Link>
-                <Divider sx={current === "admin" || current === "manager" ? { bgcolor: "primary.main" } : { opacity: 0 }} />
-              </Box>}
+              { (auth.role === "manager" || auth.role === "admin") &&
+                <Box >
+                  <Link to={`/${auth.role}`}><Typography>Console</Typography></Link>
+                  <Divider sx={current === "admin" || current === "manager" ? { bgcolor: "primary.main" } : { opacity: 0 }} />
+                </Box>}
             </Box>
-
           </Box>
 
           <Box display="flex" alignItems="center" >
@@ -70,7 +68,7 @@ const Header = () => {
             {
               auth.status ?
                 <Link to="/profile"><AccountCircleIcon sx={{ ...styleMenuRight, color: current === "profile" ? "primary.main" : "white" }} /></Link> :
-                <AccountCircleIcon  onClick={() => dispatch(dialogActions.show(["login"]))} sx={{ ...styleMenuRight, color: current === "profile" ? "primary.main" : "white" }} />
+                <AccountCircleIcon onClick={() => dispatch(dialogActions.show(["login"]))} sx={{ ...styleMenuRight, color: current === "profile" ? "primary.main" : "white" }} />
             }
           </Box>
 

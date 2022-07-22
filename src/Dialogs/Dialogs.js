@@ -11,6 +11,8 @@ import ContactView from './ContactView'
 import ProfileDetails from './ProfileDetails'
 import NotificationCreate from './NotificationCreate'
 import Message from './Message'
+import OTP from './OTP'
+import UpdatePassword from './UpdatePassword'
 
 const Dialogs = () => {
   return (
@@ -27,6 +29,8 @@ const Dialogs = () => {
       <ProfileDetails/>
       <NotificationCreate/>
       <Message/>
+      <OTP/>
+      <UpdatePassword/>
     </>
   )
 }

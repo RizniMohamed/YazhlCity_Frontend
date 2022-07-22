@@ -21,7 +21,7 @@ const opts = [
   },
   {
     name: "Location",
-    values: []
+    values: [{ name: "None", value: "" }]
   },
 ]
 

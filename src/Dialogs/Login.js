@@ -25,10 +25,7 @@ const Login = () => {
       const loginData = { email, password }
       localStorage.setItem("remeberMe", JSON.stringify(loginData))
     }
-
     const login = await loginUser({ email, password })
-
-    console.log(login.data);
     if (login.status !== 200) {
       dispatch(messageActions.show([login.data, "error"]))
       return
@@ -42,8 +39,6 @@ const Login = () => {
     const { email, password } = JSON.parse(loginData)
     initVals = { email, password, rememberMe: true }
   }
-
-
 
   const formik = useFormik({
     initialValues: initVals,
@@ -142,8 +137,7 @@ const Login = () => {
           <Button
             variant='text'
             size="small"
-            onClick={() => { dispatch(dialogActions.hide("login")); dispatch(dialogActions.show(["signup"])) }}
-          >
+            onClick={() => { dispatch(dialogActions.hide("login")); dispatch(dialogActions.show(["signup"])) }}>
             Create an Account
           </Button>
 
@@ -155,8 +149,10 @@ const Login = () => {
             variant='text'
             size="small"
             sx={{ width: "max-content" }}
-            onClick={() => { }}
-          >
+            onClick={() => {
+              dispatch(dialogActions.hide("login"))
+              dispatch(dialogActions.show(['OTP']))
+            }}>
             Forget password ?
           </Button>
         </Box>

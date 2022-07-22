@@ -1,8 +1,8 @@
 import API from "./api";
 
-export const getRooms = async (query="") => {
+export const makePayment = async (data) => {
     try {
-        const response = await API.get(`room?${query}`);
+        const response = await API.post(`payment`,data);
         return response.data;
     } catch (e) {
         throw e;
