@@ -1,33 +1,39 @@
 import axios from "axios";
 import { authActions } from "../Store/authSlice";
+import { dialogActions } from "../Store/dialogSlice";
 import { store } from "../Store/store"
 
-const auth = store.getState().auth
-const API = axios.create();
-console.log(auth);
+const API = axios.create({ baseURL: 'http://localhost:5000/API/V1/', });
+
 API.interceptors.request.use(
   (config) => {
-    config.baseURL = "http://localhost:5000/API/V1/";
-    config.headers.authorization = `Bearer ${auth.token}`;
+    config.headers.authorization = `Bearer ${store.getState().auth.token}`;
     return config;
   },
-  (error) => { return Promise.reject(error) }
+  (error) => { console.log(error); }
 );
 
 API.interceptors.response.use(
-  (response) => { return response; },
-  (error) => {
-    if (error.response && error.response.status === 401) {
-      return API.get("user/token")
+  (response) => {
+    if (response && response.data.status === 401) {
+      return API.post("/user/token")
         .then((response) => {
-          store.dispatch(authActions.set({ ...auth, token: response.data.data.token }));
-          error.response.config.headers["Authorization"] =
+          if (response.data.status !== 200) return response
+          console.log(response.data);
+          console.log(store.getState().auth);
+          store.dispatch(authActions.set({ ...store.getState().auth, token: response.data.data.token }));
+          console.log(store.getState().auth);
+          response.config.headers["authorization"] =
             "Bearer " + response.data.data.token;
-          return axios(error.response.config);
+          return axios(response.config);
         })
-        .catch((error) => store.dispatch(authActions.reset()));
     }
-    return Promise.reject(0);
+    return response;
+  },
+  (error) => {
+    store.dispatch(authActions.reset())
+    store.dispatch(dialogActions.show(['login']))
+    return error
   }
 );
 

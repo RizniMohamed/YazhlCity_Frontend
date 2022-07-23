@@ -44,3 +44,12 @@ export const subscribe = async (data) => {
     throw e;
   }
 };
+
+export const getAuths = async (query = "") => {
+  try {
+    const response = await API.get(`user/auth?${query}`);
+    return response.data;
+  } catch (e) {
+    throw e;
+  }
+};

@@ -13,7 +13,7 @@ const authSlice = createSlice({
     initialState,
     reducers : {
         set : (state, payload) => {
-            state.status = true
+            state.status = payload.payload.status ?? true
             state.role = payload.payload?.role
             state.userID = payload.payload?.userID
             state.token = payload.payload?.token
