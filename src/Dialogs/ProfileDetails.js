@@ -9,7 +9,7 @@ import BrandingWatermarkIcon from '@mui/icons-material/BrandingWatermark';
 import WcIcon from '@mui/icons-material/Wc';
 
 const ProfileDetails = () => {
-  const { status, onSubmit, data } = useSelector(state => state.dialog.profileDetails)
+  const { status, data } = useSelector(state => state.dialog.profileDetails)
   const dispatch = useDispatch()
 
   const user = {

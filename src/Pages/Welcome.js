@@ -22,25 +22,15 @@ const Welcome = () => {
           left="calc(50% - 125px)"
           display="flex"
           flexDirection="column"
-          alignItems="center"
-        >
-          <Typography
-            sx={{
-              color: "white",
-              fontSize: 45,
-              fontWeight: 1000,
-              mb: 2
-            }}>YAZHL CITY</Typography>
+          alignItems="center" >
+          <Typography sx={{ color: "white", fontSize: 45, fontWeight: 1000, mb: 2 }}>
+            YAZHL CITY
+          </Typography>
           <Link to="Boardings">
             <Button
               variant="contained"
               size='small'
-              sx={{
-                color: "white",
-                fontSize: 22,
-                fontWeight: 900,
-                width: 250
-              }}  >
+              sx={{ color: "white", fontSize: 22, fontWeight: 900, width: 250 }}  >
               Boarding
               <ArrowCircleRightOutlinedIcon fontSize='large' sx={{ ml: 0.5 }} />
             </Button>
@@ -52,24 +42,20 @@ const Welcome = () => {
 
         <Typography
           align='center'
-          sx={{
-            color: "text.primary",
-            fontSize: 36,
-            fontWeight: 1000,
-          }}>What we do</Typography>
+          sx={{ color: "text.primary", fontSize: 36, fontWeight: 1000, }}>
+          What we do
+        </Typography>
 
         <Typography
           align='center'
           fontSize={20}
           lineHeight={2}
           sx={{ width: 850 }}>
-
           People who are moving on into a new place from their native place for their studies or job needs.
           They will feel like lost in a forest. We guide them by providing this system that can help them to
           find shelter, medical shops, and vehicle repair shops and also reduce the efforts to get using remote
           access. This system provides handy facilities to manage the business managerial tasks and support their
           decision-making actions.
-
         </Typography>
       </Box>
 

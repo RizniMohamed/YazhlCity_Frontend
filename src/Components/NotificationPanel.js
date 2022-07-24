@@ -29,7 +29,7 @@ const notifydata = [
     to: "Sarujan Sivanantharaja",
     date: "2022.05.16 11:36 PM",
     message: "Tomorrow will be no water supply from 8am to 8pm due water supply maintanance",
-  },  
+  },
 ]
 
 /*

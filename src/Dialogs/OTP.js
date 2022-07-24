@@ -6,7 +6,7 @@ import { dialogActions } from '../Store/dialogSlice';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { messageActions } from '../Store/messageSlice';
-import { EmailJS_Config } from '../LocalData/EmailJS';
+import { EmailJS_Config } from '../LocalData/Keys';
 import { sendMail } from '../services/mail';
 import { useState } from 'react';
 import { verifyEmail } from '../services/user';

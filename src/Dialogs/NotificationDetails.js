@@ -15,7 +15,6 @@ const NotificationDetails = () => {
   const { status, data } = useSelector(state => state.dialog.notificationDetails)
   const dispatch = useDispatch()
 
-
   const details = {
     info: [
       {

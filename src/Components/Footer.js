@@ -31,7 +31,7 @@ const data = [
 
 const Footer = () => {
 
-  const linkOnClick = () => {}
+  const linkOnClick = () => { }
 
   return (
     <Paper elevation={3} sx={{ bgcolor: "background.mainbg", borderRadius: 0, color: "white" }}>

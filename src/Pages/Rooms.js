@@ -55,7 +55,7 @@ const Rooms = () => {
 
   useEffect(() => {
     (async () => {
-      const  rooms  = await getRooms()
+      const rooms = await getRooms()
       if (rooms.status !== 200) {
         dispatch(messageActions.show([rooms.data, "error"]))
         return

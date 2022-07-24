@@ -7,7 +7,6 @@ const BreadCrumbs = () => {
   const location = useLocation()
   const paths = location.pathname.split("/").filter(x => x)
 
-
   const hoverStyle = {
     "&:hover": {
       color: "primary.main"
@@ -28,7 +27,7 @@ const BreadCrumbs = () => {
             {path}
           </Typography>
         ) : (
-          <Link key={i} to={location.pathname.split(path,-1)[0] + path} >
+          <Link key={i} to={location.pathname.split(path, -1)[0] + path} >
             <Typography
               variant="body1"
               color="initial"

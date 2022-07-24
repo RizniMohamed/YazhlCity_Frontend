@@ -50,7 +50,7 @@ const SidePanel = () => {
   }, [location])
 
   const buttonOnClick = (name) => {
-    if(name === "Logout") dispatch(authActions.reset())
+    if (name === "Logout") dispatch(authActions.reset())
   }
 
 
@@ -152,7 +152,7 @@ const style_selected_open = {
 const style_selected_close = {
   '& .MuiSvgIcon-root': {
     backgroundColor: "primary.main",
-      px: 1,
-        color: "white"
+    px: 1,
+    color: "white"
   },
 }

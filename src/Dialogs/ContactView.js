@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { dialogActions } from '../Store/dialogSlice';
 
 const ContactView = () => {
-    const { status, onSubmit, data } = useSelector(state => state.dialog.contactView)
+    const { status, data } = useSelector(state => state.dialog.contactView)
     const dispatch = useDispatch()
     return (
         <Dialog open={status} onClose={() => { }}>

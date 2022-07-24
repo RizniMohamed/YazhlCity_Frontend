@@ -11,7 +11,7 @@ import BRTable from '../Components/helper/BRTable';
 import { dialogActions } from '../Store/dialogSlice';
 
 const PaymentDetails = () => {
-  const {status,data} = useSelector(state => state.dialog.paymentDetails)
+  const { status, data } = useSelector(state => state.dialog.paymentDetails)
   const dispatch = useDispatch()
 
   const rows = {
@@ -33,7 +33,7 @@ const PaymentDetails = () => {
         details: data.roomID,
       },
     ],
-    billing : [
+    billing: [
       {
         name: "Period",
         details: data.period,
@@ -58,10 +58,10 @@ const PaymentDetails = () => {
     <Dialog open={status} onClose={() => { }} fullWidth>
       <DialogTitle fontWeight={700} fontSize={22}> Payment Details </DialogTitle>
       <DialogContent>
-          <BRTable rows={rows.info} firstColWidth={130} desc={false} />
-          <Divider sx={{ my: 2, bgcolor: "background.mainbg" }} />
-          <Typography component="p" color="text.main" fontWeight={1000} fontSize={18} my={1}>Billing Details</Typography>
-          <BRTable rows={rows.billing} firstColWidth={130} desc={false} />
+        <BRTable rows={rows.info} firstColWidth={130} desc={false} />
+        <Divider sx={{ my: 2, bgcolor: "background.mainbg" }} />
+        <Typography component="p" color="text.main" fontWeight={1000} fontSize={18} my={1}>Billing Details</Typography>
+        <BRTable rows={rows.billing} firstColWidth={130} desc={false} />
       </DialogContent>
       <DialogActions >
         <Button

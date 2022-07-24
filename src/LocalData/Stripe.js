@@ -1,1 +1,0 @@
-export const STRIPE_KEY = "pk_test_51LOlfYIwHDjwToFr6cfIIplsgqGECr914fsZ9RrOTH7u3bHlU0y7B8VopY6u2c22JxVRmXRygrTCsVcF53ojZQpQ00n7xblNZ9"

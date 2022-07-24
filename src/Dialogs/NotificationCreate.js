@@ -1,4 +1,3 @@
-import GoogleIcon from '@mui/icons-material/Google';
 import { Autocomplete, Button, Dialog, DialogActions, DialogContent, Divider, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React from 'react';
@@ -33,7 +32,7 @@ const NotificationCreate = () => {
 
       <form onSubmit={formik.handleSubmit}>
 
-        <DialogContent sx={{ display: "flex", flexDirection: "column", minWidth:500 }}>
+        <DialogContent sx={{ display: "flex", flexDirection: "column", minWidth: 500 }}>
 
           <Box mb={1.5} width={"100%"} display="flex" alignItems="center">
             <Typography fontWeight={700} fontSize={14} sx={{ mr: 2, minWidth: 50 }} >to</Typography>
@@ -103,7 +102,7 @@ const NotificationCreate = () => {
           </Box>
 
 
-          <DialogActions sx={{ display: "flex", justifyContent:"end"}} >
+          <DialogActions sx={{ display: "flex", justifyContent: "end" }} >
             <Button
               variant='contained'
               size='small'

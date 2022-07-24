@@ -1,12 +1,12 @@
 import { Box, Typography } from '@mui/material'
 import React from 'react'
 
-const BRTable = ({ rows, rowHeight, firstColWidth, desc=true}) => {
+const BRTable = ({ rows, rowHeight, firstColWidth, desc = true }) => {
     return (
         <>
             {
                 rows.map((details, index) => (
-                    ( desc && (index === rows.length - 1)) ? "" : (
+                    (desc && (index === rows.length - 1)) ? "" : (
                         <Box height={rowHeight} display="flex" key={index} >
                             <Typography sx={{ fontWeight: 700, fontSize: 16, width: firstColWidth }}>{details.name}</Typography>
                             <Typography sx={{ fontWeight: 700, fontSize: 16, width: 50, textAlign: "center" }}>:</Typography>

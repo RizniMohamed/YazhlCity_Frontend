@@ -22,7 +22,7 @@ const Search = ({ list, setData, variant }) => {
         return temp_boardings
     }
     const filtered_room = async (query) => {
-        const  rooms  = await getRooms(query)
+        const rooms = await getRooms(query)
         const temp_rooms = rooms.data.rooms.map(({ id, image, room_number, availability, price, type, person_count }) => {
             return {
                 id: id,

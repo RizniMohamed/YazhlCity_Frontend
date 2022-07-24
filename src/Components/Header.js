@@ -52,7 +52,7 @@ const Header = () => {
                 <Link to="/boardings"><Typography>Boarding</Typography></Link>
                 <Divider sx={current === "boardings" ? { bgcolor: "primary.main" } : { opacity: 0 }} />
               </Box>
-              { (auth.role === "manager" || auth.role === "admin") &&
+              {(auth.role === "manager" || auth.role === "admin") &&
                 <Box >
                   <Link to={`/${auth.role}`}><Typography>Console</Typography></Link>
                   <Divider sx={current === "admin" || current === "manager" ? { bgcolor: "primary.main" } : { opacity: 0 }} />

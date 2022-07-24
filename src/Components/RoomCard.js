@@ -7,7 +7,6 @@ import { Box } from '@mui/system';
 import { Link } from 'react-router-dom';
 import { useTheme } from '@emotion/react';
 
-
 const RoomCard = ({ id, image, roomNo, availablity, price, type, persons }) => {
   const theme = useTheme()
   return (

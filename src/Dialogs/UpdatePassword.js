@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { dialogActions } from '../Store/dialogSlice';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
-import {  updatePassword } from '../services/user';
+import { updatePassword } from '../services/user';
 import { messageActions } from '../Store/messageSlice';
 
 const initVals = {
@@ -20,13 +20,13 @@ const Schema = yup.object().shape({
 })
 
 const UpdatePassword = () => {
-  const { status, data: {user} } = useSelector(state => state.dialog.UpdatePassword)
+  const { status, data: { user } } = useSelector(state => state.dialog.UpdatePassword)
   const dispatch = useDispatch()
 
-  const onSubmit =  async (data) => {
+  const onSubmit = async (data) => {
     const { password } = data
-    
-    
+
+
     const updateData = {
       "userID": user.id,
       "password": password
