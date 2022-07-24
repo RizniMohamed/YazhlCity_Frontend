@@ -1,6 +1,7 @@
 import axios from "axios";
 import { authActions } from "../Store/authSlice";
 import { dialogActions } from "../Store/dialogSlice";
+import { messageActions } from "../Store/messageSlice";
 import { store } from "../Store/store"
 
 const API = axios.create({ baseURL: 'http://localhost:5000/API/V1/', });
@@ -14,26 +15,21 @@ API.interceptors.request.use(
 );
 
 API.interceptors.response.use(
-  (response) => {
-    if (response && response.data.status === 401) {
-      return API.post("/user/token")
-        .then((response) => {
-          if (response.data.status !== 200) return response
-          console.log(response.data);
-          console.log(store.getState().auth);
-          store.dispatch(authActions.set({ ...store.getState().auth, token: response.data.data.token }));
-          console.log(store.getState().auth);
-          response.config.headers["authorization"] =
-            "Bearer " + response.data.data.token;
-          return axios(response.config);
-        })
+  (response) => response,
+  async (error) => {
+    if (error.response.status === 401 ) {
+      if (store.getState().auth.token) {
+        const access_token = await API.post("/user/token")
+        store.dispatch(authActions.set({ ...store.getState().auth, token: access_token.data.data.token }));
+        error.config.headers["authorization"] = "Bearer " + access_token.data.data.token;
+        console.log(access_token);
+        return axios(error.config);
+      }
+      store.dispatch(authActions.reset())
+      store.dispatch(dialogActions.show(['login']))
+      store.dispatch(messageActions.show(['Please Login', "error"]))
+      Promise.reject(error)
     }
-    return response;
-  },
-  (error) => {
-    store.dispatch(authActions.reset())
-    store.dispatch(dialogActions.show(['login']))
-    return error
   }
 );
 

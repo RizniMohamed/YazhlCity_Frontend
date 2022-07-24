@@ -22,16 +22,17 @@ const RoomDetails = () => {
   const tokenHandler = async (token) => {
     const payment_USD = await LKR_USD(roomData.price)
     const subscribed_data = await subscribe({ userID: auth.userID, roomID: roomData.id, stripeToken: token, payment_USD: payment_USD })
+    
     if (subscribed_data.status !== 200) {
       dispatch(messageActions.show([subscribed_data.data, 'error']))
+      return
     }
-    else {
-      const user = await getAuths(`where=userID-${auth.userID}`)
-      if (user.status !== 200) dispatch(messageActions.show(["Unable to update the system", "error"]))
-      dispatch(authActions.set(user?.data?.users[0]))
-      getRoomData()
-      dispatch(messageActions.show(["Room subscription is succeed"]))
-    }
+
+    const user = await getAuths(`where=userID-${auth.userID}`)
+    if (user.status !== 200) dispatch(messageActions.show(["Unable to update the system", "error"]))
+    dispatch(authActions.set(user?.data?.users[0]))
+    getRoomData()
+    dispatch(messageActions.show(["Room subscription is succeed"]))
   }
 
 
@@ -82,7 +83,7 @@ const RoomDetails = () => {
         <BreadCrumbs />
       </Box>
       {roomData && <RoomDetailsComp data={roomData} />}
-      {auth.role === "user" &&
+      {auth.role === "user" && roomData.availability === "Available" &&
         <Box display="flex" ml={100} my={5}>
           <StripeCheckout
             token={tokenHandler}

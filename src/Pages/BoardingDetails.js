@@ -58,7 +58,7 @@ const BoardingDetails = () => {
           },
           {
             name: 'Description',
-            details: boarding.description
+            details: `${boarding.description}. ${boarding.Bathroom.description}. ${boarding.Washroom.description}`
           },
         ],
         images: [...boarding.Boarding_images, { image: boarding.Bathroom.image }, { image: boarding.Washroom.image }]
