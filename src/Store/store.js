@@ -4,6 +4,7 @@ import dialogSlice from "./dialogSlice";
 import drawerSlice from "./drawerSlice";
 import notifyDrawerSlice from "./notifyDrawerSlice";
 import messageSlice from "./messageSlice";
+import mapSlice from "./mapSlice";
 
 export const store = configureStore({
     middleware: (getDefaultMiddleware) =>
@@ -26,7 +27,8 @@ export const store = configureStore({
         dialog: dialogSlice.reducer,
         leftDrawer: drawerSlice.reducer,
         notifyDrawer : notifyDrawerSlice.reducer,
-        message : messageSlice.reducer
+        message : messageSlice.reducer,
+        map : mapSlice.reducer,
     }
 })
 

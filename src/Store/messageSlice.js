@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     status: false,
     msg: "",
-    variant: "success"
+    variant: ""
 }
 
 const MessageSlice = createSlice({

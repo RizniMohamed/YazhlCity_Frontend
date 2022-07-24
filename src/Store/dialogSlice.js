@@ -4,62 +4,62 @@ const initialState = {
     login: {
         status: false,
         data: "",
-        onSubmit: undefined
+        onSubmit: ""
     },
     delete: {
         status: false,
         data: "",
-        onSubmit: undefined
+        onSubmit: ""
     },
     payment: {
         status: false,
         data: "",
-        onSubmit: undefined
+        onSubmit: ""
     },
     notificationDetails: {
         status: false,
         data: "",
-        onSubmit: undefined
+        onSubmit: ""
     },
     paymentDetails: {
         status: false,
         data: "",
-        onSubmit: undefined
+        onSubmit: ""
     },
     signup: {
         status: false,
         data: "",
-        onSubmit: undefined
+        onSubmit: ""
     },
     profile: {
         status: false,
         data: "",
-        onSubmit: undefined
+        onSubmit: ""
     },
     contactView: {
         status: false,
         data: "",
-        onSubmit: undefined
+        onSubmit: ""
     },
     profileDetails: {
         status: false,
         data: "",
-        onSubmit: undefined
+        onSubmit: ""
     },
     notificationCreate: {
         status: false,
         data: "",
-        onSubmit: undefined
+        onSubmit: ""
     },
     OTP: {
         status: false,
         data: "",
-        onSubmit: undefined
+        onSubmit: ""
     },
     UpdatePassword: {
         status: false,
         data: "",
-        onSubmit: undefined
+        onSubmit: ""
     },
 }
 const DialogSlice = createSlice({

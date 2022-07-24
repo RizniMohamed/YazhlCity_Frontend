@@ -5,6 +5,7 @@ import { Box } from '@mui/system';
 import React from 'react';
 import BRImage from './helper/BRImage';
 import BRTable from './helper/BRTable';
+import Map from './helper/Map';
 
 const BoardingDetails = ({ data, desc }) => {
   return (
@@ -25,6 +26,7 @@ const BoardingDetails = ({ data, desc }) => {
       {/* Image and map */}
       <Box>
         <BRImage images={data.images} />
+        <Map/>
       </Box>
 
     </Box >

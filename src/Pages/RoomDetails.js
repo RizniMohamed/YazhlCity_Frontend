@@ -22,7 +22,7 @@ const RoomDetails = () => {
   const tokenHandler = async (token) => {
     const payment_USD = await LKR_USD(roomData.price)
     const subscribed_data = await subscribe({ userID: auth.userID, roomID: roomData.id, stripeToken: token, payment_USD: payment_USD })
-    
+
     if (subscribed_data.status !== 200) {
       dispatch(messageActions.show([subscribed_data.data, 'error']))
       return
@@ -75,7 +75,7 @@ const RoomDetails = () => {
     SetRoom(details)
   }
 
-  useEffect(() => { getRoomData() }, [roomID, dispatch])
+  useEffect(() => { getRoomData() }, [roomID, dispatch, getRoomData])
 
   return (
     <Box display="flex" flexDirection="column" m="auto" p={2}>
