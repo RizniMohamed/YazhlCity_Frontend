@@ -23,10 +23,11 @@ const BoardingDetails = ({ data, desc }) => {
         <BRTable rows={data.rows} firstColWidth={100} rowHeight={62} desc={desc} />
       </Box>
 
+
       {/* Image and map */}
       <Box>
         <BRImage images={data.images} />
-        <Map />
+        <Map lat={eval(data.geoloc[1])} lng={eval(data.geoloc[0])} />
       </Box>
 
     </Box >

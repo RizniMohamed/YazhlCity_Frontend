@@ -14,6 +14,14 @@ const opts = [
     values: [{ name: "None", value: "" }]
   },
   {
+    name: "Gender",
+    values: [
+      { name: "None", value: "" },
+      { name: "Male", value: "male" },
+      { name: "Female", value: "female" },
+    ]
+  },
+  {
     name: "Verified",
     values: [
       { name: "None", value: "" },

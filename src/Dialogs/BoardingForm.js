@@ -1,16 +1,17 @@
-import { Button, Checkbox, Dialog, DialogContent, DialogTitle, TextField, Typography } from '@mui/material';
+import { Button, Dialog, DialogTitle } from '@mui/material';
 import { Box } from '@mui/system';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { dialogActions } from '../Store/dialogSlice';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
-import { loginUser } from '../services/user';
+import Boarding from '../Components/boardingForm/Boarding';
+import WashBath from '../Components/boardingForm/WashBath';
+import { createBoarding } from '../services/Boardings';
 import { messageActions } from '../Store/messageSlice';
-import { authActions } from '../Store/authSlice';
-
 
 let initVals = {
+  boardingImages: [],
   boardingName: "",
   ownerName: "",
   boardingAddress: "",
@@ -18,6 +19,7 @@ let initVals = {
   boardingImage1: "",
   boardingImage2: "",
   boardingImage3: "",
+  location: "",
   geoLocation: "",
   bathroomCount: "",
   bathroomImage: "",
@@ -25,6 +27,8 @@ let initVals = {
   washroomCount: "",
   washroomImage: "",
   washroomDesc: "",
+  boardingMobile: "",
+  gender: "",
 }
 
 const Schema = yup.object().shape({
@@ -36,27 +40,67 @@ const Schema = yup.object().shape({
   boardingImage2: yup.mixed().required("Required*"),
   boardingImage3: yup.mixed().required("Required*"),
   geoLocation: yup.mixed().required("Required*"),
+  location: yup.mixed().required("Required*"),
   bathroomCount: yup.string().required("Required*"),
   bathroomImage: yup.mixed().required("Required*"),
   bathroomDesc: yup.string().required("Required*"),
   washroomCount: yup.string().required("Required*"),
   washroomImage: yup.mixed().required("Required*"),
   washroomDesc: yup.string().required("Required*"),
+  boardingMobile: yup.string().required("Required*"),
+  gender: yup.string().required("Required*"),
 })
 
+const renderBathroomImage = { name: "bathroomImage", alt: "Bathroom Count" }
+const renderBathroomData = [
+  { name: "Bathroom Count", value: "bathroomCount", options: { type: 'number' } },
+  { name: "Bathroom Description", value: "bathroomDesc", options: { multiline: true, rows: 3 } },
+]
+
+const renderWahroomImage = { name: "washroomImage", alt: "Bathroom Description" }
+const renderWashroomData = [
+  { name: "Washroom Count", value: "washroomCount", options: { type: 'number' } },
+  { name: "Washroom Description", value: "washroomDesc", options: { multiline: true, rows: 3 } },
+]
 
 const BoardingForm = () => {
   const { status } = useSelector(state => state.dialog.boardingForm)
+  const auth = useSelector(state => state.auth)
   const dispatch = useDispatch()
 
-  const onSubmit = async (data) => { console.log(data) }
+  const onSubmit = async (data) => {
+    data.boardingImages = [data.boardingImage1, data.boardingImage2, data.boardingImage3]
 
-  const renderData = [
-    { name: "Boarding Name", value: "boardingName",  },
-    { name: "Owner Name", value: "ownerName",  },
-    { name: "Boarding Address", value: "boardingAddress",  },
-    { name: "Boarding Description ", value: "boardingDesc", options: { multiline:true, rows : 3} },
-  ]
+    const formData = new FormData()
+    formData.append("name", data.boardingName)
+    formData.append("mobile", data.boardingMobile)
+    formData.append("address", data.boardingAddress)
+    formData.append("description", data.boardingDesc)
+    formData.append("gender", data.gender)
+    data.geoLocation.forEach(data => formData.append("geoloc", data))
+    formData.append("locationID", data.location.id)
+    formData.append("userID", auth.userID)
+    formData.append("ImageFolder", "boarding")
+    formData.append("washroomDesc", data.washroomDesc)
+    formData.append("washroomCount", data.washroomCount)
+    formData.append("bathroomDesc", data.bathroomDesc)
+    formData.append("bathroomCount", data.bathroomCount)
+    data.boardingImages.forEach(data => formData.append("boardingImages", data))
+    formData.append("washroomImage", data.washroomImage)
+    formData.append("bathroomImage", data.bathroomImage)
+
+    try {
+      const { data } = await createBoarding(formData)
+      if (data.status !== 200)
+        dispatch(messageActions.show([data.data, "error"]))
+      else{
+        dispatch(messageActions.show(["Boarding registered successfully"]))
+        dispatch(dialogActions.hide('boardingForm'))
+      }
+    } catch (error) {
+      dispatch(messageActions.show([error.message, "error"]))
+    }
+  }
 
   const formik = useFormik({
     initialValues: initVals,
@@ -64,45 +108,27 @@ const BoardingForm = () => {
     validationSchema: Schema,
   })
 
-
   return (
-    <Dialog open={status} onClose={() => { dispatch(dialogActions.hide("boardingForm")) }} >
+    <Dialog open={status} onClose={() => { dispatch(dialogActions.hide("boardingForm")) }} fullWidth={true} maxWidth="lg">
 
       <form onSubmit={formik.handleSubmit}>
 
         <DialogTitle fontWeight={700} fontSize={34} textAlign="center">Boarding Register</DialogTitle>
 
-        <DialogContent sx={{ display: "flex", flexDirection: "column", alignSelf: "center", pt: 1, mx: 10, width: 300 }}>
-          {renderData.map((data,i) => {
-            return (
-              <Box key={i} mb={2} width={"100%"} >
-                <Typography fontWeight={500} fontSize={14} sx={{ mb: 0.3, ml: 0.5 }} >{data.name}</Typography>
-                <TextField
-                  variant="outlined"
-                  size='small'
-                  type="text"
-                  placeholder={data.name}
-                  name={data.value}
-                  sx={{ width: "100%", ".MuiOutlinedInput-root": { bgcolor: "white", borderRadius: 0.3 } }}
-                  onChange={formik.handleChange}
-                  error={formik.touched[data.value] && Boolean(formik.errors[data.value])}
-                  helperText={formik.touched[data.value] && formik.errors[data.value]}
-                  onBlur={formik.handleBlur}
-                  {...data?.options}
-                />
-              </Box>
-            )
-          })}
-
-
-        </DialogContent>
+        <Box display="flex" justifyContent="space-evenly">
+          <Box width={548}> <Boarding formik={formik} /></Box>
+          <Box>
+            <Box width={400}> <WashBath formik={formik} renderData={renderBathroomData} renderImages={renderBathroomImage} name={"Bathroom"} /></Box>
+            <Box width={400}> <WashBath formik={formik} renderData={renderWashroomData} renderImages={renderWahroomImage} name={"Washroom"} /></Box>
+          </Box>
+        </Box>
 
         <Box display="flex" justifyContent="end">
-          <Button v
+          <Button
             ariant='contained'
             size="small"
             type="submit"
-            sx={{ width: 100, ...buttonStyle, mr: 2 }} >
+            sx={{ width: 120, ...buttonStyle, mr: 15, my: 2 }} >
             Register
           </Button>
         </Box>

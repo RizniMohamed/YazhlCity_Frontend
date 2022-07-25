@@ -53,3 +53,12 @@ export const getAuths = async (query = "") => {
     throw e;
   }
 };
+
+export const getUsers = async (query = "") => {
+  try {
+    const response = await API.get(`user?${query}`);
+    return response.data;
+  } catch (e) {
+    throw e;
+  }
+};

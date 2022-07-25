@@ -9,10 +9,21 @@ export const getLocations = async () => {
     }
 };
 
-export const getBoardings = async (query="") => {
+export const getBoardings = async (query = "") => {
     try {
         const response = await API.get(`Boarding?${query}`);
         return response.data;
+    } catch (e) {
+        throw e;
+    }
+};
+
+export const createBoarding = async (data) => {
+    try {
+        const response = await API.post(`Boarding`, data, {
+            headers: { "Content-Type": "multipart/form-data" }
+        })
+        return response;
     } catch (e) {
         throw e;
     }

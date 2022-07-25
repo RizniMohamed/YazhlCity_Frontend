@@ -22,7 +22,6 @@ API.interceptors.response.use(
         const access_token = await API.post("/user/token")
         store.dispatch(authActions.set({ ...store.getState().auth, token: access_token.data.data.token }));
         error.config.headers["authorization"] = "Bearer " + access_token.data.data.token;
-        console.log(access_token);
         return axios(error.config);
       }
       store.dispatch(authActions.reset())

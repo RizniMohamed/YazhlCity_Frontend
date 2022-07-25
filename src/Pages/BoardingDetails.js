@@ -31,6 +31,7 @@ const BoardingDetails = () => {
         rating: boarding.rating,
         verified: boarding.verified,
         mobile: boarding.mobile,
+        geoloc: boarding.geoloc,
         rows: [
           {
             name: 'Ownername',
@@ -39,10 +40,6 @@ const BoardingDetails = () => {
           {
             name: 'Address',
             details: boarding.address
-          },
-          {
-            name: 'Room type',
-            details: boarding.roomType
           },
           {
             name: 'Washrooms',
@@ -54,7 +51,7 @@ const BoardingDetails = () => {
           },
           {
             name: 'Rooms',
-            details: roomCount
+            details: roomCount ?? "Not published yet"
           },
           {
             name: 'Description',
@@ -72,7 +69,7 @@ const BoardingDetails = () => {
         <BreadCrumbs />
       </Box>
       {boarding && <BoardingDetailsComp data={boarding} />}
-      <Box display="flex" ml={70} my={5}>
+      <Box display="flex" ml={isNaN(boarding.rows[4]) ? 95 : 75} my={5}>
         <Button
           variant='contained'
           size="small"
@@ -84,7 +81,7 @@ const BoardingDetails = () => {
           Contact <CallIcon fontSize='small' sx={{ ml: 1 }} />
         </Button>
         <Link to="Rooms">
-          <Button variant='contained' size="small" sx={{ width: 250, ...buttonStyle }} >Explore rooms</Button>
+          { !isNaN(boarding.rows[4]) && <Button variant='contained' size="small" sx={{ width: 250, ...buttonStyle }} >Explore rooms</Button>}
         </Link>
       </Box>
     </Box>
