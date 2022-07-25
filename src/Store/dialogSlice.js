@@ -61,6 +61,11 @@ const initialState = {
         data: "",
         onSubmit: ""
     },
+    boardingForm: {
+        status: false,
+        data: "",
+        onSubmit: ""
+    },
 }
 const DialogSlice = createSlice({
     name: "Dialog Slice",

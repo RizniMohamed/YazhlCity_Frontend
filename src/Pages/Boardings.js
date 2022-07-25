@@ -5,6 +5,7 @@ import BoardingCard from "../Components/BoardingCard"
 import BreadCrumbs from "../Components/BreadCrumbs"
 import SearchFilter from "../Components/SearchFilter/SearchFilter"
 import { getBoardings } from "../services/Boardings"
+import { dialogActions } from "../Store/dialogSlice"
 import { messageActions } from "../Store/messageSlice"
 
 const opts = [
@@ -35,7 +36,7 @@ const Boardings = () => {
     (async () => {
       const boardings = await getBoardings()
       if (boardings.status !== 200) {
-        dispatch(messageActions.show([boardings.data,"error"]))
+        dispatch(messageActions.show([boardings.data, "error"]))
         return
       }
       const temp_boardings = []
@@ -69,7 +70,13 @@ const Boardings = () => {
       <Box display="flex" my={2} alignItems="center" justifyContent="space-between">
         <SearchFilter list={boardings} options={filterOptions} setData={setBoardings} variant="boarding" />
         {auth.role === "user" &&
-          <Typography fontWeight={900} fontSize={20} sx={{ mr: 10 }}>Register Boarding</Typography>
+          <Typography 
+            fontWeight={900}
+            fontSize={20}
+            sx={{ mr: 10, cursor : "pointer" }}
+            onClick={() => dispatch(dialogActions.show(['boardingForm']))}>
+            Register Boarding
+          </Typography>
         }
       </Box>
       <Box display="flex" flexWrap="wrap" >
