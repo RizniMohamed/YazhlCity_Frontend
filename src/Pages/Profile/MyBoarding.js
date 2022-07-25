@@ -1,8 +1,10 @@
-import { Box, Button, Divider } from '@mui/material'
+import { Box, Button, Divider, Typography } from '@mui/material'
 import React from 'react'
 import BoardingDetails from '../../Components/BoardingDetails'
 import RoomDetails from '../../Components/RoomDetails'
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom"
+import { useSelector } from 'react-redux'
+
 const boardingData = {
   name: "RC House",
   rating: 4,
@@ -81,6 +83,16 @@ const roomData = {
 }
 
 const MyBoarding = () => {
+  const auth = useSelector(state => state.auth)
+  if (auth.role === "user") return (
+    <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" height={"90vh"} width={"100vw"}>
+      <Typography variant="h5" fontWeight={900}>You havent subscribed any boarding yet :(</Typography>
+      <Link to="/Boardings">
+        <Button variant='contained' sx={{ ...buttonStyle, mt: 2, borderRadius: 0.3, width: 200, }}>Browse boardings</Button>
+      </Link>
+    </Box>
+  )
+
   return (
     <>
       <Box width="100%" mt={2}>
@@ -108,3 +120,4 @@ const buttonStyle = {
     bgcolor: "primary.main",
   }
 }
+

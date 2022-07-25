@@ -1,27 +1,35 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Avatar, Box, Button, Typography } from '@mui/material'
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import EmailIcon from '@mui/icons-material/Email';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { dialogActions } from '../../Store/dialogSlice';
 import BrandingWatermarkIcon from '@mui/icons-material/BrandingWatermark';
 import WcIcon from '@mui/icons-material/Wc';
-import { messageActions } from '../../Store/messageSlice';
-
-const user = {
-  avatar: "https://files.oyebesmartest.com/uploads/preview/-501567668725ri0kwvwyuz.jpg",
-  name: "Jerin",
-  address: "No 14, kandy road, Jaffna",
-  mobile: "756293807",
-  email: "jerin@gmail.com",
-  gender: "Female",
-  nic:"982530806V"
-}
-
-
+import { getUsers } from '../../services/user';
 const MyProfile = () => {
   const dispatch = useDispatch()
+  const auth = useSelector(state => state.auth)
+  const [user, setUser] = useState({})
+
+
+  useEffect(() => {
+
+    (async () => {
+      const { data: { users: [user] } } = await getUsers(`where=id-${auth.userID}`)
+      console.log(user);
+      setUser({
+        avatar: user.image,
+        name: user.name,
+        address: user.address,
+        mobile: user.mobile,
+        email: user.Auth.email,
+        gender: user.gender,
+        nic: user.nic
+      })
+    })()
+  }, [auth.userID])
 
 
   const onDelete = () => {

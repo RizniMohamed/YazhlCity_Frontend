@@ -6,7 +6,6 @@ import BreadCrumbs from "../Components/BreadCrumbs"
 import SearchFilter from "../Components/SearchFilter/SearchFilter"
 import { getBoardings } from "../services/Boardings"
 import { dialogActions } from "../Store/dialogSlice"
-import { messageActions } from "../Store/messageSlice"
 
 const opts = [
   {
@@ -37,14 +36,16 @@ const opts = [
 const Boardings = () => {
   const dispatch = useDispatch()
   const [boardings, setBoardings] = useState([])
+  const [loading, setLoading] = useState(true)
   const [filterOptions, setFilterOptions] = useState(opts)
   const auth = useSelector(state => state.auth)
+
 
   useEffect(() => {
     (async () => {
       const boardings = await getBoardings()
       if (boardings.status !== 200) {
-        dispatch(messageActions.show([boardings.data, "error"]))
+        setLoading(false)
         return
       }
       const temp_boardings = []
@@ -65,12 +66,19 @@ const Boardings = () => {
         })
       })
 
-      filterOptions[2].values = temp_locations
+      filterOptions[3].values = temp_locations
       setBoardings(temp_boardings)
       setFilterOptions(filterOptions)
+      setLoading(false)
     })()
     // eslint-disable-next-line
   }, [])
+
+  if (loading) return (
+    <Box display="flex" alignItems="center" justifyContent="center" height={"90vh"}>
+      <Typography variant="h5" fontWeight={900}>Loading...</Typography>
+    </Box>
+  )
 
   return (
     <Box my={5} ml={8} display="flex" flexDirection="column">
@@ -78,18 +86,29 @@ const Boardings = () => {
       <Box display="flex" my={2} alignItems="center" justifyContent="space-between">
         <SearchFilter list={boardings} options={filterOptions} setData={setBoardings} variant="boarding" />
         {auth.role === "user" &&
-          <Typography 
+          <Typography
             fontWeight={900}
             fontSize={20}
-            sx={{ mr: 10, cursor : "pointer" }}
+            sx={{ mr: 10, cursor: "pointer" }}
             onClick={() => dispatch(dialogActions.show(['boardingForm']))}>
             Register Boarding
           </Typography>
         }
       </Box>
-      <Box display="flex" flexWrap="wrap" >
-        {boardings.map((card, index) => <BoardingCard key={index} {...card} />)}
-      </Box>
+
+      {
+        (!loading && boardings.length === 0) ? (
+          <Box display="flex" alignItems="center" justifyContent="center" height={"55vh"}>
+            <Typography variant="h5" fontWeight={900}>No boardings found :(</Typography>
+          </Box>
+        ) : (
+          <Box display="flex" flexWrap="wrap" >
+            {boardings.map((card, index) => <BoardingCard key={index} {...card} />)}
+          </Box>
+        )
+      }
+
+
     </Box>
 
   )

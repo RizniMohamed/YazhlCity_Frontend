@@ -1,9 +1,9 @@
 import React from 'react'
 import { DataGrid } from '@mui/x-data-grid';
-import { Avatar, Box, Button } from '@mui/material';
+import { Avatar, Box, Button, Typography } from '@mui/material';
 import { dialogActions } from '../../Store/dialogSlice';
-import { useDispatch } from 'react-redux';
-import { messageActions } from '../../Store/messageSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const rows = [
   { id: 3, avatar: 'https://files.oyebesmartest.com/uploads/preview/-501567668725ri0kwvwyuz.jpg', name: 'Amal', month: "March", paymentStatus: false, boardingName: "RC", roomNumber: 12, receipt: 2 },
@@ -14,8 +14,19 @@ const rows = [
 const MyPayment = () => {
   const dispatch = useDispatch()
 
+  const auth = useSelector(state => state.auth)
+  if (auth.role === "user") return (
+    <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" height={"90vh"} width={"100vw"}>
+      <Typography variant="h5" fontWeight={900}>You havent subscribed any boarding yet :(</Typography>
+      <Link to="/Boardings">
+        <Button variant='contained' sx={{ ...buttonStyle }}>Browse boardings</Button>
+      </Link>
+    </Box>
+  )
+
 
   const showRecipt = (e, { row }) => {
+    // eslint-disable-next-line
     dispatch(dialogActions.show(['paymentDetails', , receipt]))
   }
 
@@ -24,7 +35,7 @@ const MyPayment = () => {
   }
 
   const receipt = {
-    status : false,
+    status: false,
     customerID: 1,
     customerName: "Rizni",
     boardingName: "RC",
@@ -41,7 +52,7 @@ const MyPayment = () => {
       field: 'avatar',
       headerName: 'Avatar',
       renderCell: ({ row }) => <Avatar src={row.avatar} alt="profile image" />
-      ,width: 150
+      , width: 150
     },
     { field: 'name', headerName: 'Name', width: 150 },
     { field: 'month', headerName: 'Month', width: 150 },
@@ -51,10 +62,10 @@ const MyPayment = () => {
     {
       field: "pay",
       headerName: 'Pay',
-      renderCell: ({row}) => {
+      renderCell: ({ row }) => {
         return (
           <Button
-            disabled={row.paymentStatus? true : false}
+            disabled={row.paymentStatus ? true : false}
             variant="contained"
             color="secondary"
             size='small'
@@ -68,7 +79,7 @@ const MyPayment = () => {
     {
       field: "receipt",
       headerName: 'Receipt',
-      renderCell: ({row}) => {
+      renderCell: ({ row }) => {
         return (
           <Button
             variant="contained"
@@ -114,3 +125,14 @@ const MyPayment = () => {
 }
 
 export default MyPayment
+
+const buttonStyle = {
+  bgcolor: "background.mainbg",
+  mt: 2,
+  borderRadius: 0.3,
+  width: 200,
+  color: "white",
+  "&:hover": {
+    bgcolor: "secondary.light",
+  }
+}

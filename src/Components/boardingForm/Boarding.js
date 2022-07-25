@@ -39,7 +39,7 @@ const Boarding = ({ formik }) => {
         else
             dispatch(messageActions.show(['Map required. Drag and drop map marker to set your boarding location on map', 'error']))
     };
-
+    /* eslint-disable */
     useEffect(() => {
         (async () => {
             const locations = await getLocations()

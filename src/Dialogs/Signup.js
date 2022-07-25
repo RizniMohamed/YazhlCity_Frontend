@@ -34,9 +34,9 @@ const Signup = () => {
     if (register.status !== 201)
       dispatch(messageActions.show([register.data, "error"]))
     else {
-      dispatch(dialogActions.hide('signup'))
       dispatch(messageActions.show(["Registeration success", "success"]))
-      dispatch(dialogActions.hide(['login']))
+      dispatch(dialogActions.show(['login']))
+      dispatch(dialogActions.hide('signup'))
     }
   }
 

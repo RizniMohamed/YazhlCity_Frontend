@@ -27,7 +27,7 @@ const BoardingDetails = ({ data, desc }) => {
       {/* Image and map */}
       <Box>
         <BRImage images={data.images} />
-        <Map lat={eval(data.geoloc[1])} lng={eval(data.geoloc[0])} />
+        <Map lat={Number.parseFloat(data.geoloc[1])} lng={Number.parseFloat(data.geoloc[0])} />
       </Box>
 
     </Box >

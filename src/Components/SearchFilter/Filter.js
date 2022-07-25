@@ -50,49 +50,66 @@ const Filter = ({ list, setData, options, variant }) => {
         return temp_rooms
     }
 
-    const boarding_Filter_controller = async (newKeys) => {
-        if (newKeys === "none" || (newKeys.Verified === "" && newKeys.Location === "")) {
-            const allData = await filtered_boarding()
-            setData(allData)
-            setFilterKeys()
-            return
+    const filterParams_boarding = (newKeys) => {
+        let query = ""
+        if (newKeys === "none" || (newKeys.Verified === "" && newKeys.Location === "" && newKeys.Gender === "")) {
+            query = ""
+            return query
         }
+
+        if (newKeys.Verified !== "" && newKeys.Location !== "" && newKeys.Gender !== "") {
+            query = `where=verified-${newKeys.Verified},locationID-${newKeys.Location},gender-${newKeys.Gender}`
+            return query
+        }
+
         if (newKeys.Verified !== "" && newKeys.Location !== "") {
-            const query = `where=verified-${newKeys.Verified},locationID-${newKeys.Location}`
-            filtered_boarding(query)
-                .then(res => setData(res))
-                .catch(async e => {
-                    dispatch(messageActions.show(["No boardings found on provided criteria", 'info']))
-                    const allData = await filtered_boarding()
-                    setData(allData)
-                    setFilterKeys()
-                })
-            return
+            query = `where=verified-${newKeys.Verified},locationID-${newKeys.Location}`
+            return query
         }
+
+        if (newKeys.Verified !== "" && newKeys.Gender !== "") {
+            query = `where=verified-${newKeys.Verified},locationID-${newKeys.Location}`
+            return query
+        }
+
+        if (newKeys.Location !== "" && newKeys.Gender !== "") {
+            query = `where=locationID-${newKeys.Location},gender-${newKeys.Gender}`
+            return query
+        }
+
         if (newKeys.Verified !== "") {
-            const query = `where=verified-${newKeys.Verified}`
-            filtered_boarding(query)
-                .then(res => setData(res))
-                .catch(async e => {
-                    dispatch(messageActions.show(["No boardings found on provided criteria", 'info']))
-                    const allData = await filtered_boarding()
-                    setData(allData)
-                    setFilterKeys()
-                })
-            return
+            query = `where=verified-${newKeys.Verified}`
+            return query
         }
+
         if (newKeys.Location !== "") {
-            const query = `where=locationID-${newKeys.Location}`
-            filtered_boarding(query)
-                .then(res => setData(res))
-                .catch(async e => {
-                    dispatch(messageActions.show(["No boardings found on provided criteria", 'info']))
-                    const allData = await filtered_boarding()
-                    setData(allData)
-                    setFilterKeys()
-                })
-            return
+            query = `where=locationID-${newKeys.Location}`
+            return query
         }
+
+        if (newKeys.Gender !== "") {
+            query = `where=gender-${newKeys.Gender}`
+            return query
+        }
+
+    }
+
+    const boarding_Filter_controller = async (newKeys) => {
+        console.log(newKeys);
+
+
+
+        console.log(filterParams_boarding(newKeys));
+
+
+        filtered_boarding(filterParams_boarding(newKeys))
+            .then(res => setData(res))
+            .catch(async e => {
+                dispatch(messageActions.show(["No boardings found on provided criteria", 'info']))
+                const allData = await filtered_boarding()
+                setData(allData)
+                setFilterKeys()
+            })
     }
 
     const room_Filter_controller = async (newKeys) => {
