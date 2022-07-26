@@ -5,12 +5,13 @@ import { mapActions } from '../Store/mapSlice'
 import { GOOGLE_MAP_KEY } from '../LocalData/Keys'
 import { Box, Typography } from '@mui/material'
 
-const Map = ({ drag = false, mt = 3, lng = 9.661508120592226, lat = 80.02554547964867 }) => {
-  const { isLoaded } = useLoadScript({ googleMapsApiKey: GOOGLE_MAP_KEY })
+const Map = ({ drag = false, mt = 3, lat = 9.661508120592226, lng = 80.02554547964867 }) => {
+  const { isLoaded ,loadError} = useLoadScript({ googleMapsApiKey: GOOGLE_MAP_KEY })
   const mapRef = useRef()
   let position = ({ lat, lng })
   const dispatch = useDispatch()
 
+  
   const onPositionChanged = () => {
     if (mapRef.current?.marker && !mapRef.current?.marker.dragging) {
       const newPos = mapRef.current.marker.position
@@ -23,6 +24,13 @@ const Map = ({ drag = false, mt = 3, lng = 9.661508120592226, lat = 80.025545479
     return (
       <Box width={400} height={300} display="flex" justifyContent="center" alignItems="center">
         <Typography fontSize={24} fontWeight={900}>Loading...</Typography>
+      </Box>
+    )
+
+  if (loadError)
+    return (
+      <Box width={400} height={300} display="flex" justifyContent="center" alignItems="center">
+        <Typography fontSize={24} fontWeight={900}>Something went wrong try again</Typography>
       </Box>
     )
 

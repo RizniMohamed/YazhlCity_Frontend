@@ -6,10 +6,10 @@ import RoomDetailsComp from '../Components/RoomDetails'
 import { useDispatch, useSelector } from 'react-redux'
 import { getRooms } from '../services/Room'
 import { messageActions } from '../Store/messageSlice'
-import { getAuths, subscribe } from '../services/user'
+import {  subscribe } from '../services/user'
 import { LKR_USD } from '../services/Payment'
-import { authActions } from '../Store/authSlice'
 import StripePayment from '../Components/StripePayment'
+import { updateAuth } from '../Hooks/useUpdateAuth'
 
 const RoomDetails = () => {
   const dispatch = useDispatch()
@@ -26,9 +26,7 @@ const RoomDetails = () => {
       return
     }
 
-    const user = await getAuths(`where=userID-${auth.userID}`)
-    if (user.status !== 200) dispatch(messageActions.show(["Unable to update the system", "error"]))
-    dispatch(authActions.set(user?.data?.users[0]))
+    updateAuth()
     getRoomData()
     dispatch(messageActions.show(["Room subscription is succeed"]))
   }

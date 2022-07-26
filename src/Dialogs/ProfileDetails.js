@@ -14,12 +14,12 @@ const ProfileDetails = () => {
 
   const user = {
     avatar: data?.avatar,
-    name: data?.name,
-    address: data?.address,
-    mobile: data?.mobile,
+    name: data?.name ,
+    address: data?.address ,
+    mobile: data?.mobile ,
     email: data?.email,
-    gender: data?.gender,
-    nic: data?.nic
+    gender: data?.gender ,
+    nic: data?.nic 
 
   }
 

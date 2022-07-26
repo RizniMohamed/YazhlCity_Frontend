@@ -18,7 +18,7 @@ const Delete = () => {
   }
 
   return (
-    <Dialog open={status} onClose={() => { }}>
+    <Dialog open={status} onClose={() => { dispatch(dialogActions.hide('delete'))}}>
       <DialogTitle fontWeight={700} fontSize={22}> Delete Confirmation </DialogTitle>
       <DialogContent>
         <DialogContentText color="text.main" fontSize={16}>{data}</DialogContentText>

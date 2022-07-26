@@ -23,7 +23,7 @@ export const createBoarding = async (data) => {
         const response = await API.post(`Boarding`, data, {
             headers: { "Content-Type": "multipart/form-data" }
         })
-        return response;
+        return response.data;
     } catch (e) {
         throw e;
     }

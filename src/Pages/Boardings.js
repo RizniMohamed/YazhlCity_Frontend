@@ -72,7 +72,7 @@ const Boardings = () => {
       setLoading(false)
     })()
     // eslint-disable-next-line
-  }, [])
+  }, [auth.role])
 
   if (loading) return (
     <Box display="flex" alignItems="center" justifyContent="center" height={"90vh"}>

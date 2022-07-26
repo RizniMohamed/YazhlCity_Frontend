@@ -15,9 +15,9 @@ API.interceptors.request.use(
 );
 
 API.interceptors.response.use(
-  (response) => response,
+  async (response) =>  response,
   async (error) => {
-    if (error.response.status === 401 ) {
+    if (error.response.status === 401) {
       if (store.getState().auth.token) {
         const access_token = await API.post("/user/token")
         store.dispatch(authActions.set({ ...store.getState().auth, token: access_token.data.data.token }));

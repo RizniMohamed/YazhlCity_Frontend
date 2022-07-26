@@ -26,7 +26,7 @@ const Welcome = () => {
           <Typography sx={{ color: "white", fontSize: 45, fontWeight: 1000, mb: 2 }}>
             YAZHL CITY
           </Typography>
-          <Link to="Boardings">
+          <Link to="boardings">
             <Button
               variant="contained"
               size='small'

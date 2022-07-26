@@ -9,6 +9,7 @@ import Boarding from '../Components/boardingForm/Boarding';
 import WashBath from '../Components/boardingForm/WashBath';
 import { createBoarding } from '../services/Boardings';
 import { messageActions } from '../Store/messageSlice';
+import {updateAuth} from '../Hooks/useUpdateAuth';
 
 let initVals = {
   boardingImages: [],
@@ -68,6 +69,7 @@ const BoardingForm = () => {
   const auth = useSelector(state => state.auth)
   const dispatch = useDispatch()
 
+
   const onSubmit = async (data) => {
     data.boardingImages = [data.boardingImage1, data.boardingImage2, data.boardingImage3]
 
@@ -93,7 +95,8 @@ const BoardingForm = () => {
       const { data } = await createBoarding(formData)
       if (data.status !== 200)
         dispatch(messageActions.show([data.data, "error"]))
-      else{
+      else {
+        await updateAuth()
         dispatch(messageActions.show(["Boarding registered successfully"]))
         dispatch(dialogActions.hide('boardingForm'))
       }

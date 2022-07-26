@@ -13,28 +13,32 @@ const Boarding = ({ formik }) => {
 
     const auth = useSelector(state => state.auth)
     const [anchorEl, setAnchorEl] = useState(null);
+    const [openMap, setOpenMap] = useState(false);
 
     const [renderData, setRenderData] = useState([
         { name: "Boarding Name", value: "boardingName", },
         { name: "Owner Name", value: "ownerName", options: { disabled: true } },
-        { name: "Boarding Mobile", value: "boardingMobile", options: {type : "number", placeholder: "Enter without zero" } },
+        { name: "Boarding Mobile", value: "boardingMobile", options: { type: "number", placeholder: "Enter without zero" } },
         { name: "Boarding Address", value: "boardingAddress", },
         { name: "Boarding Description ", value: "boardingDesc", options: { multiline: true, rows: 3 } },
     ]);
 
     const [locationList, setLocationList] = useState([])
     const dispatch = useDispatch()
+
+    
     const [images, setImages] = useState({
         boardingImage1: defaultImage,
         boardingImage2: defaultImage,
         boardingImage3: defaultImage,
     })
 
-    const handleLocationClick = () => {
+    const handleMapClick = () => {
         const { position } = store.getState().map
         if (position.lng && position.lat) {
             formik.values.geoLocation = [position.lng, position.lat]
             setAnchorEl(null);
+            setOpenMap(false)
         }
         else
             dispatch(messageActions.show(['Map required. Drag and drop map marker to set your boarding location on map', 'error']))
@@ -44,7 +48,6 @@ const Boarding = ({ formik }) => {
         (async () => {
             const locations = await getLocations()
             setLocationList(locations.data.locations)
-
             const user = await getUsers(`where=id-${auth.userID}`)
             const newRenderData = [...renderData]
             newRenderData[1].options.value = user.data.users[0].name
@@ -54,8 +57,8 @@ const Boarding = ({ formik }) => {
     }, [])
 
     const genderList = [
-        {name : "Male", value : "male"},
-        {name : "Female", value : "female"}
+        { name: "Male", value: "male" },
+        { name: "Female", value: "female" }
     ]
 
     const renderImages = [
@@ -70,7 +73,7 @@ const Boarding = ({ formik }) => {
         setImages({ ...images, [e.target.name]: image })
     }
 
-    const open = Boolean(anchorEl);
+    const open = openMap && Boolean(anchorEl);
 
     return (
         <DialogContent dividers={true} sx={{ display: "flex", flexDirection: "column", alignSelf: "center", pt: 1 }}>
@@ -79,7 +82,7 @@ const Boarding = ({ formik }) => {
                     <Box key={i} mb={2} width={"100%"} >
                         <Typography fontWeight={500} fontSize={14} sx={{ mb: 0.3, ml: 0.5 }} >{data.name}</Typography>
                         <TextField
-                            
+
                             variant="outlined"
                             size='small'
                             type="text"
@@ -169,7 +172,7 @@ const Boarding = ({ formik }) => {
                 <Typography fontWeight={500} fontSize={14} sx={{ mb: 0.3, ml: 0.5 }} >Map</Typography>
                 <IconButton
                     size='small'
-                    onClick={(event) => setAnchorEl(event.currentTarget)}
+                    onClick={(event) => {setAnchorEl(event.currentTarget); setOpenMap(!openMap)}}
                     sx={{
                         ml: 2,
                         bgcolor: "background.default",
@@ -191,7 +194,7 @@ const Boarding = ({ formik }) => {
                             variant="contained"
                             size="small"
                             sx={buttonStyle}
-                            onClick={handleLocationClick}>
+                            onClick={handleMapClick}>
                             Select
                         </Button>
                     </Box>

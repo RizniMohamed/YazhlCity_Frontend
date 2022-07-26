@@ -7,33 +7,43 @@ import { useDispatch, useSelector } from 'react-redux';
 import { dialogActions } from '../../Store/dialogSlice';
 import BrandingWatermarkIcon from '@mui/icons-material/BrandingWatermark';
 import WcIcon from '@mui/icons-material/Wc';
-import { getUsers } from '../../services/user';
+import { deleteAccount, getUsers } from '../../services/user';
+import { messageActions } from '../../Store/messageSlice';
+import { useNavigate } from 'react-router-dom';
+import { authActions } from '../../Store/authSlice';
+
 const MyProfile = () => {
   const dispatch = useDispatch()
   const auth = useSelector(state => state.auth)
   const [user, setUser] = useState({})
-
+  const navigate = useNavigate()
 
   useEffect(() => {
-
     (async () => {
       const { data: { users: [user] } } = await getUsers(`where=id-${auth.userID}`)
-      console.log(user);
       setUser({
         avatar: user.image,
-        name: user.name,
-        address: user.address,
-        mobile: user.mobile,
+        name: user.name ?? "Not given",
+        address: user.address ?? "Not given",
+        mobile: user.mobile ?? "Not given",
         email: user.Auth.email,
-        gender: user.gender,
-        nic: user.nic
+        gender: user.gender ?? "Not given",
+        nic: user.nic ?? "Not given"
       })
     })()
-  }, [auth.userID])
+  })
 
 
-  const onDelete = () => {
-    alert("IM DELETED")
+  const onDelete = async () => {
+    const response = await deleteAccount({ userID: auth.userID })
+    if (response.status !== 200)
+      dispatch(messageActions.show([response.data, "error"]))
+    else {
+      dispatch(messageActions.show(["acount deleted successfully"]))
+      dispatch(dialogActions.hide('delete'))
+      navigate("/", { replace: true });
+      dispatch(authActions.reset())
+    }
   }
 
   return (
@@ -44,6 +54,7 @@ const MyProfile = () => {
           alt="Profile picture"
           src={user.avatar} />
         <Typography fontSize={16} fontWeight={700} sx={{ my: 2 }}>{user.name}</Typography>
+
         <Box my={2}>
           <Box display="flex" alignItems="center" mt={1} >
             <LocationOnIcon />
@@ -66,6 +77,7 @@ const MyProfile = () => {
             <Typography fontSize={16} sx={{ ml: 1 }}>{user.nic}</Typography>
           </Box>
         </Box>
+
         <Box my={5}>
           <Button
             variant='contained'

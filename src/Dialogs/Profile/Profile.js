@@ -1,17 +1,13 @@
-import GoogleIcon from '@mui/icons-material/Google';
-import { Avatar, Button, Checkbox, Dialog, DialogContent, DialogTitle, Divider, IconButton, Input, TextField, Typography } from '@mui/material';
-import { Box } from '@mui/system';
-import React, { useState } from 'react';
+import React from 'react';
+import { Dialog, DialogContent, DialogTitle, Divider } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { dialogActions } from '../../Store/dialogSlice';
 import AuthForm from './AuthForm';
 
 import ProfileForm from './ProfileForm';
 
-
-
 const Profile = () => {
-    const { status, onSubmit } = useSelector(state => state.dialog.profile)
+    const { status } = useSelector(state => state.dialog.profile)
     const dispatch = useDispatch()
 
     return (
@@ -19,30 +15,27 @@ const Profile = () => {
 
             <DialogTitle fontWeight={700} fontSize={34} textAlign="center">Profile</DialogTitle>
 
-            <DialogContent
-                sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignSelf: "center",
-                    pt: 1,
-                    mx: 10,
-                    width: 300,
-                    '&::-webkit-scrollbar': {
-                        width: 0,
-                    },
-                }}>
-
-                <ProfileForm />
-
+            <DialogContent sx={style_dialogContent}>
+                <ProfileForm status={status} />
                 <Divider variant="fullWidth" flexItem={true} sx={{ bgcolor: "border", my: 2 }} />
-                
-                <AuthForm/>
-
+                <AuthForm />
             </DialogContent>
-
 
         </Dialog >
     )
 }
 
 export default Profile
+
+
+const style_dialogContent = {
+    display: "flex",
+    flexDirection: "column",
+    alignSelf: "center",
+    pt: 1,
+    px: 10,
+    width: 450,
+    '&::-webkit-scrollbar': {
+        width: 0,
+    },
+}
