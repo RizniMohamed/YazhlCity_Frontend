@@ -63,29 +63,31 @@ const BoardingDetails = () => {
       SetBoarding(details)
     })()
   }, [boardingID, dispatch])
-  return (
-    <Box display="flex" flexDirection="column" m="auto" p={2}>
-      <Box ml={18} my={2}>
-        <BreadCrumbs />
+
+  if (boarding)
+    return (
+      <Box display="flex" flexDirection="column" m="auto" p={2}>
+        <Box ml={18} my={2}>
+          <BreadCrumbs />
+        </Box>
+        {boarding && <BoardingDetailsComp data={boarding} />}
+        <Box display="flex" ml={isNaN(boarding.rows[4].details) ? 95 : 65} my={5}>
+          <Button
+            variant='contained'
+            size="small"
+            onClick={() => {
+              // eslint-disable-next-line 
+              dispatch(dialogActions.show(['contactView', , `Contact number : ${boarding.mobile}`]))
+            }}
+            sx={{ width: 150, ...buttonStyle, mr: 2 }} >
+            Contact <CallIcon fontSize='small' sx={{ ml: 1 }} />
+          </Button>
+          <Link to="Rooms">
+            {!isNaN(boarding.rows[4].details) && <Button variant='contained' size="small" sx={{ width: 250, ...buttonStyle }} >Explore rooms</Button>}
+          </Link>
+        </Box>
       </Box>
-      {boarding && <BoardingDetailsComp data={boarding} />}
-      <Box display="flex" ml={isNaN(boarding.rows[4]) ? 95 : 75} my={5}>
-        <Button
-          variant='contained'
-          size="small"
-          onClick={() => {
-            // eslint-disable-next-line 
-            dispatch(dialogActions.show(['contactView', , `Contact number : ${boarding.mobile}`]))
-          }}
-          sx={{ width: 150, ...buttonStyle, mr: 2 }} >
-          Contact <CallIcon fontSize='small' sx={{ ml: 1 }} />
-        </Button>
-        <Link to="Rooms">
-          { !isNaN(boarding.rows[4]) && <Button variant='contained' size="small" sx={{ width: 250, ...buttonStyle }} >Explore rooms</Button>}
-        </Link>
-      </Box>
-    </Box>
-  )
+    )
 }
 
 export default BoardingDetails

@@ -28,3 +28,12 @@ export const createBoarding = async (data) => {
         throw e;
     }
 };
+
+export const updateBoarding = async (data) => {
+    try {
+        const response = await API.patch(`boarding`, data);
+        return response.data;
+    } catch (e) {
+        throw e;
+    }
+};

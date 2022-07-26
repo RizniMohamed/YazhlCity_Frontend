@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom"
+import { Navigate, Outlet, Route, Routes, useLocation } from "react-router-dom"
 
 import NotFound from "../Pages/NotFound";
 
@@ -8,7 +8,6 @@ import BoardingDetails from "../Pages/BoardingDetails"
 import Rooms from "../Pages/Rooms"
 import RoomDetails from "../Pages/RoomDetails"
 
-import AdminIndex from "../Pages/Admin/Index"
 import AdminDashbaord from "../Pages/Admin/Dashboard"
 import AdminBoardings from "../Pages/Admin/Boardings"
 import AdminBoardingManagement from "../Pages/Admin/BoardingManagement"
@@ -18,7 +17,6 @@ import AdminPersons from "../Pages/Admin/Persons"
 import AdminNotifications from "../Pages/Admin/Notification"
 import AdminVerify from "../Pages/Admin/BoardingVerify"
 
-import ManagerIndex from "../Pages/Manager/Index"
 import ManagerDashboard from "../Pages/Manager/Dashbaord"
 import ManagerBoardingManagement from "../Pages/Manager/BoardingManagement"
 import ManagerRooms from "../Pages/Manager/Rooms"
@@ -26,10 +24,34 @@ import ManagerRoomManagement from "../Pages/Manager/RoomManagement"
 import ManagerPersons from "../Pages/Manager/Persons"
 import ManagerNotification from "../Pages/Manager/Notification"
 
-import ProfileIndex from "../Pages/Profile/Index"
 import MyBoarding from "../Pages/Profile/MyBoarding"
 import MyPayment from "../Pages/Profile/MyPayment"
 import MyProfile from "../Pages/Profile/MyProfile"
+import { store } from "../Store/store";
+import { Box } from "@mui/material";
+import SidePanel from "../Components/SidePanel";
+
+
+const ProtectedRoute = ({ roles = [], children, }) => {
+  const auth = store.getState().auth
+  const location = useLocation()
+  const path = location.pathname.split('/').filter(x => x)
+
+  if (!roles.includes(auth.role)) {
+    if (location.pathname.split('/').filter(x => x).length === 1)
+      return <Navigate to={'/'} replace />;
+    path.pop()
+    return <Navigate to={`/${path.join('/')}`} replace />;
+  }
+
+  return children ? children : (
+    <Box display="flex" p={1} >
+      <SidePanel />
+      <Outlet />
+    </Box>
+  )
+};
+
 
 function Views() {
   return (
@@ -37,7 +59,8 @@ function Views() {
 
       <Route index element={<Welcome />} />
 
-      <Route path="Admin" element={<AdminIndex />}>
+
+      <Route path="Admin" element={<ProtectedRoute roles={['admin']} />} >
         <Route index element={< AdminDashbaord />} />
         <Route path="Boardings">
           <Route index element={< AdminBoardings />} />
@@ -50,7 +73,7 @@ function Views() {
         <Route path="Verfication" element={< AdminVerify />} />
       </Route>
 
-      <Route path="Manager" element={<ManagerIndex />}>
+      <Route path="Manager" element={<ProtectedRoute roles={['manager']} />} >
         <Route index element={< ManagerDashboard />} />
         <Route path="Boarding" element={<ManagerBoardingManagement />} />
         <Route path="Rooms">
@@ -61,16 +84,17 @@ function Views() {
         <Route path="Notification" element={<ManagerNotification />} />
       </Route>
 
-      <Route path="Profile" element={<ProfileIndex />}>
+      <Route path="Profile" element={<ProtectedRoute roles={['admin', 'manager', 'hosteller', 'user']} />} >
         <Route index element={<MyProfile />} />
         <Route path="Boarding" element={<MyBoarding />} />
         <Route path="Payment" element={<MyPayment />} />
       </Route>
 
-      <Route path="Boardings" element={<Boarding/>}/>
-      <Route path="Boardings/:boardingID" element={<BoardingDetails/>}/>
-      <Route path="Boardings/:boardingID/Rooms" element={<Rooms/>}/>
-      <Route path="Boardings/:boardingID/Rooms/:roomID" element={<RoomDetails/>}/>
+      {/* Guest */}
+      <Route path="Boardings" element={<Boarding />} />
+      <Route path="Boardings/:boardingID" element={<BoardingDetails />} />
+      <Route path="Boardings/:boardingID/Rooms" element={<Rooms />} />
+      <Route path="Boardings/:boardingID/Rooms/:roomID" element={<RoomDetails />} />
 
       <Route path="*" element={<NotFound />} />
 

@@ -31,7 +31,7 @@ const Signup = () => {
   const onSubmit = async (data) => {
     const { fullName, email, password } = data
     const register = await singupUser({ name: fullName, email, password })
-    if (register.status !== 201)
+    if (register.status !== 200)
       dispatch(messageActions.show([register.data, "error"]))
     else {
       dispatch(messageActions.show(["Registeration success", "success"]))
