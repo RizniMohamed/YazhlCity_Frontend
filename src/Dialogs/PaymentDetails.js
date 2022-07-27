@@ -29,14 +29,18 @@ const PaymentDetails = () => {
         details: data.boardingName,
       },
       {
-        name: "Room id",
-        details: data.roomID,
+        name: "Room Number",
+        details: data.room_number,
       },
     ],
     billing: [
       {
         name: "Period",
         details: data.period,
+      },
+      {
+        name: "Paid date",
+        details: data.paidDate,
       },
       {
         name: "Invoice Type",

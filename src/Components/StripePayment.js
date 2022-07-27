@@ -3,7 +3,7 @@ import React from 'react'
 import StripeCheckout from 'react-stripe-checkout';
 import { STRIPE_KEY } from '../LocalData/Keys'
 
-const StripePayment = ({onClick, amount, btnName, }) => {
+const StripePayment = ({ onClick, amount, btnName, sx, disabled }) => {
   return (
       <StripeCheckout
           token={onClick}
@@ -14,7 +14,8 @@ const StripePayment = ({onClick, amount, btnName, }) => {
           <Button
               variant='contained'
               size="small"
-              sx={{ width: 150, ...buttonStyle, mr: 2 }}>
+              disabled={disabled}
+              sx={{ width: 150, ...buttonStyle, mr: 2 , ...sx}}>
               {btnName}
           </Button>
       </StripeCheckout>
