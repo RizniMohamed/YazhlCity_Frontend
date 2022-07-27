@@ -36,7 +36,7 @@ const BoardingDetails = ({ data, desc }) => {
             {data.name}
             {data.verified && <VerifiedUserIcon sx={{ color: "#699BF7", ml: 1 }} />}
           </Typography>
-          <Rating value={data.rating} sx={{ mt: 0.5 }} readOnly={auth.role === "user"} onChange={onRatingClick} />
+          <Rating value={data.rating} sx={{ mt: 0.5 }} readOnly={auth.role !== "hosteller"} onChange={onRatingClick} />
         </Box>
         <BRTable rows={data.rows} firstColWidth={100} rowHeight={62} desc={desc} />
       </Box>

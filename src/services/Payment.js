@@ -17,3 +17,13 @@ export const LKR_USD = async (amount) => {
         throw e;
     }
 };
+
+
+export const getPayments = async (query = "") => {
+    try {
+        const response = await API.get(`payment?${query}`);
+        return response.data;
+    } catch (e) {
+        throw e;
+    }
+};
