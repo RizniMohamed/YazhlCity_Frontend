@@ -13,13 +13,13 @@ const Delete = () => {
   const dispatch = useDispatch()
 
   const handleOnClick = ({ innerText }) => {
-    if (innerText === "Delete") onSubmit()
+    if (innerText === "Yes") onSubmit()
     dispatch(dialogActions.hide('delete'))
   }
 
   return (
     <Dialog open={status} onClose={() => { dispatch(dialogActions.hide('delete'))}}>
-      <DialogTitle fontWeight={700} fontSize={22}> Delete Confirmation </DialogTitle>
+      <DialogTitle fontWeight={700} fontSize={22}> Confirmation</DialogTitle>
       <DialogContent>
         <DialogContentText color="text.main" fontSize={16}>{data}</DialogContentText>
       </DialogContent>
@@ -28,14 +28,14 @@ const Delete = () => {
           variant='contained'
           size="small"
           onClick={e => handleOnClick(e.currentTarget)}>
-          Cancel
+          No
         </Button>
         <Button
           variant='contained'
           size="small"
           onClick={e => handleOnClick(e.currentTarget)}
           sx={{ "&:hover": { bgcolor: "red !important" } }}>
-          Delete
+          Yes
         </Button>
       </DialogActions>
     </Dialog>

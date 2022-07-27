@@ -79,13 +79,13 @@ const ProfileForm = ({ status }) => {
   useEffect(() => {
     (async () => {
       const { data: { users: [user] } } = await getUsers(`where=id-${auth.userID}`)
-      formik.values.address = user.address
-      formik.values.image = user.image
-      formik.values.mobile = user.mobile
-      formik.values.name = user.name
-      formik.values.nic = user.nic
-      formik.values.gender = user.gender
-      setImage(user.image)
+        formik.values.address = user?.address
+        formik.values.image = user?.image
+        formik.values.mobile = user?.mobile
+        formik.values.name = user?.name
+        formik.values.nic = user?.nic
+        formik.values.gender = user?.gender
+        setImage(user?.image)
     })()
     // eslint-disable-next-line
   }, [status, auth.userID])
@@ -109,7 +109,6 @@ const ProfileForm = ({ status }) => {
               accept="image/*"
               multiple
               type="file"
-              name={image.name}
               onChange={onImageChange} />
           </IconButton>
         </Box>
@@ -139,7 +138,7 @@ const ProfileForm = ({ status }) => {
           <Autocomplete
             size='small'
             options={genderList}
-            defaultValue={{ name: capitalizeFirstLetter(formik.values.gender), value: formik.values.gender }}
+            defaultValue={{ name: formik.values.gender? capitalizeFirstLetter(formik.values.gender):"", value: formik.values.gender }}
             onChange={(e, value) => { formik.values.gender = value.value }}
             getOptionLabel={option => option.name}
             PaperComponent={params => <Paper {...params} sx={paperStyle} />}

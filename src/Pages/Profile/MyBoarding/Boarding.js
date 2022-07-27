@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import BoardingDetailsComp from '../../../Components/BoardingDetails';
@@ -36,7 +36,7 @@ const Boarding = () => {
             const boarding = boardings.data.boardings[0]
 
             const details = {
-                id : boarding.id,
+                id: boarding.id,
                 name: boarding.name,
                 rating: boarding.rating,
                 verified: boarding.verified,
@@ -56,12 +56,18 @@ const Boarding = () => {
         })()
     })
 
-    if (boarding)
+    if (!boarding)
         return (
-            <Box display="flex" flexDirection="column" m="auto" p={2}>
-                {boarding && <BoardingDetailsComp data={boarding} />}
+            <Box display="flex" alignItems="center" justifyContent="center" height={"90vh"}>
+                <Typography variant="h5" fontWeight={900}>Loading...</Typography>
             </Box>
         )
+
+    return (
+        <Box display="flex" flexDirection="column" m="auto" p={2}>
+            {boarding && <BoardingDetailsComp data={boarding} />}
+        </Box>
+    )
 }
 
 export default Boarding

@@ -9,7 +9,7 @@ import { messageActions } from '../../Store/messageSlice';
 import { getLocations } from '../../services/Boardings';
 import { getUsers } from '../../services/user';
 
-const Boarding = ({ formik }) => {
+const Boarding = ({ formik, defaultValues }) => {
 
     const auth = useSelector(state => state.auth)
     const [anchorEl, setAnchorEl] = useState(null);
@@ -26,11 +26,10 @@ const Boarding = ({ formik }) => {
     const [locationList, setLocationList] = useState([])
     const dispatch = useDispatch()
 
-    
     const [images, setImages] = useState({
-        boardingImage1: defaultImage,
-        boardingImage2: defaultImage,
-        boardingImage3: defaultImage,
+        boardingImage1: defaultValues ? defaultValues.boardingImage1 : defaultImage,
+        boardingImage2: defaultValues ? defaultValues.boardingImage2 : defaultImage,
+        boardingImage3: defaultValues ? defaultValues.boardingImage3 : defaultImage,
     })
 
     const handleMapClick = () => {
@@ -74,6 +73,7 @@ const Boarding = ({ formik }) => {
     }
 
     const open = openMap && Boolean(anchorEl);
+    const capitalizeFirstLetter = str => str.charAt(0).toUpperCase() + str.slice(1)
 
     return (
         <DialogContent dividers={true} sx={{ display: "flex", flexDirection: "column", alignSelf: "center", pt: 1 }}>
@@ -82,7 +82,7 @@ const Boarding = ({ formik }) => {
                     <Box key={i} mb={2} width={"100%"} >
                         <Typography fontWeight={500} fontSize={14} sx={{ mb: 0.3, ml: 0.5 }} >{data.name}</Typography>
                         <TextField
-
+                            defaultValue={defaultValues ? defaultValues[data.value] : ""}
                             variant="outlined"
                             size='small'
                             type="text"
@@ -102,6 +102,7 @@ const Boarding = ({ formik }) => {
                 <Typography fontWeight={500} fontSize={14} sx={{ mb: 0.3, ml: 0.5 }} >Gender</Typography>
                 <Autocomplete
                     size='small'
+                    defaultValue={defaultValues ? { name: capitalizeFirstLetter(defaultValues.gender), value: defaultValues.gender } : ""}
                     options={genderList}
                     onChange={(e, value) => { formik.values.gender = value.value }}
                     getOptionLabel={option => option.name}
@@ -125,6 +126,7 @@ const Boarding = ({ formik }) => {
                 <Autocomplete
                     size='small'
                     options={locationList}
+                    defaultValue={defaultValues ? defaultValues.location : ""}
                     onChange={(e, value) => { formik.values.location = value }}
                     getOptionLabel={option => option.name}
                     PaperComponent={params => <Paper {...params} sx={paperStyle} />}
@@ -172,7 +174,7 @@ const Boarding = ({ formik }) => {
                 <Typography fontWeight={500} fontSize={14} sx={{ mb: 0.3, ml: 0.5 }} >Map</Typography>
                 <IconButton
                     size='small'
-                    onClick={(event) => {setAnchorEl(event.currentTarget); setOpenMap(!openMap)}}
+                    onClick={(event) => { setAnchorEl(event.currentTarget); setOpenMap(!openMap) }}
                     sx={{
                         ml: 2,
                         bgcolor: "background.default",
@@ -188,7 +190,13 @@ const Boarding = ({ formik }) => {
                 placement={"right"}
                 sx={{ zIndex: 5000 }}>
                 <Box sx={{ border: 1, ml: 1, bgcolor: 'background.paper', borderRadius: 2.5 }}>
-                    <Map drag={true} mt={0} />
+                    {defaultValues ?
+                        <Map
+                            drag={true} mt={0}
+                            lat={Number.parseFloat(defaultValues.geoLocation.lat)}
+                            lng={Number.parseFloat(defaultValues.geoLocation.lng)} /> :
+                        <Map drag={true} mt={0} />
+                    }
                     <Box display="flex" justifyContent="end">
                         <Button
                             variant="contained"

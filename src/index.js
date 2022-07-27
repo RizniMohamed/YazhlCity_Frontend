@@ -20,10 +20,10 @@ root.render(
       <Provider store={store}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
+          <Dialogs />
           <Header />
           <Toolbar />
           <Views />
-          <Dialogs />
         </ThemeProvider>
       </Provider>
     </BrowserRouter>

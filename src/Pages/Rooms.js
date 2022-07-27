@@ -1,4 +1,4 @@
-import { Box } from "@mui/material"
+import { Box, Typography } from "@mui/material"
 import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import BreadCrumbs from "../Components/BreadCrumbs"
@@ -77,6 +77,11 @@ const Rooms = () => {
     // eslint-disable-next-line
   }, [])
 
+  if (!rooms) return (
+    <Box display="flex" alignItems="center" justifyContent="center" height={"90vh"}>
+      <Typography variant="h5" fontWeight={900}>Loading...</Typography>
+    </Box>
+  )
 
   return (
     <Box my={5} ml={8} display="flex" flexDirection="column">

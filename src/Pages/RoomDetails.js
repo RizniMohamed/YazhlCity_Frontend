@@ -1,4 +1,4 @@
-import { Box } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import BreadCrumbs from '../Components/BreadCrumbs'
@@ -19,6 +19,8 @@ const RoomDetails = () => {
 
   const paymentOnClick = async (token) => {
     const payment_USD = await LKR_USD(roomData.price)
+    
+    dispatch(messageActions.show(["Payment request has been sent, please wait for the response", 'info']))
     const subscribed_data = await subscribe({ userID: auth.userID, roomID: roomData.id, stripeToken: token, payment_USD: payment_USD })
 
     if (subscribed_data.status !== 200) {
@@ -59,6 +61,12 @@ const RoomDetails = () => {
   useEffect(() => {
     getRoomData()
   }, [roomID, getRoomData])
+
+  if (!roomData) return (
+    <Box display="flex" alignItems="center" justifyContent="center" height={"90vh"}>
+      <Typography variant="h5" fontWeight={900}>Loading...</Typography>
+    </Box>
+  )
 
   return (
     <Box display="flex" flexDirection="column" m="auto" p={2}>

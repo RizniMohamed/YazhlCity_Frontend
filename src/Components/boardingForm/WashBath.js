@@ -2,11 +2,11 @@ import React from 'react'
 import { Box, Button, DialogContent, TextField, Typography } from '@mui/material'
 import { useState } from 'react';
 import defaultImage from '../../LocalData/default_image.jpg'
-const WashBath = ({ formik, renderData, renderImages, name }) => {
+const WashBath = ({ formik, renderData, renderImages, name, defaultValues }) => {
 
     const [images, setImages] = useState({
-        bathroomImage: defaultImage,
-        washroomImage: defaultImage,
+        bathroomImage: defaultValues ? defaultValues.bathroomImage : defaultImage,
+        washroomImage: defaultValues ? defaultValues.washroomImage : defaultImage,
     })
 
     const onImageChange = (e) => {
@@ -17,7 +17,6 @@ const WashBath = ({ formik, renderData, renderImages, name }) => {
 
     return (
         <DialogContent sx={{ display: "flex", flexDirection: "column", pt: 1, }}>
-
             <Typography fontWeight={500} fontSize={14} sx={{ mb: 0.3, ml: 1 }} >{name}</Typography>
             <Box border="1px solid #B4B4B4" borderRadius={5} p={2}>
                 {renderData.map((data, i) => {
@@ -26,6 +25,7 @@ const WashBath = ({ formik, renderData, renderImages, name }) => {
                             <Typography fontWeight={500} fontSize={14} sx={{ mb: 0.3, ml: 0.5 }} >{data.name}</Typography>
                             <TextField
                                 variant="outlined"
+                                defaultValue={defaultValues ? defaultValues[data.value] : ""}
                                 size='small'
                                 type="text"
                                 placeholder={data.name.toString()}

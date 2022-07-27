@@ -31,7 +31,20 @@ export const createBoarding = async (data) => {
 
 export const updateBoarding = async (data) => {
     try {
-        const response = await API.patch(`boarding`, data);
+        const response = await API.patch(`boarding`, data, {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        })
+        return response.data;
+    } catch (e) {
+        throw e;
+    }
+};
+
+export const deleteBoarding = async (data) => {
+    try {
+        const response = await API.delete(`Boarding`, { data })
         return response.data;
     } catch (e) {
         throw e;

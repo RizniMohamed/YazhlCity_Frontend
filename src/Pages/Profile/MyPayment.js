@@ -17,6 +17,8 @@ const MyPayment = () => {
   const auth = useSelector(state => state.auth)
   const [payments, setPayments] = useState()
   const [currentRow, setCurrentRow] = useState(undefined)
+  const [user, setUser] = useState({})
+
 
   const loadData = async () => {
     const payments = await getPayments(`where=userId-${auth.userID}`)
@@ -31,6 +33,9 @@ const MyPayment = () => {
       return
     }
     const user = users.data.users[0]
+
+    setUser(user)
+    if (!user.roomID) return
 
     const rooms = await getRooms(`where=id-${user.roomID}`)
     if (rooms.status !== 200) {
@@ -102,7 +107,7 @@ const MyPayment = () => {
     setCurrentRow(undefined)
 
 
-    dispatch(messageActions.show(["Payment request has been sent, please wait for the response",'info']))
+    dispatch(messageActions.show(["Payment request has been sent, please wait for the response", 'info']))
     const subscribed_data = await makePayment(sendData)
     if (subscribed_data.status !== 200) {
       dispatch(messageActions.show([subscribed_data.data, 'error']))
@@ -112,14 +117,15 @@ const MyPayment = () => {
     dispatch(messageActions.show(["Room subscription is succeed"]))
   }
 
-  if (auth.role === "user") return (
-    <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" height={"90vh"} width={"100vw"}>
-      <Typography variant="h5" fontWeight={900}>You havent subscribed any boarding yet :(</Typography>
-      <Link to="/Boardings">
-        <Button variant='contained' sx={{ ...buttonStyle }}>Browse boardings</Button>
-      </Link>
-    </Box>
-  )
+  if (!user.roomID)
+    return (
+      <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" height={"90vh"} width={"100vw"}>
+        <Typography variant="h5" fontWeight={900}>You havent subscribed any boarding yet :(</Typography>
+        <Link to="/Boardings">
+          <Button variant='contained' sx={{ ...buttonStyle }}>Browse boardings</Button>
+        </Link>
+      </Box>
+    )
 
   const columns = [
 

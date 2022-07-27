@@ -8,3 +8,4 @@ export const getRooms = async (query="") => {
         throw e;
     }
 };
+

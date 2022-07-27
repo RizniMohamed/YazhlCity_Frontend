@@ -10,17 +10,13 @@ const Message = () => {
 
     return (
         <Snackbar
-            TransitionComponent={props => <Slide  {...props} direction="up" />}
+            TransitionComponent={props => <Slide  {...props} direction="down" />}
             open={status}
             sx={{ minWidth: 300 }}
             autoHideDuration={2500}
-            ClickAwayListenerProps={{
-                mouseEvent: false,
-                touchEvent: false
-            }}
-            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
             onClose={() => dispatch(messageActions.hide())} >
-            <Alert variant='filled' severity={variant} sx={{ width: '100%' }}>
+            <Alert variant='filled' severity={variant} sx={{ width: '100%', borderRadius:0.2, boxShadow:10, mt:6}}>
                 {msg}
             </Alert>
         </Snackbar >

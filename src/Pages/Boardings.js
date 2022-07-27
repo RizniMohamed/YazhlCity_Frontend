@@ -90,7 +90,10 @@ const Boardings = () => {
             fontWeight={900}
             fontSize={20}
             sx={{ mr: 10, cursor: "pointer" }}
-            onClick={() => dispatch(dialogActions.show(['boardingForm']))}>
+            onClick={() =>
+              // eslint-disable-next-line
+              dispatch(dialogActions.show(['boardingForm', , { variant: "create"}]))
+            }>
             Register Boarding
           </Typography>
         }

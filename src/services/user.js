@@ -45,6 +45,15 @@ export const subscribe = async (data) => {
   }
 };
 
+export const unsubscribe = async (data) => {
+  try {
+    const response = await API.post(`/user/unsubscribe`, data);
+    return response.data;
+  } catch (e) {
+    throw e;
+  }
+};
+
 export const getAuths = async (query = "") => {
   try {
     const response = await API.get(`user/auth?${query}`);
