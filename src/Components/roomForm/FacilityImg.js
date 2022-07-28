@@ -7,7 +7,7 @@ import Chips from '../Chips';
 const Facility_Img = ({ formik, defaultValues }) => {
 
     const [image, setImage] = useState(
-        defaultValues ? defaultValues.bathroomImage : defaultImage,
+        defaultValues ? defaultValues.image : defaultImage,
     )
     const [faclities, setFaclities] = useState()
 
@@ -37,7 +37,7 @@ const Facility_Img = ({ formik, defaultValues }) => {
     return (
         <DialogContent dividers={true} sx={{ display: "flex", flexDirection: "column", alignSelf: "center", pt: 1 }}>
 
-            <Box my={1} border={Boolean(formik.errors.faclities) && "1px solid red"}>
+            <Box my={1}>
                 <Typography fontWeight={500} fontSize={14} sx={{ mb: 0.3, ml: 0.5 }} >Facilities</Typography>
                 {faclities && <Chips data={faclities} setData={setFaclities} />}
             </Box>

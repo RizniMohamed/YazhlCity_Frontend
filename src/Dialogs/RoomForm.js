@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
 import FacilityImg from '../Components/roomForm/FacilityImg';
 import Room from '../Components/roomForm/Room';
-import { createRoom } from '../services/Room';
+import { createRoom, deleteRoom, getRooms, updateRoom } from '../services/Room';
 import { dialogActions } from '../Store/dialogSlice';
 import { messageActions } from '../Store/messageSlice';
 
@@ -48,7 +48,8 @@ const RoomForm = () => {
 
       const formData = new FormData()
       formData.append("ImageFolder", "room")
-      formData.append("boardingID", dialogData.boardingID)
+      formData.append("boardingID", dialogData?.boardingID)
+      formData.append("roomID", dialogData?.roomID)
       formData.append("roomNumber", dataInput.room_number)
       formData.append("personCount", dataInput.person_count)
       formData.append("price", dataInput.price)
@@ -57,8 +58,9 @@ const RoomForm = () => {
       formData.append("type", dataInput.type)
       formData.append("facilityID", facilityIDs)
 
+      formData.forEach(console.log)
+
       if (dialogData.variant === "create") {
-        console.log("data");
         const data = await createRoom(formData)
         console.log(data);
         if (data.status !== 201) {
@@ -68,7 +70,9 @@ const RoomForm = () => {
       }
 
       if (dialogData.variant === "update") {
-        // const data = await updateBoarding(formData)
+        // const x = await deleteRoom({ roomID: dialogData?.roomID })
+        // const data = await createRoom(formData)
+        // console.log(data);
         // if (data.status !== 200) {
         //   dispatch(messageActions.show([data.data, "error"]))
         //   return
@@ -91,18 +95,31 @@ const RoomForm = () => {
   const loadData = async () => {
     if (dialogData.variant === "update") {
 
-      // const boardings = await getBoardings(`where=id-${dialogData.boardingID}`)
-      // if (boardings.status !== 200) {
-      //   dispatch(messageActions.show([boardings.data, "error"]))
-      //   return
-      // }
-      // const boarding = boardings.data.boardings[0]
+      const rooms = await getRooms(`where=id-${dialogData.roomID}`)
+      if (rooms.status !== 200) {
+        dispatch(messageActions.show([rooms.data, "error"]))
+        return
+      }
+      const room = rooms.data.rooms[0]
+
+      console.log(room);
 
       const temp = {
-
+        room_number: room.room_number,
+        person_count: room.person_count,
+        price: room.price,
+        image: room.image,
+        description: room.description,
+        type: room.type,
       }
 
-      // formik.values.boardingName = temp.boardingName
+      formik.values.description = temp.description
+      formik.values.id = room.id
+      formik.values.image = temp.image
+      formik.values.person_count = temp.person_count
+      formik.values.price = temp.price
+      formik.values.room_number = temp.room_number
+      formik.values.type = temp.type
 
       setDefaultValues(temp)
     }

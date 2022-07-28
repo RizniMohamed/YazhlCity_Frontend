@@ -40,3 +40,16 @@ export const createRoom = async (data) => {
     }
 };
 
+export const updateRoom = async (data) => {
+    try {
+        const response = await API.patch(`room`, data, {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        })
+        return response.data;
+    } catch (e) {
+        throw e;
+    }
+};
+

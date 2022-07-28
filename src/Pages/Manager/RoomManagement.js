@@ -23,10 +23,13 @@ const RoomManagement = () => {
       return
     }
     const room = rooms.data.rooms[0]
+    console.log(room);
     const details = {
       id: room.id,
+      facilities: room.Facilities,
       roomNo: room.room_number,
       price: room.price,
+      boardingID: room.boardingID,
       availability: room.availability ? "Available" : "Unavailable",
       rows: [
         { name: 'Room type', details: room.type },
@@ -42,7 +45,7 @@ const RoomManagement = () => {
 
   useEffect(() => {
     getRoomData()
-  }, [roomID, getRoomData])
+  }, [roomID])
 
   const onDelete = async () => {
     console.log(roomData.id);
@@ -62,6 +65,7 @@ const RoomManagement = () => {
       <Typography variant="h5" fontWeight={900}>Loading...</Typography>
     </Box>
   )
+
   return (
     <>
       <Box ml={10} mt={2} mx="auto">
@@ -82,7 +86,7 @@ const RoomManagement = () => {
             size="small"
             onClick={() =>
               // eslint-disable-next-line
-              dispatch(dialogActions.show(['boardingForm', , { variant: "update", roomData: roomData.id }]))
+              dispatch(dialogActions.show(['roomForm', , { variant: "update", roomID: roomData.id, boardingID: roomData.boardingID }]))
             }
             sx={{ ...buttonStyle }} >
             Update
