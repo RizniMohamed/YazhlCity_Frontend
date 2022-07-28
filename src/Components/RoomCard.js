@@ -33,7 +33,7 @@ const RoomCard = ({ id, image, roomNo, availablity, price, type, persons }) => {
             <Box display="flex">
               <Typography sx={{ width: 60 }}>Price</Typography>
               <Typography sx={{ width: 30, textAlign: "center" }}>:</Typography>
-              <Typography>LKR</Typography>
+              <Typography>{price} LKR</Typography>
             </Box>
             <Box display="flex">
               <Typography sx={{ width: 60 }}>Price</Typography>

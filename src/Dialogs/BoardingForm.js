@@ -201,7 +201,7 @@ const BoardingForm = () => {
 
 
   return (
-    <Dialog open={status} onClose={() => { dispatch(dialogActions.hide("boardingForm")) }} fullWidth={true} maxWidth="lg">
+    <Dialog open={status} onClose={() => { dispatch(dialogActions.hide("boardingForm")); formik.resetForm() }} fullWidth={true} maxWidth="lg">
 
       <form onSubmit={formik.handleSubmit}>
 

@@ -102,7 +102,7 @@ const Boarding = ({ formik, defaultValues }) => {
                 <Typography fontWeight={500} fontSize={14} sx={{ mb: 0.3, ml: 0.5 }} >Gender</Typography>
                 <Autocomplete
                     size='small'
-                    defaultValue={defaultValues ? { name: capitalizeFirstLetter(defaultValues.gender), value: defaultValues.gender } : ""}
+                    defaultValue={defaultValues ? { name: capitalizeFirstLetter(defaultValues.gender), value: defaultValues.gender } : null}
                     options={genderList}
                     onChange={(e, value) => { formik.values.gender = value.value }}
                     getOptionLabel={option => option.name}

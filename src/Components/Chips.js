@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
 import Chip from '@mui/material/Chip';
 import { Box } from '@mui/system';
+import React from 'react';
 
 const Chips = ({ data, setData }) => {
   const handleClick = (item, index) => {
     const newStates = [...data]
     newStates[index] = {
+      id : item.id,
       name: item.name,
-      value: !item.value
+      status: !item.status
     }
     setData(newStates)
   }
@@ -20,16 +21,16 @@ const Chips = ({ data, setData }) => {
           <Chip
             key={index}
             label={item.name}
-            variant={item.value ? "filled" : "outlined"}
+            variant={item.status ? "filled" : "outlined"}
             onClick={() => handleClick(item, index)}
             sx={theme => {
               return {
-                width: 122,
+                width: 100,
                 m: 1,
-                bgcolor: item.value ? theme.palette.background.mainbg : theme.palette.border,
-                color: item.value ? "White" : "Black",
+                bgcolor: item.status ? theme.palette.background.mainbg : theme.palette.border,
+                color: item.status ? "White" : "Black",
                 ":hover": {
-                  bgcolor: `${item.value ? theme.palette.background.mainbg : theme.palette.border} !important`
+                  bgcolor: `${item.status ? theme.palette.background.mainbg : theme.palette.border} !important`
                 }
 
               }

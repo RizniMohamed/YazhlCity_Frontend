@@ -66,6 +66,11 @@ const initialState = {
         data: "",
         onSubmit: ""
     },
+    roomForm: {
+        status: false,
+        data: "",
+        onSubmit: ""
+    },
 }
 const DialogSlice = createSlice({
     name: "Dialog Slice",

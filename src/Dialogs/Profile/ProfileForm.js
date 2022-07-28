@@ -68,8 +68,6 @@ const ProfileForm = ({ status }) => {
     { name: "NiC", value: "nic", options: { defaultValue: formik.values.nic } },
   ];
 
-
-
   const onImageChange = (e) => {
     formik.values.image = e.target.files[0]
     const image = URL.createObjectURL(e.target.files[0])
@@ -103,7 +101,7 @@ const ProfileForm = ({ status }) => {
 
         <Box display="flex" justifyContent="center">
           <IconButton color="primary" component="label" size="small" sx={{ p: 0 }} >
-            <Avatar src={image} sx={{ height: 150, width: 150 }} />
+            <Avatar src={image} sx={{ height: 150, width: 150, border : Boolean(formik.errors.image) && "1px solid red" }} />
             <input
               hidden
               accept="image/*"

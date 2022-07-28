@@ -24,7 +24,7 @@ const ProfileDetails = () => {
   }
 
   return (
-    <Dialog open={status} onClose={() => { }} fullWidth>
+    <Dialog open={status} onClose={() => { dispatch(dialogActions.hide('profileDetails')) }} fullWidth>
       <Box display="flex" flexDirection="column" alignItems="center" width={"100%"} my={5}>
         <Avatar
           sx={{ width: 200, height: 200 }}

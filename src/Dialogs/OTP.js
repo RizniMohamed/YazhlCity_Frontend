@@ -86,7 +86,7 @@ const OTP = () => {
   })
 
   return (
-    <Dialog open={status} onClose={() => { dispatch(dialogActions.hide("OTP")) }}  >
+    <Dialog open={status} onClose={() => { dispatch(dialogActions.hide("OTP")); formik.resetForm() }}  >
 
       <form onSubmit={formik.handleSubmit}>
 

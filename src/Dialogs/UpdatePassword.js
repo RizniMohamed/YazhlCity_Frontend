@@ -48,7 +48,7 @@ const UpdatePassword = () => {
     validationSchema: Schema,
   })
   return (
-    <Dialog open={status} onClose={() => { dispatch(dialogActions.hide("UpdatePassword")) }} >
+    <Dialog open={status} onClose={() => { dispatch(dialogActions.hide("UpdatePassword")); formik.resetForm() }} >
 
       <form onSubmit={formik.handleSubmit}>
 

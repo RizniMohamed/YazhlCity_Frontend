@@ -30,7 +30,7 @@ const NotificationDetails = () => {
 
 
   return (
-    <Dialog open={status} onClose={() => { }} fullWidth sx={{ ".MuiDialog-paper" : {minHeight:270}}}>
+    <Dialog open={status} onClose={() => { dispatch(dialogActions.hide("notificationDetails")) }} fullWidth sx={{ ".MuiDialog-paper" : {minHeight:270}}}>
       <Box display="flex" justifyContent="space-between" >
         <DialogTitle fontWeight={700} fontSize={22} sx={{ pb: 0 }}> {data.subject} </DialogTitle>
         <Typography component="p" color="text.main" fontSize={13} pr={1}>{data.date}</Typography>

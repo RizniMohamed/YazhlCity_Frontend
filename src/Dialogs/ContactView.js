@@ -12,7 +12,7 @@ const ContactView = () => {
     const { status, data } = useSelector(state => state.dialog.contactView)
     const dispatch = useDispatch()
     return (
-        <Dialog open={status} onClose={() => { }}>
+        <Dialog open={status} onClose={() => { dispatch(dialogActions.hide("contactView")) }}>
             <DialogTitle fontWeight={700} fontSize={22}> Contact </DialogTitle>
             <DialogContent>
                 <DialogContentText color="text.main" fontSize={16}>{data}</DialogContentText>

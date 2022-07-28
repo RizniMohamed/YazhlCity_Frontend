@@ -1,68 +1,92 @@
-import Breadcrumbs from '../../Components/BreadCrumbs'
-import RoomDetails from '../../Components/RoomDetails'
-import { Box } from '@mui/system'
-import React from 'react'
-import { Button } from '@mui/material'
+import { Box, Button, Typography } from '@mui/material'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
+import BreadCrumbs from '../../Components/BreadCrumbs'
+import RoomDetailsComp from '../../Components/RoomDetails'
+import { deleteRoom, getRooms } from '../../services/Room'
 import { dialogActions } from '../../Store/dialogSlice'
-import {useDispatch} from "react-redux"
-import { messageActions } from '../../Store/messageSlice';
-
-
-const roomData = {
-  roomNo: 10,
-  availability: "Unavailable",
-  rows: [
-    {
-      name: 'Room type',
-      details: 'Single'
-    },
-    {
-      name: 'Max Persons',
-      details: '2'
-    },
-    {
-      name: 'Available Persons',
-      details: '3'
-    },
-    {
-      name: 'Description',
-      details: 'A great rental listing includes an informative title and stellar description that properly describes your rental property. While it’s easy to assume that tenants care more about the rental price, the photos, and location of an apartment, they also pay attention to the description. The rental listing description should complement the photos and other features of your listing while demonstrating you’re a sophisticated landlord.'
-    },
-  ],
-  images: [
-    {
-      name: "Random Name #1",
-      path: "https://5.imimg.com/data5/IB/UP/GLADMIN-9778489/hostel-facilities-500x500.jpg"
-    },
-   
-  ]
-}
-
+import { messageActions } from '../../Store/messageSlice'
+import { useNavigate } from 'react-router-dom'
 
 const RoomManagement = () => {
   const dispatch = useDispatch()
+  const { roomID } = useParams()
+  const [roomData, SetRoom] = useState(undefined)
+  const navigate = useNavigate()
 
-
-  const onDelete = () => {
-    dispatch(dialogActions.hide('delete'))
+  // eslint-disable-next-line
+  const getRoomData = async () => {
+    const rooms = await getRooms(`where=id-${roomID}`)
+    if (rooms.status !== 200) {
+      dispatch(messageActions.show([rooms.data, "error"]))
+      return
+    }
+    const room = rooms.data.rooms[0]
+    const details = {
+      id: room.id,
+      roomNo: room.room_number,
+      price: room.price,
+      availability: room.availability ? "Available" : "Unavailable",
+      rows: [
+        { name: 'Room type', details: room.type },
+        { name: 'Max Persons', details: room.person_count },
+        { name: 'Available Persons', details: room.person_count - room.occupaidCounts },
+        { name: 'Price', details: room.price + " LKR" },
+        { name: 'Description', details: room.description },
+      ],
+      images: [{ image: room.image }]
+    }
+    SetRoom(details)
   }
 
+  useEffect(() => {
+    getRoomData()
+  }, [roomID, getRoomData])
+
+  const onDelete = async () => {
+    console.log(roomData.id);
+    const res = await deleteRoom({ roomID: roomData.id })
+    if (res.status !== 200) {
+      dispatch(messageActions.show([res.data, "error"]))
+      return
+    }
+
+    navigate(-1)
+    dispatch(messageActions.show(["Boarding deleted successfully"]))
+
+  }
+
+  if (!roomData) return (
+    <Box display="flex" alignItems="center" justifyContent="center" height={"90vh"} width={"100%"}>
+      <Typography variant="h5" fontWeight={900}>Loading...</Typography>
+    </Box>
+  )
   return (
     <>
-      <Box ml={10} mt={2}>
+      <Box ml={10} mt={2} mx="auto">
         <Box my={2}>
-          <Breadcrumbs />
+          <BreadCrumbs />
         </Box>
-        <RoomDetails data={roomData} minWidth={900} />
-        <Box display="flex" justifyContent="end" mr={50} mt={5}>
-          <Button 
+        {roomData && <RoomDetailsComp data={roomData} />}
+        <Box display="flex" justifyContent="end" mr={55} my={2}>
+          <Button
             ariant='contained'
             size="small"
-            onClick={() => dispatch(dialogActions.show(['delete', onDelete, "Are you sure do you want to delete this boarding?"]))}
-            sx={{ width: 150, ...buttonStyle, mr: 2 }} >
+            onClick={() => dispatch(dialogActions.show(['delete', onDelete, "Are you sure do you want to delete this room?"]))}
+            sx={{ ...buttonStyle, "&:hover": { bgcolor: "red", }, mr: 2 }}>
             Delete
           </Button>
-          <Button variant='contained' size="small" sx={{ width: 150, ...buttonStyle }} >Update</Button>
+          <Button
+            variant='contained'
+            size="small"
+            onClick={() =>
+              // eslint-disable-next-line
+              dispatch(dialogActions.show(['boardingForm', , { variant: "update", roomData: roomData.id }]))
+            }
+            sx={{ ...buttonStyle }} >
+            Update
+          </Button>
         </Box>
       </Box>
     </>
@@ -74,6 +98,8 @@ export default RoomManagement
 const buttonStyle = {
   bgcolor: "background.mainbg",
   color: "white",
+  borderRadius: 0.3,
+  width: 150,
   "&:hover": {
     bgcolor: "primary.main",
   }

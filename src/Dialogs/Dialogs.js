@@ -13,6 +13,7 @@ import Message from './Message'
 import OTP from './OTP'
 import UpdatePassword from './UpdatePassword'
 import BoardingForm from './BoardingForm'
+import RoomForm from './RoomForm'
 
 const Dialogs = () => {
   return (
@@ -31,6 +32,7 @@ const Dialogs = () => {
       <OTP />
       <UpdatePassword />
       <BoardingForm/>
+      <RoomForm/>
     </>
   )
 }

@@ -46,7 +46,7 @@ const Signup = () => {
     validationSchema: Schema,
   })
   return (
-    <Dialog open={status} onClose={() => { dispatch(dialogActions.hide("signup")) }} >
+    <Dialog open={status} onClose={() => { dispatch(dialogActions.hide("signup")); formik.resetForm() }} >
 
       <form onSubmit={formik.handleSubmit}>
 

@@ -59,7 +59,7 @@ const PaymentDetails = () => {
 
 
   return (
-    <Dialog open={status} onClose={() => { }} fullWidth>
+    <Dialog open={status} onClose={() => { dispatch(dialogActions.hide("paymentDetails")) }} fullWidth>
       <DialogTitle fontWeight={700} fontSize={22}> Payment Details </DialogTitle>
       <DialogContent>
         <BRTable rows={rows.info} firstColWidth={130} desc={false} />
